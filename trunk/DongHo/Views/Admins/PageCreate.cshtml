@@ -1,0 +1,114 @@
+﻿@model DongHo.Models.PageModels
+@{
+    ViewBag.Title = "PageCreate";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+@using(Html.BeginForm())
+{
+@Html.ValidationSummary(true)
+    <table class="TableUpdate" border="1">
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở lại", "PageIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th>Tên trang</th>
+            <td>@Html.TextBox("Name","", new { @class="text"})@Html.ValidationMessageFor(p=>p.Name)</td>
+        </tr>
+        <tr>
+            <th>Kiểu trang</th>
+            <td>@Html.DropDownList("Type")</td>
+        </tr>
+        <tr>
+            <th>Liên kết</th>
+            <td>@Html.DropDownList("LinkDDL")<br />
+                @*@Html.DropDownList("LinkDDL", new SelectList(new List<Object> { new{value="0",text="Nhập liên kết"},new{value="1",text="Liên kết Module"}},"value","text",0))<br />*@
+                @Html.TextBox("Link","", new { @class="text"})@Html.ValidationMessageFor(p=>p.Link)
+                @Html.DropDownList("LinkModule", " === Chọn liên kết === ")
+            </td>
+        </tr>
+        <tr>
+            <th>Kiểu hiển thị</th>
+            <td>@Html.DropDownList("Target")</td>
+        </tr>
+        <tr>
+            <th>Vị trí hiển thị</th>
+            <td>@Html.DropDownList("Position")</td>
+        </tr>
+        <tr>
+            <th>Mô tả</th>
+            <td>@Html.TextArea("Content")</td>
+        </tr>
+        <tr>
+            <th>Nội dung</th>
+            <td>@Html.TextArea("Detail")</td>
+        </tr>
+        <tr>
+            <th>Title meta</th>
+            <td>@Html.TextBoxFor(p => p.Title, new { @class="text"})</td>
+        </tr>
+        <tr>
+            <th>Description meta</th>
+            <td>@Html.TextBox("Description", "",new { @class="text multiline"})</td>
+        </tr>
+        <tr>
+            <th>Keyword meta</th>
+            <td>@Html.TextBox("Keyword", "",new { @class="text multiline"})</td>
+        </tr>
+        <tr>
+            <th>Thứ tự</th>
+            <td>
+                @Html.TextBox("Ord","", new { @onkeypress="OnlyInputNumber(0)", type="text",min="1",max="99999",number="Chỉ được nhập số"})@Html.ValidationMessageFor(p=>p.Ord)</td>
+        </tr>
+        <tr>
+            <th>Trang chủ</th>
+            <td>@Html.CheckBox("Indexs")</td>
+        </tr>
+        <tr>
+            <th>Kích hoạt</th>
+            <td>@Html.CheckBox("Actives")</td>
+        </tr>
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở lại", "PageIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+}
+<script type="text/javascript">
+    var editor;
+    function createEditor(languageCode, id) {
+        var editor = CKEDITOR.replace(id, {
+            language: languageCode
+        });
+    }
+
+    $(function () {
+        createEditor('vi', 'Content');
+        createEditor('vi', 'Detail');
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+    $("#LinkDDL").change(function () {
+        var i = $(this).val();
+        if (i == 0) {
+            $("#Link").show();
+            $("#LinkModule").hide();
+        }
+        else {
+            $("#Link").hide();
+            $("#LinkModule").show();
+        }
+    });
+    });
+</script>

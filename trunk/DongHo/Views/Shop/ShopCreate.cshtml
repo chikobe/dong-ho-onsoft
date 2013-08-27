@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Thêm cửa hàng mới";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm())
+{
+    <table class="TableUpdate" border="1">
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở lại", "ShopIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th>Tên cửa hàng</th>
+            <td>@Html.TextBox("Name", "", new { @class="text"})</td>
+        </tr>
+        <tr>
+            <th>Địa chỉ</th>
+            <td>@Html.TextBox("Address", "", new { @class="text"})</td>
+        </tr>
+        <tr>
+            <th>Di động</th>
+            <td>@Html.TextBox("PhoneNumber", "", new { @class="text", @onkeypress="OnlyInputNumber(0)"})</td>
+        </tr>
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở lại", "ShopIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+}

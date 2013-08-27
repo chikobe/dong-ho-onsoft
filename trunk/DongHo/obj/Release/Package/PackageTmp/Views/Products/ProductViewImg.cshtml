@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "ProductViewImg";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Hiển thị ảnh sản phẩm</h2>
+<table class="TableUpdate" border="1">
+    <tr>
+        <td class="Control">
+            <ul>
+                <li>@Html.ActionLink("Trở về", "ProductIndex","", new { @class="uback"})</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.Raw(ViewBag.ViewA)</td>
+    </tr>
+    <tr>
+        <td>@Html.Raw(ViewBag.ViewB)</td>
+    </tr>
+    <tr>
+        <td>@Html.Raw(ViewBag.ViewC)</td>
+    </tr>
+    <tr>
+        <td>@Html.Raw(ViewBag.ViewD)</td>
+    </tr>
+    <tr>
+        <td>@Html.Raw(ViewBag.ViewE)</td>
+    </tr>
+    <tr>
+        <td class="Control">
+            <ul>
+                <li>@Html.ActionLink("Trở về", "ProductIndex","", new { @class="uback"})</li>
+            </ul>
+        </td>
+    </tr>
+</table>

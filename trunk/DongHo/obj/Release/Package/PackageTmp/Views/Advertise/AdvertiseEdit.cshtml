@@ -1,0 +1,98 @@
+﻿@model DongHo.Models.Advertise
+@{
+    ViewBag.Title = "Chỉnh sửa quảng cáo";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <table class="TableUpdate" border="1">
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở về", "AdvertiseIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th>Tên quảng cáo</th>
+            <td>@Html.TextBoxFor(model=>model.Name, new{@class="text"})@Html.ValidationMessageFor(n=>n.Name)</td>
+        </tr>
+        <tr>
+            <th>Hình ảnh</th>
+            <td>@Html.TextBoxFor(model=>model.Image,"", new{@class="text"})<input id="SelectImages" type="button" value="Chọn ảnh" class="bottom" /></td>
+        </tr>
+        <tr>
+            <th>Độ rộng</th>
+            <td>@Html.TextBoxFor(model=>model.Width, new { @onkeypress="OnlyInputNumber(0)"})@Html.ValidationMessageFor(n=>n.Width)</td>
+        </tr>
+        <tr>
+            <th>Chiều cao</th>
+            <td>@Html.TextBoxFor(model=>model.Height, new { @onkeypress="OnlyInputNumber(0)"})@Html.ValidationMessageFor(n=>n.Height)</td>
+        </tr>
+        <tr>
+            <th>Liên kết</th>
+            <td>@Html.TextBoxFor(model=>model.Link, new{@class="text"})@Html.ValidationMessageFor(n=>n.Link)</td>
+        </tr>
+        <tr>
+            <th>Target</th>
+            <td>@Html.DropDownListFor(model=>model.Target, new SelectList(new List<Object> { new { value = 0, text = "_blank" }, new { value = 1, text = "_self" } }, "value", "text", 0), new { @class="yesno"})</td>
+        </tr>
+        <tr>
+            <th>Nội dung</th>
+            <td>@Html.TextArea("Content")</td>
+        </tr>
+        <tr>
+            <th>Số lượt click</th>
+            <td>@Html.LabelFor(model=>model.Click)</td>
+        </tr>
+        <tr>
+            <th>Vị trí</th>
+            <td>@*@Html.DropDownListFor(model=>model.Position, new SelectList(new List<Object> { new { value = 1, text = "Vị trí 1" }, new { value = 2, text = "Vị trí 2" }, new { value = 3, text = "Vị trí 3" }, new { value = 4, text = "Vị trí 4" }, new { value = 5, text = "Vị trí 5" }, new { value = 6, text = "Logo" } }, "value", "text", 1))*@@Html.DropDownList("Position")</td>
+        </tr>
+        <tr>
+            <th>Thứ tự</th>
+            <td>@Html.TextBoxFor(model => model.Ord, new { @onkeypress="OnlyInputNumber(0)"})@Html.ValidationMessageFor(m=>m.Ord)</td>
+        </tr>
+
+        <tr>
+            <th>Kích hoạt</th>
+            <td>@Html.CheckBox("Actives",Model.Active)</td>
+        </tr>
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở về", "AdvertiseIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+}
+<script language="javascript" type="text/javascript">
+    $(function () {
+        $("#SelectImages").click(function () {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                $("#Image").val(fileUrl);
+            };
+            finder.popup();
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    var editor;
+    function createEditor(languageCode, id) {
+        var editor = CKEDITOR.replace(id, {
+            language: languageCode
+        });
+    }
+
+    $(function () {
+        createEditor('vi', 'Content');
+    });
+</script>

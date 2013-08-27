@@ -1,0 +1,84 @@
+﻿@using (Html.BeginForm("timkiemTop", "My_PartialView", FormMethod.Post))
+{
+    <input type="text" placeholder="Nhập từ khóa tìm kiếm" id="Search" name="Search" autocomplete="off" />
+    <input type="submit" value="̃&nbsp;" id="btnSearch" name="btnSearch" />
+}
+<script type="text/javascript">
+    var mouse_is_inside = false;
+    $(function () {
+        $("#btnSearch").attr("disabled", "disabled");
+        $("#btnSearch").attr("title", "Bạn phải nhập từ khóa tìm kiếm trước");
+        $("#btnSearch").css("cursor", "not-allowed");
+    });
+        //We have used keyup event to track the user enter value in the textbox.
+    $("#Search").keyup(function () {
+        debugger;
+            //Fetching the textbox value.
+            var query = $(this).val();
+            var validated = true;
+            if ($("#Search").val().length === 0) {
+                validated = false;
+                mouse_is_inside = false;
+            }
+            if (validated) {
+                $("#btnSearch").removeAttr("disabled");
+                $("#btnSearch").attr("title","Tìm kiếm");
+                $("#btnSearch").css("cursor", "pointer");
+            }
+            //Calling GetItems method.
+            getItems(query);
+        });
+    $("#Search").click(function () {
+        debugger
+        var validated = true;
+        if ($("#Search").val().length === 0) validated = false;
+        if (validated) {
+            $("#btnSearch").removeAttr("disabled");
+            $("#btnSearch").attr("title", "Tìm kiếm");
+            $("#btnSearch").css("cursor", "pointer");
+            mouse_is_inside = true;
+            $('#searchUL').fadeIn();
+        }
+        else {
+            $("#btnSearch").attr("disabled", "disabled");
+            $("#btnSearch").attr("title", "Bạn phải nhập từ khóa tìm kiếm trước");
+            $("#btnSearch").css("cursor", "not-allowed");
+            mouse_is_inside = false;
+            $('#searchUL').fadeOut("fast");
+        }
+    });
+    $('#searchUL').hover(function () { mouse_is_inside = true; }, function () { mouse_is_inside = false;})
+    $("body").click(function () {
+        if (!mouse_is_inside) $("#searchUL").fadeOut("fast");
+    });
+        function getItems(query) {
+            debugger;
+            //Here we are using ajax get method to fetch data from the list based on the user entered value in the textbox.
+            //We are sending query i.e textbox as data.
+            $.ajax({
+                url: '/My_PartialView/search',
+                data: { "query": query },
+                type: 'POST',
+                dataType: 'json',
+                success: function (response) {
+                    if ($('#searchUL') != undefined) {
+                        $('#searchUL').remove();
+                    }
+                    $('.searchTop').append(response.success);
+                },
+                error: function (xhr, status, error) {
+                    $('.searchTop').append();
+                }
+            });
+        }
+    
+    //This method appends the text oc clicked li element to textbox.
+    function appendTextToTextBox(e) {
+        //Getting the text of selected li element.
+        var textToappend = e.innerText;
+        //setting the value attribute of textbox with selected li element.
+        $("#Search").val(textToappend);
+        //Removing the ul element once selected element is set to textbox.
+        $("#searchTopUL").remove();
+    }
+ </script>

@@ -1,0 +1,56 @@
+﻿@model DongHo.Models.ProPricesModels
+@{
+    ViewBag.Title = "ProductPriceCreate";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Tạo mới thông tin giá sản phẩm</h2>
+@using (Html.BeginForm())
+{
+    <table class="TableUpdate" border="1">
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở về", "ProductIndex", "", new { @class = "uback" })</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th>Giá nhập vào mới nhất</th>
+            <td><input type="text" value="@ViewBag.Imp" name="PriceImport" id="PriceImport" /> VNĐ</td>
+        </tr>
+        <tr>
+            <th>Giá bán sỉ</th>
+            <td>@Html.TextBox("GiaBanSi") VNĐ @Html.ValidationMessageFor(m=>m.GiaBanSi)</td>
+        </tr>
+        <tr>
+            <th>Giá bán lẻ</th>
+            <td>@Html.TextBox("GiaBanLe") VNĐ @Html.ValidationMessageFor(m=>m.GiaBanLe)</td>
+        </tr>
+        <tr>
+            <th>Giá khuyến mãi</th>
+            <td>@Html.TextBox("PricePromotion") VNĐ @Html.ValidationMessageFor(m=>m.PricePromotion)</td>
+        </tr>
+        <tr>
+            <th>Ngày bắt đầu áp dụng khung giá trên</th>
+            <td>@Html.TextBox("DateBegin") @Html.ValidationMessageFor(m=>m.DateBegin)</td>
+        </tr>
+        <tr>
+            <th>Ngày kết thúc áp dụng khung giá trên</th>
+            <td>@Html.TextBox("DateEnd") @Html.ValidationMessageFor(m=>m.DateEnd)</td>
+        </tr>
+        <tr>
+            <th>Thứ tự</th>
+            <td>@Html.TextBox("Ord")</td>
+        </tr>
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở về", "ProductIndex", "", new { @class = "uback" })</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+}

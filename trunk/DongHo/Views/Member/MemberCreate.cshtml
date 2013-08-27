@@ -1,0 +1,52 @@
+﻿@model DongHo.Models.Member
+@{
+    ViewBag.Title = "MemberCreate";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Chỉnh sửa thông tin tài khoản</h2>
+@using (Html.BeginForm())
+{
+    <table class="TableUpdate" border="1">
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở về", "MemberIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th>Tên nhóm</th>
+            <td>@Html.DropDownList("GrMember"," === Chọn tên nhóm === ")</td>
+        </tr>
+        <tr>
+            <th>Tên nhân viên</th>
+            <td>@Html.TextBox("Name")</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>@Html.TextBox("Email")</td>
+        </tr>
+        <tr>
+            <th>Tên đăng nhập</th>
+            <td>@Html.TextBox("Username")</td>
+        </tr>
+        <tr>
+            <th>Mật khẩu</th>
+            <td>@Html.TextBox("Password", "", new { type="password"})</td>
+        </tr>
+        <tr>
+            <th>Kích hoạt</th>
+            <td>@Html.CheckBox("Actives")</td>
+        </tr>
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở về", "MemberIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+}

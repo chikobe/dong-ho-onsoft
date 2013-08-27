@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "Thêm mới thư viện";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm())
+{
+    <table class="TableUpdate" border="1">
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở lại", "LibraryIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th>Nhóm thư viện</th>
+            <td>@Html.DropDownList("GrLibrary")</td>
+        </tr>
+        <tr>
+            <th>Tên thư viện</th>
+            <td>@Html.TextBox("Name","", new{@class="text"})</td>
+        </tr>
+        <tr>
+            <th>Hình ảnh</th>
+            <td>@Html.TextBox("Image","", new{@class="text"})<input id="SelectImages" type="button" value="Chọn ảnh" class="bottom" /></td>
+        </tr>
+        <tr>
+            <th>File đính kèm</th>
+            <td>@Html.TextBox("File","", new{@class="text"})<input id="SelectFile" type="button" value="Chọn file" class="bottom" /></td>
+        </tr>
+        <tr>
+            <th>Nội dung</th>
+            <td>@Html.TextArea("Info")</td>
+        </tr>
+        <tr>
+            <th>Ưu tiên</th>
+            <td>@Html.CheckBox("Priorities")</td>
+        </tr>
+        <tr>
+            <th>Kích hoạt</th>
+            <td>@Html.CheckBox("Actives")</td>
+        </tr>
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở lại", "LibraryIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+}
+<script language="javascript" type="text/javascript">
+    $(function () {
+        $("#SelectImages").click(function () {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                $("#Image").val(fileUrl);
+            };
+            finder.popup();
+        });
+        $("#SelectFile").click(function () {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                $("#File").val(fileUrl);
+            };
+            finder.popup();
+        });
+    });
+</script>
+<script type="text/javascript">
+    var editor;
+    function createEditor(languageCode, id) {
+        var editor = CKEDITOR.replace(id, {
+            language: languageCode
+        });
+    }
+
+    $(function () {
+        createEditor('vi', 'Info');
+    });
+</script>

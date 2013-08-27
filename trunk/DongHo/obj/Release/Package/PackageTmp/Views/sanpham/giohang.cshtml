@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "giohang";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+@{Html.RenderAction("_support", "My_PartialView");}
+<div class="clear"></div>
+<div class="pathway">
+    <a href="/Home/Index">Trang chủ</a><a href="/sanpham/checkout">Giỏ hàng của bạn</a>
+</div>
+<div class="content">
+    <div class="boxbtn">
+        <a href="~/Views/sanpham/Index" class="back">Trở lại mua hàng</a>
+        <a href="~/Views/sanpham/Index" class="thanhtoan">Thanh toán</a>
+    </div>
+</div>

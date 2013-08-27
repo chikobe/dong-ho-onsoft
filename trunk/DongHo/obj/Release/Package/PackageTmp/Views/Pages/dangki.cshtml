@@ -1,0 +1,83 @@
+﻿@model DongHo.ViewModels.CustomerForm.Dangky
+@{
+    ViewBag.Title = "dangki";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+    var img = new CaptchaProvider().CreateCaptcha();
+}
+<div class="content">
+    <div class="dangki">
+    <div class="content-left">
+    @using(Html.BeginForm("dangki","Pages",FormMethod.Post))
+    {
+        <div class="dangki">
+        <h2>Thông tin đăng kí</h2>
+        @Html.Raw(ViewBag.Err)
+        <table>
+            <tr>
+                <th>Họ và tên</th>
+                <td>@Html.TextBox("Name","", new { @placeholder="Họ tên đầy đủ"})@Html.ValidationMessageFor(m=>m.Name)</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>@Html.TextBox("Email", "", new { @placeholder="Tài khoản Email"})@Html.ValidationMessageFor(m=>m.Email)</td>
+            </tr>
+            <tr>
+                <th>Mật khẩu</th>
+                <td>@Html.TextBox("Pass","", new { type="password", @placeholder="Mật khẩu đăng ký"})@Html.ValidationMessageFor(m=>m.Pass)</td>
+            </tr>
+            <tr>
+                <th>Nhập lại mật khẩu</th>
+                <td>@Html.TextBox("RePass","", new { type="password", @placeholder="Nhập lại mật khẩu"})@Html.ValidationMessageFor(m=>m.RePass)</td>
+            </tr>
+            <tr>
+                <th>Số điện thoại</th>
+                <td>@Html.TextBox("Phone","", new { @onkeypress="return OnlyInputNumber(0);", @placeholder="Số điện thoại liên hệ"})@Html.ValidationMessageFor(m=>m.Phone)</td>
+            </tr>
+            <tr>
+                <th>Địa chỉ</th>
+                <td>@Html.TextArea("Address", new { cols="35", rows="5", @placeholder="Địa chỉ liên hệ"})@Html.ValidationMessageFor(m=>m.Address)</td>
+            </tr>
+            <tr>
+                <th>Mã an toàn</th>
+                <td><p><img src="@img" /><a href="@this.Request.Url.AbsoluteUri" class="reloadCaptcha">Reload</a></p></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>@Html.TextBox("Captcha")@Html.ValidationMessageFor(m=>m.Captcha)</td>
+            </tr>
+        </table>
+        <input type="submit" value="Đăng ký" class="btnSubmit" />
+        </div>
+    }
+    </div>
+    <div class="content-right">
+        <div class="boxModule">
+            <div class="mdTitle">Sản phẩm nổi bật</div>
+            @{Html.RenderAction("_boxspNoibat", "Pages");}
+            @*<ul>
+                <li>
+                    <h3><a href="#">Đồng hồ nam chính hãng ARMANI - AR5908</a></h3>
+                    <a href="#"><img src="~/Images/smallpro1.PNG" /></a>
+                    <p>Model: <span>GT619</span></p>
+                    <p>Giá: <span class="require">2.450.000 VNĐ</span></p>
+                    <p class="txtout">1.450.000 VNĐ</p>
+                </li>
+                <li>
+                    <h3><a href="#">Đồng hồ nam chính hãng ARMANI - AR5908</a></h3>
+                    <a href="#"><img src="~/Images/smallpro1.PNG" /></a>
+                    <p>Model: <span>GT619</span></p>
+                    <p>Giá: <span class="require">2.450.000 VNĐ</span></p>
+                    <p class="txtout">1.450.000 VNĐ</p>
+                </li>
+                <li>
+                    <h3><a href="#">Đồng hồ nam chính hãng ARMANI - AR5908</a></h3>
+                    <a href="#"><img src="~/Images/smallpro1.PNG" /></a>
+                    <p>Model: <span>GT619</span></p>
+                    <p>Giá: <span class="require">2.450.000 VNĐ</span></p>
+                    <p class="txtout">1.450.000 VNĐ</p>
+                </li>
+            </ul>*@
+        </div>
+    </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+﻿@model DongHo.Models.tbCUSTOMER
+@{
+    ViewBag.Title = "edit_info";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+<div class="pathway">
+    <a href="/Home/Index">Trang chủ</a><a href="/Pages/edit_info">Chỉnh sửa thông tin</a>
+</div>
+<div class="content">
+    <div class="content-small">
+        @{Html.RenderAction("colFunctionCus", "Pages");}
+    </div>
+    <div class="content-big">
+        <h2>Thông tin tài khoản</h2>
+        @using(Html.BeginForm("edit_info","Pages",FormMethod.Post))
+        {
+        <div class="InfoAcc">
+            <table class="tbEditInfo">
+                <tr>
+                    <th>Họ và tên</th>
+                    <td>@Html.TextBoxFor(m=>m.vcusname)@Html.ValidationMessageFor(m=>m.vcusname)</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>@Model.vemail</td>
+                </tr>
+                <tr>
+                    <th>Số điện thoại</th>
+                    <td>@Html.TextBoxFor(m => m.vphone, new {  @onkeypress="return OnlyInputNumber(0);"})@Html.ValidationMessageFor(m=>m.vphone)</td>
+                </tr>
+                <tr>
+                    <th>Địa chỉ</th>
+                    <td>@Html.TextAreaFor(m => m.vaddress, new { cols="35", rows="5"})@Html.ValidationMessageFor(m=>m.vaddress)</td>
+                </tr>
+            </table>
+            <input type="submit" value="Cập nhật" class="btnSubmit" />
+        </div>
+        }
+    </div>
+</div>
+

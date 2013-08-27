@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "sp";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+@{Html.RenderAction("_support", "My_PartialView");}
+<div class="clear"></div>
+@{Html.RenderAction("_siteMap");}
+<div class="content1">
+    <div class="box-pro">
+        @Html.Raw(ViewBag.View)
+    </div>
+</div>

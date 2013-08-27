@@ -1,0 +1,26 @@
+﻿@using (Html.BeginForm("_search", "Import", FormMethod.Post))
+{
+    <div class="TopSearchImpExp">
+        <table>
+            <tr>
+                <td>Từ ngày</td>
+                <td>@Html.TextBox("dateBegin")</td>
+                <td>Đến ngày</td>
+                <td>@Html.TextBox("dateEnd")</td>
+                <td>Nhà cung cấp</td>
+                <td>@Html.TextBox("Supplier")</td>
+                <td>Nhân viên</td>
+                <td>@Html.Raw(ViewBag.NameEmp)</td>
+            </tr>
+            <tr>
+                <td>Khoảng tiền từ</td>
+                <td>@Html.TextBox("PriceFrom")</td>
+                <td>Khoảng tiền đến</td>
+                <td>@Html.TextBox("PriceTo")</td>
+                <td>Số phiếu</td>
+                <td>@Html.TextBox("Id")</td>
+                <td><input type="submit" value="Tìm kiếm" /></td>
+            </tr>
+        </table>
+    </div>
+}

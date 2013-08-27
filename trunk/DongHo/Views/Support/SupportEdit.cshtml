@@ -1,0 +1,67 @@
+﻿@model DongHo.Models.Support
+
+@{
+    ViewBag.Title = "SupportEdit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Chỉnh sửa thông tin hỗ trợ trực tuyến</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <table class="TableUpdate" border="1">
+        <tr>
+            <td class="Control" colspan="2"> 
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở về", "SupportIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+        <tr> 
+            <th> Nhóm hỗ trợ</th>
+            <td>@Html.DropDownList("GroupSupport", " === Chọn nhóm hỗ trợ === ")</td>
+        </tr>
+         <tr>
+            <th>Tên người hỗ trợ</th>
+            <td>@Html.TextBoxFor(model => model.Name, new { @class="text"})@Html.ValidationMessageFor(m=>m.Name)</td>
+        </tr>
+        <tr>
+            <th>Số điện thoại </th>
+           <td>@Html.TextBoxFor(model => model.Tel, new { @class="text"})@Html.ValidationMessageFor(m=>m.Tel)</td>
+        </tr>
+        <tr>
+            <th>Kiểu nick</th>
+            <td>@Html.DropDownList("Type")</td>
+        </tr>
+         <tr>
+            <th>Nick</th>
+            <td>@Html.TextBoxFor(model => model.Nick, new { @class="text"})@Html.ValidationMessageFor(m=>m.Nick)</td>
+        </tr>
+         <tr>
+            <th>Thứ tự</th>
+            <td>@Html.TextBoxFor(model => model.Ord, new { @class="text", @onkeypress="OnlyInputNumber(0)"})@Html.ValidationMessageFor(m=>m.Ord)</td>
+        </tr>
+        
+         <tr>
+            <th>Khu vực</th>
+            <td>@Html.DropDownListFor(m=>m.Location, new SelectList(new List<Object> { new { value = 0, text = "Khu vực miền Bắc" }, new { value = 1, text = "Khu vực miền Nam" } }, "value", "text"), new { @class="yesno"})</td>
+        </tr>
+        <tr>
+            <th>Kích hoạt</th>
+            <td>@Html.CheckBox("Actives",(Model.Active==1)?true:false)</td>
+        </tr>
+
+        <tr>
+            <td class="Control" colspan="2"> 
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở về", "SupportIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+
+
+    </table>
+    
+}

@@ -1,0 +1,72 @@
+﻿@model DongHo.Models.Supplier
+@{
+    ViewBag.Title = "SupplierEdit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Chỉnh sửa thông tin nhà cung cấp</h2>
+@using (Html.BeginForm())
+{
+    <table class="TableUpdate" border="1">
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở về", "SupplierIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th>Tên nhà cung cấp</th>
+            <td>@Html.TextBoxFor(m=>m.Name, "", new { @class="text"})@Html.ValidationMessageFor(m=>m.Name)</td>
+        </tr>
+        <tr>
+            <th>Số điện thoại</th>
+            <td>@Html.TextBoxFor(m=>m.Phone, "", new { @class="text"})@Html.ValidationMessageFor(m=>m.Phone)</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>@Html.TextBoxFor(m=>m.Email, "", new { @class="text"})@Html.ValidationMessageFor(m=>m.Email)</td>
+        </tr>
+        <tr>
+            <th>Website</th>
+            <td>@Html.TextBoxFor(m=>m.Website, "", new { @class="text"})</td>
+        </tr>
+        <tr>
+            <th>Địa chỉ</th>
+            <td>@Html.TextBoxFor(m=>m.Address, "", new { @class="text"})@Html.ValidationMessageFor(m=>m.Address)</td>
+        </tr>
+        <tr>
+            <th>Người liên hệ</th>
+            <td>@Html.TextArea("Contact")@Html.ValidationMessageFor(m=>m.Contact)</td>
+        </tr>
+        <tr>
+            <th>Quốc gia</th>
+            <td>@Html.TextBoxFor(m=>m.National, "", new { @class="text"})</td>
+        </tr>
+        <tr>
+            <th>Thứ tự</th>
+            <td>@Html.TextBoxFor(m=>m.Ord,"", new { @class="textOrd",@onkeypress="OnlyInputNumber(0)"})@Html.ValidationMessageFor(m=>m.Ord)</td>
+        </tr>
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở về", "SupplierIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+}
+<script type="text/javascript">
+    var editor;
+    function createEditor(languageCode, id) {
+        var editor = CKEDITOR.replace(id, {
+            language: languageCode
+        });
+    }
+
+    $(function () {
+        createEditor('vi', 'Contact');
+    });
+</script>

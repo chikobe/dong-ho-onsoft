@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "ProductPriceView";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="ViewUserWareHouse">
+    <div class="Control">
+        <ul>
+            <li>@Html.ActionLink("Trở lại", "ProductIndex", "", new { @class="uback"})</li>
+        </ul>
+    </div>
+    @Html.Raw(ViewBag.View)
+    <div class="Control">
+        <ul>
+            <li>@Html.ActionLink("Trở lại", "ProductIndex", "", new { @class="uback"})</li>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#divHistory").hide();
+    $(".showHideHistory").click(function () {
+        $("#divHistory").slideToggle();
+        var div = $(this);
+        if (div.text() == "Hiển thị thông tin lịch sử giá")
+            div.text("Ẩn thông tin lịch sử giá");
+        else
+            div.text("Hiển thị thông tin lịch sử giá");
+    });
+</script>

@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "WareHouseViews";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="ViewUserWareHouse">
+    <div class="Control">
+        <ul>
+            <li>@Html.ActionLink("Trở lại", "WareHouseIndex", "", new { @class="uback"})</li>
+        </ul>
+    </div>
+    @Html.Raw(ViewBag.View)
+    <div class="Control">
+        <ul>
+            <li>@Html.ActionLink("Trở lại", "WareHouseIndex", "", new { @class="uback"})</li>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#divHistory").hide();
+    $(".showHideHistory").click(function () {
+        $("#divHistory").slideToggle();
+        var div = $(this);
+        if (div.text() == "Xem thông tin lịch sử nhân viên quản kho")
+            div.text("Ẩn thông tin lịch sử nhân viên quản kho");
+        else
+            div.text("Xem thông tin lịch sử nhân viên quản kho");
+    });
+</script>

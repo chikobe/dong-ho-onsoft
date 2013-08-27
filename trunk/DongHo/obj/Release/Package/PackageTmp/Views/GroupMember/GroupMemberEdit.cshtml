@@ -1,0 +1,36 @@
+﻿@model DongHo.Models.GroupMember
+@{
+    ViewBag.Title = "GroupMemberEdit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Chỉnh sửa thông tin nhóm nhân viên</h2>
+@using (Html.BeginForm())
+{
+    <table class="TableUpdate" border="1">
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở về", "GroupMemberIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th>Tên nhóm</th>
+            <td>@Html.TextBoxFor(m=>m.Name)</td>
+        </tr>
+        <tr>
+            <th>Kích hoạt</th>
+            <td>@Html.CheckBox("Actives",(Model.Active==1)?true:false)</td>
+        </tr>
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở về", "GroupMemberIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+}

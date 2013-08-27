@@ -1,0 +1,37 @@
+﻿@model DongHo.ViewModels.CustomerForm.Dangnhap
+@{
+    ViewBag.Title = "dangnhap";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+<div class="content">
+    <div class="dangki">
+    <div class="content-left">
+    @using(Html.BeginForm("dangnhap","Pages",FormMethod.Post))
+    {
+        <div class="dangki">
+        <h2>Đăng nhập vào hệ thống</h2>
+            <p style="color:red; margin:10px 0;">@ViewBag.Err</p>
+        <table>
+            <tr>
+                <th>Email</th>
+                <td>@Html.TextBox("Email", "", new { @placeholder="Tài khoản Email"})@Html.ValidationMessageFor(m=>m.Email)</td>
+            </tr>
+            <tr>
+                <th>Mật khẩu</th>
+                <td>@Html.TextBox("Pass","", new { type="password", @placeholder="Mật khẩu đăng nhập"})@Html.ValidationMessageFor(m=>m.Pass)</td>
+            </tr>
+        </table>
+        <input type="submit" value="Đăng nhập" class="btnSubmit" /><br />
+        <div class="divBtn"><a href="/Pages/dangki">Bạn chưa có tài khoản?</a> | <a href="/Pages/forget_pass">Bạn quên mật khẩu</a></div>
+        </div>
+    }
+    </div>
+    <div class="content-right">
+        <div class="boxModule">
+            <div class="mdTitle">Sản phẩm nổi bật</div>
+            @{Html.RenderAction("_boxspNoibat", "Pages");}
+        </div>
+    </div>
+    </div>
+</div>

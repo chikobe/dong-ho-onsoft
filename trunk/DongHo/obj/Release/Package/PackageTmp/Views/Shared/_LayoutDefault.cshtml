@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/Style.css" rel="stylesheet" />
+    <link href="~/Content/cloud-zoom.css" rel="stylesheet" />
+    <link href="~/Content/jsonSuggest.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/library.js"></script>
+    <script src="~/Scripts/cloud-zoom.1.0.2.js"></script>
+    <script src="~/Scripts/jquery.jsonSuggest.js"></script>
+    <script src="~/Scripts/json.js"></script>
+    <script src="~/Scripts/jquery.simplePagination.js"></script>
+    <script src="~/Scripts/slides.min.jquery.js"></script>
+    <script type="text/javascript">
+        function OnlyInputNumber(Characters) {
+            var re;
+            var ch = String.fromCharCode(event.keyCode);
+            if (event.keyCode < 32) {
+                return;
+            };
+            if ((event.keyCode <= 57) && (event.keyCode >= 48)) {
+                if (!event.shiftKey) {
+                    return;
+                }
+            }
+            if (Characters.length > 0 && ch == Characters) {
+                return;
+            }
+            event.returnValue = false;
+        }
+    </script>
+    <script>
+        $(function () {
+            $('#slidesLeft').slides({
+                preload: true,
+                preloadImage: '~/Images/loading.gif',
+                play: 5000,
+                pause: 2500,
+                hoverPause: true,
+            });
+            $('#slidesRight').slides({
+                preload: true,
+                preloadImage: '~/Images/loading.gif',
+                play: 5000,
+                pause: 2500,
+                hoverPause: true,
+            });
+        });
+	</script>
+</head>
+<body>
+    <header>
+        <div class="header">
+            @{Html.RenderAction("_HeaderTop", "My_PartialView");}
+        </div>
+        <div class="headerWrap">
+            <div class="headerMain">
+                <div class="logo">@{Html.RenderAction("Logo", "My_PartialView");}</div>
+                @{Html.RenderAction("_DropCategory", "My_PartialView");}
+                <div class="searchTop">
+                    @{Html.RenderAction("timkiem", "My_PartialView");}
+                </div>
+@*                <div>
+                    <a href=ymsgr:sendIM?chickyfunny><img src="http://opi.yahoo.com/online?u=chickyfunny&amp;m=g&amp;t=1 border=0" style="height: 20px"></a>
+                    <a href=ymsgr:sendIM?chickyfunny><img src="http://opi.yahoo.com/online?u=chickyfunny&amp;m=g&amp;t=1 border=0" style="height: 20px"></a>
+                </div>*@
+                <div  class="ViewCart your-cart">
+                    <a href="javascript:;" id="cart">
+                        <span class="numCart">0</span>
+                        <div class="showCartTop">
+                            <p>Hiện không có sản phẩm nào trong giỏ hàng</p>
+                        </div>   
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    @*@{Html.RenderAction("_menu", "My_PartialView");}*@
+@*    <div class="wrapSupport">
+        <div class="suppportTitle"></div>
+        <div class="support">
+            @{Html.RenderAction("_support", "My_PartialView");}
+        </div>
+    </div>*@
+    <div id="divAdRight" style="DISPLAY: none; POSITION: absolute; TOP: 50px">  
+        @{Html.RenderAction("_quangCao2Ben_benPhai", "My_PartialView");}
+    </div> 
+    <div class="wrapper">
+        @RenderBody()
+    </div>
+    <div id="divAdLeft" style="DISPLAY: none; POSITION: absolute; TOP: 50px">     
+        @{Html.RenderAction("_quangCao2Ben_benTrai", "My_PartialView");}   
+    </div> 
+    <div class="clear"></div>
+    <footer>
+        <p>&copy; Copyright by Hoccungdoanhnghiep.com</p>
+    </footer>
+    <script src="~/Scripts/common.js"></script>
+    <script type='text/javascript'>MainContentW = 1000;LeftBannerW = 150;RightBannerW = 150;LeftAdjust = 30;RightAdjust = 10;TopAdjust = 80;ShowAdDiv();window.onresize=ShowAdDiv;;</script>
+</body>
+</html>

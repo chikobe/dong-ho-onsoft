@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "notLogon";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+<div class="content">
+<h2 class="h2NotLogon">Hãy đăng nhập hoặc mua hàng ngay không cần đăng ký</h2>
+    <div class="logonNow">
+        <h3>Đăng nhập</h3>
+        <p>Đăng nhập để có thể cập nhật những chương trình khuyến mãi của chúng tôi nhanh chóng hơn.</p>
+        <div>
+            <a href="/Pages/dangki">Đăng ký</a>
+            <a href="/Pages/dangnhap">Đăng nhập</a>
+        </div>
+        <a class="forgetPass" href="/Pages/forget_pass">Quên mật khẩu</a>
+    </div>
+    <div class="buyNowNotLogon">
+        <h3>Khách hàng mới</h3>
+        <p>Mua sắm nhanh gọn, tiện lợi, không cần đăng ký</p>
+        <p>Tiến hành thanh toán ngay</p>
+        <a href="/Pages/order_pay?estore=1">Thanh toán không cần đăng kí</a>
+    </div>
+</div>

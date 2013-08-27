@@ -1,0 +1,86 @@
+﻿@model DongHo.Models.GroupNew
+@{
+    ViewBag.Title = "Sửa nhóm tin";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <table class="TableUpdate" border="1">
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value=" Ghi lại " class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở lại ", "GroupNewIndex", "", new {@class="uback" })</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th>Tên nhóm tin</th>
+            <td>@Html.TextBoxFor(model => model.Name, new {@class="text" })@Html.ValidationMessageFor(m=>m.Name)</td>
+        </tr>
+        <tr>
+            <th>Title</th>
+            <td>@Html.TextBoxFor(model => model.Title, new { @class="text"})</td>
+        </tr>
+          <tr>
+            <th>Description</th>
+            <td>@Html.TextBoxFor(model => model.Description, new { @class="text"})</td>
+        </tr>
+        <tr>
+            <th>Keyword</th>
+            <td>@Html.TextBoxFor(model => model.Keyword, new { @class="text"})</td>
+        </tr>
+        <tr>
+            <th>Thứ tự</th>
+             <td>@Html.TextBoxFor(model => model.Ord, new { @class="text", @onkeypress="OnlyInputNumber(0)"})@Html.ValidationMessageFor(m=>m.Ord)</td>
+        </tr>
+        <tr>
+            <th>Ưu tiên</th>
+            <td>@Html.CheckBox("Priorities",(Model.Priority==1)?true:false)</td>
+        </tr>
+        <tr>
+            <th>Trang chủ</th>
+            <td>@Html.CheckBox("Indexs",(Model.Index==1)?true:false)</td>
+        </tr>
+        <tr>
+            <th>Active</th>
+            <td>@Html.CheckBox("Actives",(Model.Active==1)?true:false)</td>
+        </tr>
+         <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value=" Ghi lại " class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở lại ", "GroupNewIndex", "", new {@class="uback" })</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+
+}
+<script>
+    $(function () {
+        $("#SelectImages").click(function () {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                $("#Image").val(fileUrl);
+            };
+            finder.popup();
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    var editor;
+    function createEditor(languageCode, id) {
+        var editor = CKEDITOR.replace(id, {
+            language: languageCode
+        });
+    }
+
+    $(function () {
+        createEditor('vi', 'Content');
+    });
+</script>

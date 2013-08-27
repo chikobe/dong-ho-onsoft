@@ -1,0 +1,30 @@
+﻿@model DongHo.ViewModels.CustomerForm.Dangnhap
+@{
+    ViewBag.Title = "forget_pass";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+@Html.Raw(ViewBag.Err)
+<div class="content">
+    <div class="dangki">
+    <div class="content-left">
+    @using (Html.BeginForm("forget_pass", "Pages", FormMethod.Post))
+    {
+        <div class="dangki">
+            <h2>Trợ giúp khôi phục mật khẩu</h2>
+            <p style="color:red; margin:10px 0;">@ViewBag.Err</p>
+            <p>Email</p>
+            @Html.TextBox("Email", "", new { @placeholder="Tài khoản Email"})
+            @Html.ValidationMessageFor(m=>m.Email)
+            <i>Nhập email mà bạn đã đăng ký tài khoản vào ô bên trên</i>
+            <input type="submit" value="Gửi" class="btnSubmit" />
+        </div>
+    }
+    </div>
+    <div class="content-right">
+        <div class="boxModule">
+            <div class="mdTitle">Sản phẩm nổi bật</div>
+            @{Html.RenderAction("_boxspNoibat", "Pages");}
+        </div>
+    </div>
+    </div>
+</div>

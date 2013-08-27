@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Tạo mới thông tin kho";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm())
+{
+    <table class="TableUpdate" border="1">
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở lại", "WareHouseIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th>Nhóm nhân viên</th>
+            <td>@Html.DropDownList("GroupMember"," === Chọn nhóm nhân viên === ")</td>
+        </tr>
+        <tr>
+            <th>Nhân viên quản kho</th>
+            <td><select id="MemId"  name="MemId" disabled="disabled"></select></td>
+        </tr>
+        <tr>
+            <th>Tên kho hàng</th>
+            <td>@Html.TextBox("Name", "", new { @class="text"})</td>
+        </tr>
+        <tr>
+            <th>Địa chỉ kho hàng</th>
+            <td>@Html.TextBox("Address", "", new { @class="text"})</td>
+        </tr>
+        <tr>
+            <th>Số điện thoại</th>
+            <td>@Html.TextBox("Phone")</td>
+        </tr>
+        <tr>
+            <th>Ghi chú</th>
+            <td>@Html.TextArea("Note")</td>
+        </tr>
+        <tr>
+            <th>Thứ tự</th>
+            <td>@Html.TextBox("Ord", "", new { @onkeypress="OnlyInputNumber(0)"})</td>
+        </tr>
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở lại", "WareHouseIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+}
+<script type="text/javascript">
+    var editor;
+    function createEditor(languageCode, id) {
+        var editor = CKEDITOR.replace(id, {
+            language: languageCode
+        });
+    }
+
+    $(function () {
+        createEditor('vi', 'Note');
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("select#GroupMember").change(function (evt) {
+
+            if ($("select#GroupMember").val() != "") {
+
+                $.ajax({
+                    url: "/WareHouse/_GetMember",
+                    type: 'POST',
+                    data: { id: $("select#GroupMember").val() },
+                    success: function (response) {
+                        $("select#MemId").replaceWith(response)
+                    },
+                    error: function (xhr) {
+                        $("select#MemId").replaceWith("<select id='MemId' name='MemId' disabled='disabled'></select>");
+                    }
+                });
+            }
+            else {
+                $("select#MemId").replaceWith("<select id='MemId'  name='MemId' disabled='disabled'></select>");
+            }
+        });
+    });
+</script>

@@ -1,0 +1,41 @@
+﻿@model IList<DongHo.Models.sp_tbBill_customers_PagingResult>
+@{
+    ViewBag.Title = "Thông tin đơn hàng";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm("MultiDelete", "tbBill_customers", FormMethod.Post))
+{
+    <div class="Control">
+        <ul>
+            <li><input type="submit" value="Xóa" class="mulDel" /></li>
+            <li>@Html.ActionLink("Làm mới", "tbBill_customersIndex", "", new { @class = "vrefresh" })</li>
+            <li> 
+                <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a> 
+            </li>
+        </ul>
+    </div>
+    <table class="TableView" border="1" id="myTable">
+        <tr class="trHeader">
+            <th class="CheckBoxsmall"><input type="checkbox" onclick="Javascript: chkSelectAll_OnClick(this)" id="chkSelectAll" /></th>
+            <th class="Text">Họ tên khách hàng</th>
+            <th class="Date">Ngày sinh</th>
+            <th class="Text">Địa chỉ</th>
+            <th class="DateTime">Ngày đặt hàng</th>
+            <th class='TextSmall'>Tình trạng</th>
+            <th class="Function">Chức năng</th>
+        </tr>
+        @Html.Raw(ViewBag.View)
+    </table>
+    @Html.Raw(ViewBag.Pager)
+    <div class="Control">
+        <ul>
+            <li><input type="submit" value="Xóa" class="mulDel" /></li>
+            <li>@Html.ActionLink("Làm mới", "tbBill_customersIndex", "", new { @class = "vrefresh" })</li>
+            <li> 
+                <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a> 
+            </li>
+        </ul>
+    </div>
+}

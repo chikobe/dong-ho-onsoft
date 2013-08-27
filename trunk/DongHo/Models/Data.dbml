@@ -1,0 +1,1355 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DongHo" Class="DataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=KIMCHI;Initial Catalog=DongHo;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DongHoConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Advertise" Member="Advertises">
+    <Type Name="Advertise">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Width" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Height" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Target" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Position" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="PageId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Click" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Association Name="Page_Advertise" Member="Page" ThisKey="PageId" OtherKey="Id" Type="Page" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WareHouse" Member="WareHouses">
+    <Type Name="WareHouse">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Brands" Member="Brands">
+    <Type Name="Brand">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="Logo" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="SupplierId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Category" Member="Categories">
+    <Type Name="Category">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="[Level]" Member="Level" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Priority" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="[Index]" Member="Index" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="Image2" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Association Name="Category_Product" Member="Products" ThisKey="Id" OtherKey="CatId" Type="Product" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Colors" Member="Colors">
+    <Type Name="Color">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Img" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Association Name="Color_ProColor" Member="ProColors" ThisKey="Id" OtherKey="ColorId" Type="ProColor" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CommentProduc" Member="CommentProducs">
+    <Type Name="CommentProduc">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Point" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Company" Member="Companies">
+    <Type Name="Company">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ProvinceId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Company_Shop" Member="Shops" ThisKey="id" OtherKey="CompanyId" Type="Shop" />
+      <Association Name="Province_Company" Member="Province" ThisKey="ProvinceId" OtherKey="Id" Type="Province" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Config" Member="Configs">
+    <Type Name="Config">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Mail_Smtp" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Mail_Port" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Mail_Info" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Mail_Noreply" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Mail_Password" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="PlaceHead" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="PlaceBody" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="GoogleId" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Contact" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="DeliveryTerms" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PaymentTerms" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="FreeShipping" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Copyright" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="Helpsize" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Location" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Contact" Member="Contacts">
+    <Type Name="Contact">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Company" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Tel" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Mail" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Detail" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Document" Member="Documents">
+    <Type Name="Document">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EffectiveDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Info" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="[File]" Member="File" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Priority" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MemberId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Association Name="DocumentType_Document" Member="DocumentType" ThisKey="TypeId" OtherKey="Id" Type="DocumentType" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="Member_Document" Member="Member" ThisKey="MemberId" OtherKey="Id" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DocumentType" Member="DocumentTypes">
+    <Type Name="DocumentType">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Association Name="DocumentType_Document" Member="Documents" ThisKey="Id" OtherKey="TypeId" Type="Document" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EmailRegisters" Member="EmailRegisters">
+    <Type Name="EmailRegister">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
+      <Column Name="Createdate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Export" Member="Exports">
+    <Type Name="Export">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="WareHouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CusName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TotalMoney" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="xdate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ExportDetail" Member="ExportDetails">
+    <Type Name="ExportDetail">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ExportId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Money" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GroupLibrary" Member="GroupLibraries">
+    <Type Name="GroupLibrary">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="[Level]" Member="Level" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Association Name="GroupLibrary_Library" Member="Libraries" ThisKey="Id" OtherKey="GroupLibraryId" Type="Library" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GroupMember" Member="GroupMembers">
+    <Type Name="GroupMember">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="GroupMember_Member" Member="Members" ThisKey="Id" OtherKey="GroupMemberId" Type="Member" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GroupNews" Member="GroupNews">
+    <Type Name="GroupNew">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="[Level]" Member="Level" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Priority" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Index]" Member="Index" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Association Name="GroupNew_New" Member="News" ThisKey="Id" OtherKey="GroupNewsId" Type="New" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GroupSupport" Member="GroupSupports">
+    <Type Name="GroupSupport">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Import" Member="Imports">
+    <Type Name="Import">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="WareHouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TotalMoney" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="idate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ImportDetail" Member="ImportDetails">
+    <Type Name="ImportDetail">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ImportId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Money" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Language" Member="Languages">
+    <Type Name="Language">
+      <Column Name="Id" Type="System.String" DbType="VarChar(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Folder" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="[Default]" Member="Default" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Library" Member="Libraries">
+    <Type Name="Library">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="[File]" Member="File" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Info" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Priority" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GroupLibraryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MemberId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Association Name="GroupLibrary_Library" Member="GroupLibrary" ThisKey="GroupLibraryId" OtherKey="Id" Type="GroupLibrary" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="Member_Library" Member="Member" ThisKey="MemberId" OtherKey="Id" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Link" Member="Links">
+    <Type Name="Link">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Line1" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Line2" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Link1" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+      <Column Name="Link2" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+      <Column Name="Position" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Member" Member="Members">
+    <Type Name="Member">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="GroupMemberId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Member_Document" Member="Documents" ThisKey="Id" OtherKey="MemberId" Type="Document" />
+      <Association Name="Member_Library" Member="Libraries" ThisKey="Id" OtherKey="MemberId" Type="Library" />
+      <Association Name="GroupMember_Member" Member="GroupMember" ThisKey="GroupMemberId" OtherKey="Id" Type="GroupMember" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.News" Member="News">
+    <Type Name="New">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Detail" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Priority" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Index]" Member="Index" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GroupNewsId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Association Name="GroupNew_New" Member="GroupNew" ThisKey="GroupNewsId" OtherKey="Id" Type="GroupNew" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Page" Member="Pages">
+    <Type Name="Page">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="Detail" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="[Level]" Member="Level" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+      <Column Name="Target" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="[Index]" Member="Index" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Position" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Association Name="Page_Advertise" Member="Advertises" ThisKey="Id" OtherKey="PageId" Type="Advertise" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Prices" Member="Prices">
+    <Type Name="Price">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PriceFrom" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PriceTo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProColor" Member="ProColors">
+    <Type Name="ProColor">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ColorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Color_ProColor" Member="Color" ThisKey="ColorId" OtherKey="Id" Type="Color" IsForeignKey="true" />
+      <Association Name="Product_ProColor" Member="Product" ThisKey="ProId" OtherKey="Id" Type="Product" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Product" Member="Products">
+    <Type Name="Product">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Detail" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Priority" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="[Index]" Member="Index" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CatId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CatL2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="BrandId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PiceOld" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Image1" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Image2" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Image3" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Image4" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="SpTon" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Codepro" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateBegin" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateEnd" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[View]" Member="View" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Product_ProColor" Member="ProColors" ThisKey="Id" OtherKey="ProId" Type="ProColor" />
+      <Association Name="Product_ProSize" Member="ProSizes" ThisKey="Id" OtherKey="ProId" Type="ProSize" />
+      <Association Name="Category_Product" Member="Category" ThisKey="CatId" OtherKey="Id" Type="Category" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProImages" Member="ProImages">
+    <Type Name="ProImage">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProPrices" Member="ProPrices">
+    <Type Name="ProPrice">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PriceImport" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PriceExport" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="GiaBanSi" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="GiaBanLe" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PricePromotion" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DateBegin" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateEnd" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProSize" Member="ProSizes">
+    <Type Name="ProSize">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SizeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Product_ProSize" Member="Product" ThisKey="ProId" OtherKey="Id" Type="Product" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="Size_ProSize" Member="Size" ThisKey="SizeId" OtherKey="Id" Type="Size" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Province" Member="Provinces">
+    <Type Name="Province">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="Province_Company" Member="Companies" ThisKey="Id" OtherKey="ProvinceId" Type="Company" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Shop" Member="Shops">
+    <Type Name="Shop">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="CompanyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="DateBegin" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateEnd" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Company_Shop" Member="Company" ThisKey="CompanyId" OtherKey="id" Type="Company" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Sizes" Member="Sizes">
+    <Type Name="Size">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Des" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Association Name="Size_ProSize" Member="ProSizes" ThisKey="Id" OtherKey="SizeId" Type="ProSize" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Supplier" Member="Suppliers">
+    <Type Name="Supplier">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Website" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Contact" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="[National]" Member="National" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Support" Member="Supports">
+    <Type Name="Support">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Tel" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Nick" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GroupSupportId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="Location" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbBill_customers" Member="tbBill_customers">
+    <Type Name="tbBill_customer">
+      <Column Name="billid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="userid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="totalmoney" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="idate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="xdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="request" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="typepay" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="state" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="lang" Type="System.String" DbType="Char(3)" CanBeNull="true" />
+      <Column Name="show" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tbBill_customer_tbBilldetail" Member="tbBilldetails" ThisKey="billid" OtherKey="bilid" Type="tbBilldetail" />
+      <Association Name="tbCUSTOMER_tbBill_customer" Member="tbCUSTOMER" ThisKey="userid" OtherKey="iusid" Type="tbCUSTOMER" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbBilldetail" Member="tbBilldetails">
+    <Type Name="tbBilldetail">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="bilid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="proid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sizeid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="colorid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="bilprice" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="bilpricevnd" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="bilmoney" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="billlocation" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tbBill_customer_tbBilldetail" Member="tbBill_customer" ThisKey="bilid" OtherKey="billid" Type="tbBill_customer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbCUSTOMERS" Member="tbCUSTOMERs">
+    <Type Name="tbCUSTOMER">
+      <Column Name="iusid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="vusername" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="vpassword" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="vcusname" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="dbirthday" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="vprovince" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="vaddress" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="vphone" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vmobile" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vemail" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="dcreatedate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="istatus" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Association Name="tbCUSTOMER_tbBill_customer" Member="tbBill_customers" ThisKey="iusid" OtherKey="userid" Type="tbBill_customer" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbRecipient" Member="tbRecipients">
+    <Type Name="tbRecipient">
+      <Column Name="ireid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="iusid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="vcusname" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="dbirthday" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="vprovince" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="vaddress" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="vphone" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vmobile" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vemail" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="dcreatedate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="istatus" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="[Level]" Member="Level" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Admin" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserWareHouse" Member="UserWareHouses">
+    <Type Name="UserWareHouse">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WareHouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateReceive" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateLeave" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.sp_Advertise_Paging" Method="sp_Advertise_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Lang" Parameter="lang" Type="System.String" DbType="VarChar(5)" />
+    <ElementType Name="sp_Advertise_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Width" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Height" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Target" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Position" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="PageId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Click" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Advertise_Phantrang" Method="sp_Advertise_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Page_Paging" Method="sp_Page_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Lang" Parameter="lang" Type="System.String" DbType="VarChar(5)" />
+    <ElementType Name="sp_Page_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="Detail" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="[Level]" Member="Level" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+      <Column Name="Target" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="[Index]" Member="Index" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Position" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Page_Phantrang" Method="sp_Page_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Brands_Paging" Method="sp_Brands_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Lang" Parameter="lang" Type="System.String" DbType="VarChar(5)" />
+    <ElementType Name="sp_Brands_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="Logo" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Brands_Phantrang" Method="sp_Brands_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Category_Paging" Method="sp_Category_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Lang" Parameter="lang" Type="System.String" DbType="VarChar(5)" />
+    <ElementType Name="sp_Category_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="[Level]" Member="Level" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Priority" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="[Index]" Member="Index" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="Image2" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Category_Phantrang" Method="sp_Category_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Colors_Paging" Method="sp_Colors_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Lang" Parameter="lang" Type="System.String" DbType="VarChar(5)" />
+    <ElementType Name="sp_Colors_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Img" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Colors_Phantrang" Method="sp_Colors_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_CommentProduc_Paging" Method="sp_CommentProduc_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_CommentProduc_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Point" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_CommentProduc_Phantrang" Method="sp_CommentProduc_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Company_Paging" Method="sp_Company_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_Company_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ProvinceId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Company_Phantrang" Method="sp_Company_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Contact_Paging" Method="sp_Contact_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Lang" Parameter="lang" Type="System.String" DbType="VarChar(5)" />
+    <ElementType Name="sp_Contact_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Company" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Tel" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Mail" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Detail" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Contact_Phantrang" Method="sp_Contact_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_GroupLibrary_Paging" Method="sp_GroupLibrary_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Lang" Parameter="lang" Type="System.String" DbType="VarChar(5)" />
+    <ElementType Name="sp_GroupLibrary_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="[Level]" Member="Level" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_GroupLibrary_Phantrang" Method="sp_GroupLibrary_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_GroupNews_Paging" Method="sp_GroupNews_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Lang" Parameter="lang" Type="System.String" DbType="VarChar(5)" />
+    <ElementType Name="sp_GroupNews_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="[Level]" Member="Level" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Priority" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Index]" Member="Index" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_GroupNews_Phantrang" Method="sp_GroupNews_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_GroupSupport_Paging" Method="sp_GroupSupport_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Lang" Parameter="lang" Type="System.String" DbType="VarChar(5)" />
+    <ElementType Name="sp_GroupSupport_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_GroupSupport_Phantrang" Method="sp_GroupSupport_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Library_Paging" Method="sp_Library_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Lang" Parameter="lang" Type="System.String" DbType="VarChar(5)" />
+    <ElementType Name="sp_Library_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="[File]" Member="File" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Info" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Priority" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GroupLibraryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MemberId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Library_Phantrang" Method="sp_Library_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_ProColor_Paging" Method="sp_ProColor_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_ProColor_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ColorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_ProColor_Phantrang" Method="sp_ProColor_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_ProSize_Paging" Method="sp_ProSize_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_ProSize_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SizeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_ProSize_Phantrang" Method="sp_ProSize_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Province_Paging" Method="sp_Province_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_Province_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Province_Phantrang" Method="sp_Province_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Shop_Paging" Method="sp_Shop_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_Shop_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="CompanyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Shop_Phantrang" Method="sp_Shop_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Sizes_Paging" Method="sp_Sizes_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Lang" Parameter="lang" Type="System.String" DbType="VarChar(5)" />
+    <ElementType Name="sp_Sizes_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Des" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Sizes_Phantrang" Method="sp_Sizes_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Support_Paging" Method="sp_Support_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Lang" Parameter="lang" Type="System.String" DbType="VarChar(5)" />
+    <ElementType Name="sp_Support_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Tel" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Nick" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GroupSupportId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="Location" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Support_Phantrang" Method="sp_Support_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_User_Paging" Method="sp_User_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_User_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="[Level]" Member="Level" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Admin" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_User_Phantrang" Method="sp_User_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_News_Paging" Method="sp_News_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Lang" Parameter="lang" Type="System.String" DbType="VarChar(5)" />
+    <ElementType Name="sp_News_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Detail" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Priority" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Index]" Member="Index" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GroupNewsId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_News_Phantrang" Method="sp_News_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_tbCUSTOMERS_Paging" Method="sp_tbCUSTOMERS_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_tbCUSTOMERS_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="iusid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="vusername" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="vpassword" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="vcusname" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="dbirthday" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="vprovince" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="vaddress" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="vphone" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vmobile" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vemail" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="dcreatedate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="istatus" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_tbCUSTOMERS_Phantrang" Method="sp_tbCUSTOMERS_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_tbRecipient_Paging" Method="sp_tbRecipient_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_tbRecipient_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="ireid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="iusid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="vcusname" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="dbirthday" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="vprovince" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="vaddress" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="vphone" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vmobile" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vemail" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="dcreatedate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="istatus" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_tbRecipient_Phantrang" Method="sp_tbRecipient_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_tbBilldetail_Paging" Method="sp_tbBilldetail_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_tbBilldetail_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="bilid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="proid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sizeid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="colorid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="bilprice" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="bilpricevnd" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="bilmoney" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="billlocation" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_tbBilldetail_Phantrang" Method="sp_tbBilldetail_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_tbBill_customers_Paging" Method="sp_tbBill_customers_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Lang" Parameter="lang" Type="System.String" DbType="VarChar(5)" />
+    <ElementType Name="sp_tbBill_customers_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="billid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="userid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="totalmoney" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="idate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="xdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="request" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="typepay" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="state" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="lang" Type="System.String" DbType="Char(3)" CanBeNull="true" />
+      <Column Name="show" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_tbBill_customers_Phantrang" Method="sp_tbBill_customers_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_WareHouse_Paging" Method="sp_WareHouse_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_WareHouse_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_WareHouse_Phantrang" Method="sp_WareHouse_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Supplier_Paging" Method="sp_Supplier_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Lang" Parameter="lang" Type="System.String" DbType="VarChar(5)" />
+    <ElementType Name="sp_Supplier_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Website" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Contact" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="[National]" Member="National" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Supplier_Phantrang" Method="sp_Supplier_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_GroupMember_Paging" Method="sp_GroupMember_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Lang" Parameter="lang" Type="System.String" DbType="VarChar(5)" />
+    <ElementType Name="sp_GroupMember_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_GroupMember_Phantrang" Method="sp_GroupMember_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Member_Paging" Method="sp_Member_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Lang" Parameter="lang" Type="System.String" DbType="VarChar(5)" />
+    <ElementType Name="sp_Member_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="GroupMemberId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Member_Phantrang" Method="sp_Member_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Product_GetByTop" Method="sp_Product_GetByTop">
+    <Parameter Name="Top" Parameter="top" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(200)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Product_Phantrang" Method="sp_Product_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Product_Paging" Method="sp_Product_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Lang" Parameter="lang" Type="System.String" DbType="VarChar(5)" />
+    <ElementType Name="sp_Product_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Detail" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Priority" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="[Index]" Member="Index" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CatId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CatL2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lang" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="BrandId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PiceOld" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Image1" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Image2" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Image3" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Image4" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="SpTon" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Codepro" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateBegin" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateEnd" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[View]" Member="View" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Product_SearchByCat" Method="sp_Product_SearchByCat">
+    <Parameter Name="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Product_Search" Method="sp_Product_Search">
+    <Parameter Name="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="ord" Type="System.String" DbType="NVarChar(200)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Import_GetByTop" Method="sp_Import_GetByTop">
+    <Parameter Name="Top" Parameter="top" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(200)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Import_Paging" Method="sp_Import_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_Import_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="WareHouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TotalMoney" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="idate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Import_Phantrang" Method="sp_Import_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Export_GetByTop" Method="sp_Export_GetByTop">
+    <Parameter Name="Top" Parameter="top" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(200)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Export_Paging" Method="sp_Export_Paging">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_Export_PagingResult">
+      <Column Name="RowNum" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="WareHouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CusName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TotalMoney" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="xdate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Ord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Export_Phantrang" Method="sp_Export_Phantrang">
+    <Parameter Name="CurentPage" Parameter="curentPage" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="PageSize" Parameter="pageSize" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Where" Parameter="where" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Order" Parameter="order" Type="System.String" DbType="NVarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>

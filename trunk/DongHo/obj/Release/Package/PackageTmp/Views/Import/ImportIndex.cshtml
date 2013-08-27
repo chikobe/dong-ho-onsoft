@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Quản lý phiếu nhập";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+@{Html.RenderAction("_search", "Import");}
+@using (Html.BeginForm("MultiDelete", "Import", FormMethod.Post))
+{
+    <div class="Control">
+        <ul>
+            <li>@Html.ActionLink("Thêm mới", "ImportCreate", "", new { @class = "vadd" })</li>
+            <li><input type="submit" value="Xóa" class="mulDel" /></li>
+            <li>@Html.ActionLink("Làm mới", "ImportIndex", "", new { @class = "vrefresh" })</li>
+        </ul>
+    </div>
+    <table class="TableView" border="1" id="myTable">
+        <tr class="trHeader">
+            <th class="CheckBoxsmall"><input type="checkbox" onclick="Javascript: chkSelectAll_OnClick(this)" id="chkSelectAll" /></th>
+            <th class="Text">Tên kho nhập</th>
+            <th class="Text">Tên người nhập</th>
+            <th class="Text">Nhà cung cấp</th>
+            <th class="Number">Tổng tiền</th>
+            <th class="DateTimesmal">Ngày nhập</th>
+            <th class="Function">Chức năng</th>
+        </tr>
+        @Html.Raw(ViewBag.View)
+    </table>
+    @Html.Raw(ViewBag.Pager)
+    <div class="Control">
+        <ul>
+            <li>@Html.ActionLink("Thêm mới", "ImportCreate", "", new { @class = "vadd" })</li>
+            <li><input type="submit" value="Xóa" class="mulDel" /></li>
+            <li>@Html.ActionLink("Làm mới", "ImportIndex", "", new { @class = "vrefresh" })</li>
+        </ul>
+    </div>
+}

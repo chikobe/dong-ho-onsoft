@@ -1,0 +1,70 @@
+﻿@model IList<DongHo.Models.sp_Shop_PagingResult>
+@{
+    ViewBag.Title = "Quản lý cửa hàng";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm("MultiDelete", "Shop", FormMethod.Post))
+{
+    <div class="Control">
+        <ul>
+            <li>@Html.ActionLink("Thêm mới", "ShopCreate", "", new { @class = "vadd" })</li>
+            <li><input type="submit" value="Xóa" class="mulDel" /></li>
+            <li>@Html.ActionLink("Làm mới", "ShopIndex", "", new { @class = "vrefresh" })</li>
+            <li> 
+                <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a> 
+            </li>
+        </ul>
+    </div>
+    <table class="TableView" border="1" id="myTable">
+        <tr class="trHeader">
+            <th class="CheckBoxsmall"><input type="checkbox" onclick="Javascript: chkSelectAll_OnClick(this)" id="chkSelectAll" /></th>
+            <th class="Text">Tên cửa hàng</th>
+            <th class="Text">Địa chỉ</th>
+            <th class="Number">Di động</th>
+            <th class="Function">Chức năng</th>
+        </tr>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            if (i % 2 == 0)
+            {
+                <tr id="trOdd_@i" class="trOdd" onmousemove="Javascript:chkSelect_OnMouseMove(this)" onmouseout="Javascript:chkSelect_OnMouseOut(this,@i)">
+                    <td class="CheckBoxsmall">@Html.CheckBox("chk" + Model[i].id, new { id = "chkSelect", onclick = "Javascript:chkSelect_OnClick(this,0)", @class="chk" })</td>
+                    <td class="Text">@Model[i].Name</td>
+                    <td class="Text">@Model[i].Address</td>
+                    <td class="Number">@Model[i].PhoneNumber</td>
+                    <td class="Function">
+                         @Html.ActionLink("Sửa", "ShopEdit", new { id = Model[i].id }, new { @class = "vedit" }) @Html.ActionLink("Xóa", "ShopDelete", new { id = Model[i].id }, new { @onclick = "DeleteConfirm()", @class = "vdelete" })
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr id="trEven_@i" class="trEven" onmousemove="Javascript:chkSelect_OnMouseMove(this)" onmouseout="Javascript:chkSelect_OnMouseOut(this,@i)">
+                    <td class="CheckBoxsmall">@Html.CheckBox("chk" + Model[i].id, new { id = "chkSelect", onclick = "Javascript:chkSelect_OnClick(this,0)", @class="chk" })</td>
+                    <td class="Text">@Model[i].Name</td>
+                    <td class="Text">@Model[i].Address</td>
+                    <td class="Number">@Model[i].PhoneNumber</td>
+                    <td class="Function">
+                         @Html.ActionLink("Sửa", "ShopEdit", new { id = Model[i].id }, new { @class = "vedit" }) @Html.ActionLink("Xóa", "ShopDelete", new { id = Model[i].id }, new { @onclick = "DeleteConfirm()", @class = "vdelete" })
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+    if(Model.Count>0)
+    {
+        @Html.Raw(ViewBag.Pager)
+    }
+    <div class="Control">
+        <ul>
+            <li>@Html.ActionLink("Thêm mới", "ShopCreate", "", new { @class = "vadd" })</li>
+            <li><input type="submit" value="Xóa" class="mulDel" /></li>
+            <li>@Html.ActionLink("Làm mới", "ShopIndex", "", new { @class = "vrefresh" })</li>
+            <li> 
+                <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a> 
+            </li>
+        </ul>
+    </div>
+}

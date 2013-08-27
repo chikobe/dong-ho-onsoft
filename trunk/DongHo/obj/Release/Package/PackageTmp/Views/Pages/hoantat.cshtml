@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "hoantat";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+    <meta http-equiv="Refresh" content="3 ; URL=/Home/Index"/>
+}
+
+<div class="content">
+    <div class="content-left">
+        <div class="xacnhan">
+            <h3>Bạn đã tạo tài khoản thành công!</h3>
+            <p>Hệ thống sẽ gửi hướng dẫn kích hoạt tài khoản với tiêu đề "Yêu cầu kích hoạt tài khoản tại DongHo" vào hòm thư của bạn.</p>
+            <p>Bạn vui lòng chờ ít phút rồi kiểm tra và làm theo hướng dẫn trong mail này để kích hoạt tài khoản và hoàn tất quá trình đăng kí.</p>
+        </div>
+    </div>
+    <div class="content-right">
+        @Html.Raw(ViewBag.Spnb)
+    </div>
+</div>

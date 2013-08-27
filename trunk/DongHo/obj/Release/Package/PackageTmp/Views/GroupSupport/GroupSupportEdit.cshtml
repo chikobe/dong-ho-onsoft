@@ -1,0 +1,52 @@
+﻿@model DongHo.Models.GroupSupport
+@{
+    ViewBag.Title = "Sửa nhóm hỗ trợ";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+@using(Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <table class="TableUpdate" border="1">
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở về","GroupSupportIndex","", new {@class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th>Tên nhóm hỗ trợ</th>
+            <td>
+                @Html.TextBoxFor(model => model.Name, new {@class="text"})
+                @Html.ValidationMessageFor(m=>m.Name)
+            </td>
+        </tr>
+          <tr>
+            <th>Thứ tự</th>
+            <td>
+                @Html.TextBoxFor(model => model.Ord, new {@class="text", @onkeypress="OnlyInputNumber(0)"})
+                @Html.ValidationMessageFor(m=>m.Ord)
+            </td>
+        </tr>
+        <tr>
+            <th>Kích hoạt</th>
+            <td>@Html.CheckBox("Actives",(Model.Active==1)?true:false)</td>
+        </tr>
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở về","GroupSupportIndex","", new {@class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+            
+
+
+    </table>
+    
+    
+}

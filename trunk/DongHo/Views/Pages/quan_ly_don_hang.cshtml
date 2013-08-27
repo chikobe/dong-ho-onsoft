@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "quan_ly_don_hang";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+<div class="pathway">
+    <a href="/Home/Index">Trang chủ</a><a href="/Pages/edit_info">Đổi mật khẩu</a>
+</div>
+<div class="content">
+    <div class="content-small">
+        @{Html.RenderAction("colFunctionCus", "Pages");}
+    </div>
+    <div class="content-big">
+        <h2>Thông tin tài khoản</h2>
+        @using (Html.BeginForm("quan_ly_don_hang", "Pages", FormMethod.Post))
+        {
+        <div class="InfoAcc">
+            <table class="tbBill" style="margin:20px 0">
+                <tr>
+                    <th>STT</th>
+                    <th>Mã đơn hàng</th>
+                    <th>Ngày đặt</th>
+                    <th>Người nhận</th>
+                    <th>Thanh toán</th>
+                    <th>Trạng thái</th>
+                    <th></th>
+                </tr>
+                @Html.Raw(ViewBag.View)
+                @*<tr>
+                    <td>1</td>
+                    <td>12</td>
+                    <td>11/11/1111</td>
+                    <td>Nguyễn Kim CHi</td>
+                    <td>100.000 VNĐ</td>
+                    <td>Hoàn thành</td>
+                    <td><a href="/Pages/chitiet">Chi tiết</a></td>
+                </tr>*@
+            </table>
+        </div>
+        }
+    </div>
+</div>
