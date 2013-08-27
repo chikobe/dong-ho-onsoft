@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+<div class="content1" id="viewHome">
+<div class="viewType">
+    @if (Session["Type"]=="1")
+    {
+        <p class="activeViewType">Hot nhất</p>
+        <p class="btnViewType">Sản phẩm mới nhất</p>
+        <p class="btnViewType">Xem nhiều</p>
+        <p class="btnViewType">Mua nhiều</p>
+        <p class="btnViewType">Giảm giá nhiều</p>
+    }
+    else if (Session["Type"]=="2")
+    {
+        <p class="btnViewType">Hot nhất</p>
+        <p class="activeViewType">Sản phẩm mới nhất</p>
+        <p class="btnViewType">Xem nhiều</p>
+        <p class="btnViewType">Mua nhiều</p>
+        <p class="btnViewType">Giảm giá nhiều</p>
+    }
+    else if (Session["Type"]=="3")
+    {
+        <p class="btnViewType">Hot nhất</p>
+        <p class="btnViewType">Sản phẩm mới nhất</p>
+        <p class="activeViewType">Xem nhiều</p>
+        <p class="btnViewType">Mua nhiều</p>
+        <p class="btnViewType">Giảm giá nhiều</p>
+    }
+    else if (Session["Type"]=="4")
+    {
+        <p class="btnViewType">Hot nhất</p>
+        <p class="btnViewType">Sản phẩm mới nhất</p>
+        <p class="btnViewType">Xem nhiều</p>
+        <p class="activeViewType">Mua nhiều</p>
+        <p class="btnViewType">Giảm giá nhiều</p>
+    }
+    else if (Session["Type"]=="5")
+    {
+        <p class="btnViewType">Hot nhất</p>
+        <p class="btnViewType">Sản phẩm mới nhất</p>
+        <p class="btnViewType">Xem nhiều</p>
+        <p class="btnViewType">Mua nhiều</p>
+        <p class="activeViewType">Giảm giá nhiều</p>
+    }
+    <div class="support1">
+        @Html.Raw(ViewBag.Support)
+        @*<p><a href="ymsgr:sendIM?0123456789"><img src="http://opi.yahoo.com/online?u=0987654321&amp;m=g&amp;t=1 border=0" /></a><a href="ymsgr:sendIM?0123456789"><img src="http://opi.yahoo.com/online?u=0987654321&amp;m=g&amp;t=1 border=0" /></a><a href="skype:tuanvdos?chat"><img src="HTTP://MYSTATUS.SKYPE.COM/smallclassic/tuanvdos" /></a><a href="skype:tuanvdos?chat"><img src="HTTP://MYSTATUS.SKYPE.COM/smallclassic/tuanvdos" /></a></p>
+        <p class="hotline">Hotline: <span>09876544321</span></p>*@
+    </div>
+</div>
+    
+<div class="clear"></div>
+<div class="box-pro">
+    @Html.Raw(ViewBag.View)
+</div>
+</div>
+<div class="pages"></div>
+<script type="text/javascript">
+    $(function () {
+        var perPage = 16;
+        var opened = 1;
+        var onClass = 'on';
+        var paginationSelector = '.pages';
+        $('.box-pro').simplePagination(perPage, opened, onClass, paginationSelector);
+    });
+</script>
+@*<script type="text/javascript">
+    function gotoPage(page) {
+        debugger
+        arr_url = page.split('#');
+        var page = arr_url[1];
+        $.ajax({
+            type: "GET",
+            url: "/Home/Index/?type=&ajax&page=" + page + "",
+            success: function (response_text) {
+                $(".boxpage").html(response_text);
+            }
+        });
+    }
+    $('.page_span a').click(function () {
+        var page = $(this).attr("href");
+        gotoPage(page);
+    });
+</script>*@

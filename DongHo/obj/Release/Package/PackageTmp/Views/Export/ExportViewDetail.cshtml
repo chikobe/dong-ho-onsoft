@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "ExportViewDetail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="ImportDetail">
+    <div class="Control">
+        <ul>
+            <li>@Html.ActionLink("Trở lại", "ExportIndex", "", new { @class="uback"})</li>
+            @*<li>@Html.ActionLink("In phiếu nhập", "ExportIndex", "", new { @class="uback"})</li>*@
+        </ul>
+    </div>
+    @Html.Raw(ViewBag.View)
+    <div class="Control">
+        <ul>
+            <li>@Html.ActionLink("Trở lại", "ExportIndex", "", new { @class="uback"})</li>
+            @*<li>@Html.ActionLink("In phiếu nhập", "ExportIndex", "", new { @class="uback"})</li>*@
+        </ul>
+    </div>
+</div>

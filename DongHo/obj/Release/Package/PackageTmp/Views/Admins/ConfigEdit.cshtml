@@ -1,0 +1,91 @@
+﻿@model DongHo.Models.Config
+@{
+    ViewBag.Title = "Cấu hình trang web";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+@using(Html.BeginForm())
+{
+<table class="TableUpdate" border="1">
+    <tr>
+        <td colspan="2" class="Control">
+            <ul>
+                <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                <li> 
+                    <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a> 
+                </li>
+            </ul>
+        </td>
+    </tr>
+    <tr> 
+        <th>Máy chủ gửi mail: </th>
+        <td>@Html.TextBoxFor(m => m.Mail_Smtp, new { @class="text"})</td>
+    </tr>
+    <tr> 
+        <th>Cổng gửi mail: </th>
+        <td>@Html.TextBoxFor(m=>m.Mail_Port, new { @class="text"})</td>
+    </tr>
+    <tr> 
+        <th>Mail nhận liên hệ: </th>
+        <td>@Html.TextBoxFor(m=>m.Mail_Info, new { @class="text"})</td>
+    </tr>
+    <tr> 
+        <th>Mail gửi thông tin: </th>
+        <td>@Html.TextBoxFor(m=>m.Mail_Noreply, new { @class="text"})</td>
+    </tr>
+    <tr> 
+        <th>Mật khẩu mail gửi: </th>
+        <td><input type="password" class="text" id="Mail_Password" name="Mail_Password" /></td>
+        @*<td>@Html.TextBoxFor(m=>m.Mail_Password, new { @class="text"})</td>*@
+    </tr>
+    <tr> 
+        <th>Thông tin copyright: </th>
+        <td>@Html.TextArea("Copyright")</td>
+    </tr>
+    <tr> 
+        <th>Title meta: </th>
+        <td>@Html.TextAreaFor(m=>m.Title, new { @class="multiline"})</td>
+    </tr>
+    <tr> 
+        <th>Description meta: </th>
+        <td>@Html.TextAreaFor(m=>m.Description, new { @class="multiline"})</td>
+    </tr>
+    <tr> 
+        <th>Keyword meta: </th>
+        <td>@Html.TextAreaFor(m => m.Keyword, new { @class="multiline"})</td></tr>
+    <tr>
+        <td colspan="2" class="Control">
+            <ul>
+                <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                <li> 
+                    <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a> 
+                </li>
+            </ul>
+        </td>
+    </tr>
+</table>
+}
+<script language="javascript" type="text/javascript">
+    $(function () {
+        $("#SelectImages").click(function () {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                $("#Image").val(fileUrl);
+            };
+            finder.popup();
+        });
+    });
+</script>
+<script type="text/javascript">
+    var editor;
+    function createEditor(languageCode, id) {
+        var editor = CKEDITOR.replace(id, {
+            language: languageCode
+        });
+    }
+
+    $(function () {
+        createEditor('vi', 'Copyright');
+    });
+</script>

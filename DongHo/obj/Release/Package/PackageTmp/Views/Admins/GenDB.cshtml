@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "GenDB";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>GenDB</h2>
+@using(Html.BeginForm())
+{
+<div class="gendb">
+    @Html.TextArea("txtGen", new { cols="70", rows="20"})
+    <input type="submit" value="Thực hiện" />
+    <p>@Html.Raw(ViewBag.Alert)</p>
+</div>
+}

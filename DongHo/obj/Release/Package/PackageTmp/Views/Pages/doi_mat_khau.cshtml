@@ -1,0 +1,41 @@
+﻿@model DongHo.ViewModels.CustomerForm.ChangePass
+@{
+    ViewBag.Title = "doi_mat_khau";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+<div class="pathway">
+    <a href="/Home/Index">Trang chủ</a><a href="/Pages/edit_info">Đổi mật khẩu</a>
+</div>
+<div class="content">
+    <div class="content-small">
+        @{Html.RenderAction("colFunctionCus", "Pages");}
+    </div>
+    <div class="content-big">
+        <h2>Thông tin tài khoản</h2>
+        @using (Html.BeginForm("doi_mat_khau", "Pages", FormMethod.Post))
+        {
+        <div class="InfoAcc">
+            <p style="color:red; margin:10px;">@ViewBag.Err</p>
+            <table class="tbEditInfo">
+                <tr>
+                    <th>Mật khẩu cũ</th>
+                    <td>@Html.TextBox("Pass","", new { type="password"})</td>
+                    <td>@Html.ValidationMessageFor(m=>m.Pass)</td>
+                </tr>
+                <tr>
+                    <th>Mật khẩu mới</th>
+                    <td>@Html.TextBox("NewPass","", new { type="password"})</td>
+                    <td>@Html.ValidationMessageFor(m=>m.NewPass)</td>
+                </tr>
+                <tr>
+                    <th>Nhập lại mật khẩu mới</th>
+                    <td>@Html.TextBox("ReNewPass","", new { type="password"})</td>
+                    <td>@Html.ValidationMessageFor(m=>m.ReNewPass)</td>
+                </tr>
+            </table>
+            <input type="submit" value="Cập nhật" class="btnSubmit" />
+        </div>
+        }
+    </div>
+</div>

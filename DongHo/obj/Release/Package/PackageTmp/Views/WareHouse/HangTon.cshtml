@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Thống kê hàng tồn kho";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+<div class="Control">
+    <ul>
+        <li>@Html.ActionLink("Làm mới", "HangTon", "", new { @class = "vrefresh" })</li>
+        <li><a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a></li>
+    </ul>
+</div>
+<table class="TableView" border="1" id="myTable">
+    <tr class="trHeader">
+        <th class="NumberM">STT</th>
+        <th class="Text">Tên sản phẩm</th>
+        <th class="Number">Tổng lượng tồn</th>
+        <th class="Function">Chức năng</th>
+    </tr>
+    @Html.Raw(ViewBag.View)
+</table>
+<div class="Control">
+    <ul>
+        <li>@Html.ActionLink("Làm mới", "HangTon", "", new { @class = "vrefresh" })</li>
+        <li><a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a></li>
+    </ul>
+</div>

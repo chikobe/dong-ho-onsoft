@@ -1,0 +1,74 @@
+﻿@model IList<DongHo.Models.sp_tbCUSTOMERS_PagingResult>
+@{
+    ViewBag.Title = "Quản lý thông tin khách hàng";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm("MultiDelete", "tbCUSTOMERS", FormMethod.Post))
+{
+    <div class="Control">
+        <ul>
+            <li><input type="submit" value="Xóa" class="mulDel" /></li>
+            <li>@Html.ActionLink("Làm mới", "tbCUSTOMERSIndex", "", new { @class = "vrefresh" })</li>
+            <li> 
+                <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a> 
+            </li>
+        </ul>
+    </div>
+    <table class="TableView" border="1" id="myTable">
+        <tr class="trHeader">
+            <th class="CheckBoxsmall"><input type="checkbox" onclick="Javascript: chkSelectAll_OnClick(this)" id="chkSelectAll" /></th>
+            <th>Họ tên</th>
+            <th>Ngày sinh</th>
+            <th>Tỉnh</th>
+            <th>Địa chỉ</th>
+            <th>Điện thoại</th>
+            <th>Email</th>
+            <th>Chức năng</th>
+        </tr>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            if (i % 2 == 0)
+            {
+                <tr id="trOdd_@i" class="trOdd" onmousemove="Javascript:chkSelect_OnMouseMove(this)" onmouseout="Javascript:chkSelect_OnMouseOut(this,@i)">
+                    <td class="CheckBoxsmall">@Html.CheckBox("chk" + Model[i].iusid, new { id = "chkSelect", onclick = "Javascript:chkSelect_OnClick(this,0)", @class="chk" })</td>
+                    <td class="Text">@Model[i].vcusname</td>
+                    <td class="DateTime">@Model[i].dbirthday</td>
+                    <td class="Text">@Model[i].vprovince</td>
+                    <td class="Text">@Model[i].vaddress</td>
+                    <td class="Number">@Model[i].vphone</td>
+                    <td class="Text">@Model[i].vemail</td>
+                    <td class="Function">
+                        @Html.ActionLink("Sửa", "tbCUSTOMERSEdit", new { id = Model[i].iusid }, new { @class = "vedit" }) @Html.ActionLink("Xóa", "tbCUSTOMERSDelete", new { id = Model[i].iusid }, new { @onclick = "DeleteConfirm()", @class = "vdelete" })
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr id="trEven_@i" class="trEven" onmousemove="Javascript:chkSelect_OnMouseMove(this)" onmouseout="Javascript:chkSelect_OnMouseOut(this,@i)">
+                    <td class="CheckBoxsmall">@Html.CheckBox("chk" + Model[i].iusid, new { id = "chkSelect", onclick = "Javascript:chkSelect_OnClick(this,0)", @class="chk" })</td>
+                    <td class="Text">@Model[i].vcusname</td>
+                    <td class="DateTime">@Model[i].dbirthday</td>
+                    <td class="Text">@Model[i].vprovince</td>
+                    <td class="Text">@Model[i].vaddress</td>
+                    <td class="Number">@Model[i].vphone</td>
+                    <td class="Text">@Model[i].vemail</td>
+                    <td class="Function">
+                        @Html.ActionLink("Sửa", "tbCUSTOMERSEdit", new { id = Model[i].iusid }, new { @class = "vedit" }) @Html.ActionLink("Xóa", "tbCUSTOMERSDelete", new { id = Model[i].iusid }, new { @onclick = "DeleteConfirm()", @class = "vdelete" })
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+    @Html.Raw(ViewBag.Pager)
+    <div class="Control">
+        <ul>
+            <li><input type="submit" value="Xóa" class="mulDel" /></li>
+            <li>@Html.ActionLink("Làm mới", "tbCUSTOMERSIndex", "", new { @class = "vrefresh" })</li>
+            <li> 
+                <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a> 
+            </li>
+        </ul>
+    </div>
+}

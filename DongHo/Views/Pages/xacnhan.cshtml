@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "xacnhan";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+    <meta http-equiv="Refresh" content="3 ; URL=/Home/Index"/>
+}
+
+<div class="content">
+    <div class="content-left">
+        <div class="xacnhan">
+            <h2>Xác nhận đăng kí thành công</h2>
+            <h3>Bạn đã hoàn tất thủ tục đăng kí tại f1mua.com</h3>
+            <p>Mời bạn click vào <a href="/Home/Index">đây</a> để trở về trang chủ.</p>
+        </div>
+    </div>
+    <div class="content-right">
+        @Html.Raw(ViewBag.Spnb)
+    </div>
+</div>

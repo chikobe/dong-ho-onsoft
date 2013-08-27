@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "timkiem";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+<div class="content1">
+    <div class="content-small">
+        <div class="divSearchByCat">
+            @*<ul>
+                <li><a href="#">Đồng hồ cao cấp(123)</a></li>
+                <li><a href="#">Đồng hồ cao cấp</a></li>
+                <li><a href="#">Đồng hồ cao cấp</a></li>
+                <li><a href="#">Đồng hồ cao cấp</a></li>
+                <li><a href="#">Đồng hồ cao cấp</a></li>
+                <li><a href="#">Đồng hồ cao cấp</a></li>
+            </ul>*@
+            @Html.Raw(ViewBag.searchCat)
+        </div>
+        <div class="divSearchCheck">
+            @Html.Raw(ViewBag.searchPrice)
+            @*<ul>
+                <li><a href="#" class="check">Đồng hồ cao cấp(123)</a></li>
+                <li><a href="#">Đồng hồ cao cấp</a></li>
+                <li><a href="#">Đồng hồ cao cấp</a></li>
+                <li><a href="#">Đồng hồ cao cấp</a></li>
+                <li><a href="#">Đồng hồ cao cấp</a></li>
+                <li><a href="#">Đồng hồ cao cấp</a></li>
+            </ul>*@
+        </div>
+    </div>
+    <div class="content-big">
+        <div class="content-Search">
+            @*<p class="ketquaSearh">Có tổng cộng <span>230</span> kết quả phù hợp với từ khóa <span>Đồng hồ</span></p>
+            <div class="boxFuncSearch">
+                <p>Hiển thị từ 13 - 25 trong số 230 kết quả</p>
+                <div>
+                    <p>Hiển thị theo</p>
+                    <a href="#" class="iconGridView grid-view-click act">&nbsp;</a>
+                    <a href="#" class="iconListView list-view-click">&nbsp;</a>
+                </div>
+                <select>
+                    <option>Sắp xếp</option>
+                </select>
+                <div class="clear"></div>
+            </div>*@
+            @Html.Raw(ViewBag.groupFunc)
+            <div class="clear"></div>
+            <div class="gridview">
+                <div class="box-pro">
+                    @Html.Raw(ViewBag.viewGrid)
+                    @*<div class="div-pro">
+                        <a href="/sanpham/chitiet">
+                            <img src="~/Images/1.jpg" />
+                            <div class="titlePro">
+                                <p>đồng hồ cao cấp Gucci</p>
+                                <span class="require">100.000 VNĐ</span>
+                                <span class="oldPrice">100.000 VNĐ</span>
+                                <div class="hideTitlePro">
+                                    <span class="require">Giảm giá 20 %</span>
+                                    <div style="padding:8px;">fsdfsdfsdfsdfxvsg</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>*@
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="listview" style="display:none;">
+                @*<ul>*@
+                    @Html.Raw(ViewBag.viewList)
+                    @*<li class="clearfix">
+                        <a href="#"><img src="~/Images/1.jpg" class="fl"/></a>
+                        <div class="listDetail fl">
+                            <a href="#">đồng hồ cao cấp Gucci</a>
+                            <p>Thương hiệu: Gucci</p>
+                            <p>Tình trạng: còn hàng</p>
+                        </div>
+                        <div class="listprice fr">
+                            <p>Giá bán: <span>4.000.000 VNĐ</span></p>
+                            <p>Giá gốc: 3.000.000 VNĐ</p>
+                            <a href="javascript:;" class="btn-cart"><span><b>&nbsp;</b>Mua ngay</span></a>
+                        </div>
+                    </li>*@
+                @*</ul>*@
+            </div>
+           @* @Html.Raw(ViewBag.V)
+            <div class="pages"></div>
+            <script type="text/javascript">
+                $(function () {
+                    var perPage = 16;
+                    var opened = 1;
+                    var onClass = 'on';
+                    var paginationSelector = '.pages';
+                    $('.box-pro').simplePagination(perPage, opened, onClass, paginationSelector);
+                });
+            </script>*@
+            @Html.Raw(ViewBag.Pager)
+        </div>
+    </div>
+</div>

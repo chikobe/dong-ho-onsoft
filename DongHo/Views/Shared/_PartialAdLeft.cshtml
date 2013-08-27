@@ -1,0 +1,109 @@
+﻿<table class="tableAd">
+<tr>
+    <td class="left"><img alt="" src="/Images/blank.gif" /></td>
+    <td>Quản lý </td>
+    <td class="image"><img alt="" id="imgdiv1" src="/Images/closed.gif" onclick="toggleXPMenu('div1');"/></td>
+</tr>
+</table>
+<div id="div1" class="content">
+    <ul>
+        <li><img src="~/Content/imagesAdmin/icon_system.jpg" />@Html.ActionLink("Cấu hình","ConfigEdit","Admins")</li>
+        <li><img src="~/Content/imagesAdmin/icon_gnews.jpg" />@Html.ActionLink("Danh mục trang","PageIndex","Admins")</li>
+        <li><img src="~/Content/imagesAdmin/icon_adv.jpg" />@Html.ActionLink("Quảng cáo","AdvertiseIndex","Advertise")</li>
+    </ul>
+</div>
+
+<table class="tableAd">
+<tr>
+    <td class="left"><img alt="" src="/Images/blank.gif" /></td>
+    <td>Sản phẩm </td>
+    <td class="image"><img alt="" id="imgdiv2" src="/Images/closed.gif" onclick="toggleXPMenu('div2');"/></td>
+</tr>
+</table>
+<div id="div2" class="content">
+    <ul>
+        <li><img src="~/Content/imagesAdmin/icon_gnews.jpg" />@Html.ActionLink("Quản lý nhà cung cấp","SupplierIndex","Supplier")</li>
+        <li><img src="~/Content/imagesAdmin/icon_gnews.jpg" />@Html.ActionLink("Quản lý thương hiệu","BrandsIndex","Brands")</li>
+        <li><img src="~/Content/imagesAdmin/icon_gnews.jpg" />@Html.ActionLink("Danh sách nhóm sản phẩm","CategoryIndex","Category")</li>
+        <li><img src="~/Content/imagesAdmin/icon_news.jpg" />@Html.ActionLink("Danh sách sản phẩm","ProductIndex","Products")</li>
+        <li><img src="~/Content/imagesAdmin/icon_news.jpg" />@Html.ActionLink("Khoảng giá tìm kiếm","PricesIndex","Prices")</li>
+        <li><img src="~/Content/imagesAdmin/icon_news.jpg" />@Html.ActionLink("Quản lý khách hàng","tbCUSTOMERSIndex","tbCUSTOMERS")</li>
+        <li><img src="~/Content/imagesAdmin/icon_news.jpg" />@Html.ActionLink("Quản lý đơn hàng bán lẻ","tbBill_customersIndex","tbBill_customers")</li>
+        <li><img src="~/Content/imagesAdmin/icon_news.jpg" />@Html.ActionLink("Quản lý màu sắc","ColorIndex","Color")</li>
+        <li><img src="~/Content/imagesAdmin/icon_news.jpg" />@Html.ActionLink("Quản lý kích thước","SizeIndex","Size")</li>
+    </ul>
+</div>
+
+<table class="tableAd">
+<tr>
+    <td class="left"><img alt="" src="/Images/blank.gif" /></td>
+    <td>Quản lý chung </td>
+    <td class="image"><img alt="" id="imgdiv3" src="/Images/closed.gif" onclick="toggleXPMenu('div3');"/></td>
+</tr>
+</table>
+<div id="div3" class="content">
+    <ul>
+        <li><img src="~/Content/imagesAdmin/icon_news.jpg" />@Html.ActionLink("Quản lý cửa hàng","ShopIndex","Shop")</li>
+        <li><img src="~/Content/imagesAdmin/icon_news.jpg" />@Html.ActionLink("Quản lý kho hàng","WareHouseIndex","WareHouse")</li>
+        <li><img src="~/Content/imagesAdmin/icon_billing.jpg" />@Html.ActionLink("Quản lý phiếu nhập","ImportIndex","Import")</li>
+        <li><img src="~/Content/imagesAdmin/icon_billing.jpg" />@Html.ActionLink("Quản lý phiếu xuất","ExportIndex","Export")</li>
+        <li><img src="~/Content/imagesAdmin/icon_billing.jpg" />@Html.ActionLink("Thống kê hàng tồn kho","HangTon","WareHouse")</li>
+    </ul>
+</div>
+
+<table class="tableAd">
+<tr>
+    <td class="left"><img alt="" src="/Images/blank.gif" /></td>
+    <td>Nhân viên</td>
+    <td class="image"><img alt="" id="imgdiv7" src="/Images/closed.gif" onclick="toggleXPMenu('div7');"/></td>
+</tr>
+</table>
+<div id="div7" class="content">
+    <ul>
+        <li><img src="~/Content/imagesAdmin/icon_gnews.jpg" />@Html.ActionLink("Quản lý nhóm nhân viên","GroupMemberIndex","GroupMember")</li>
+        <li><img src="~/Content/imagesAdmin/icon_news.jpg" />@Html.ActionLink("Quản lý nhân viên","MemberIndex","Member")</li>
+    </ul>
+</div>
+
+<table class="tableAd">
+<tr>
+    <td class="left"><img alt="" src="/Images/blank.gif" /></td>
+    <td>Tin tức</td>
+    <td class="image"><img alt="" id="imgdiv5" src="/Images/closed.gif" onclick="toggleXPMenu('div5');"/></td>
+</tr>
+</table>
+<div id="div5" class="content">
+    <ul>
+        <li><img src="~/Content/imagesAdmin/icon_gnews.jpg" />@Html.ActionLink("Quản lý nhóm tin","GroupNewIndex","GroupNew")</li>
+        <li><img src="~/Content/imagesAdmin/icon_news.jpg" />@Html.ActionLink("Quản lý tin","NewsIndex","News")</li>
+    </ul>
+</div>
+
+<table class="tableAd">
+<tr>
+    <td class="left"><img alt="" src="/Images/blank.gif" /></td>
+    <td>Hỗ trợ </td>
+    <td class="image"><img alt="" id="imgdiv6" src="/Images/closed.gif" onclick="toggleXPMenu('div6');"/></td>
+</tr>
+</table>
+<div id="div6" class="content">
+    <ul>
+        <li><img src="~/Content/imagesAdmin/icon_gnews.jpg" />@Html.ActionLink("Quản lý nhóm hỗ trợ","GroupSupportIndex","GroupSupport")</li>
+        <li><img src="~/Content/imagesAdmin/icon_news.jpg" />@Html.ActionLink("Quản lý hỗ trợ","SupportIndex","Support")</li>
+    </ul>
+</div>
+
+<table class="tableAd">
+<tr>
+    <td class="left"><img alt="" src="/Images/blank.gif" /></td>
+    <td>Thư viện </td>
+    <td class="image"><img alt="" id="imgdiv4" src="/Images/closed.gif" onclick="toggleXPMenu('div4');"/></td>
+</tr>
+</table>
+<div id="div4" class="content">
+    <ul>
+        <li><img src="~/Content/imagesAdmin/icon_gnews.jpg" />@Html.ActionLink("Quản lý nhóm thư viện","GroupLibraryIndex","GroupLibrary")</li>
+        <li><img src="~/Content/imagesAdmin/icon_news.jpg" />@Html.ActionLink("Quản lý thư viện","LibraryIndex","Library")</li>
+    </ul>
+</div>
+<div class="powered_by">powered by : by : <a href="http://hoccungdoanhnghiep.com" target="_blank"><b>HCDN</b></a></div>

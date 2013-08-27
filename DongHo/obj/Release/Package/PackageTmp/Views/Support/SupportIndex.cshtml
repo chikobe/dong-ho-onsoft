@@ -1,0 +1,87 @@
+﻿@model IList<DongHo.Models.sp_Support_PagingResult>
+@{
+    ViewBag.Title = "SupportIndex";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Quản lý hỗ trợ trực tuyến</h2>
+@using (@Html.BeginForm("MultiDelete","Support",FormMethod.Post))
+{
+    <div class="Control">
+        <ul>
+            <li>@Html.ActionLink("Thêm mới","SupportCreate","", new {@class="vadd"})</li>
+            <li><input type="submit", value=" Xóa " class="mulDel" /></li>
+            <li>@Html.ActionLink("Làm mới", "SupportIndex", "", new { @class = "vrefresh" })</li>
+            <li> <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a></li>
+        </ul>
+    </div>
+    <table class="TableView" border="1" id="myTable">
+       
+          <tr class="trHeader">
+                <th class="CheckBoxsmall"><input type="checkbox" onclick="Javascript: chkSelectAll_OnClick(this)" id="chkSelectAll" /></th>
+                <th class="Text">Tên người hỗ trợ</th>
+                <th class="Number">Số điện thoại </th>
+                <th class="TextShort">Kiểu nick</th>
+                <th class="Number">Nick </th>
+                <th class="Number">Thứ tự </th>
+                <th class="Function">Chức năng</th>
+            </tr>
+            @for (int i = 0; i < Model.Count; i++)
+			{
+                if (i%2 == 0 )
+                {
+                     <tr id="trOdd_@i" class="trOdd" onmousemove="Javascript:chkSelect_OnMouseMove(this)" onmouseout="Javascript:chkSelect_OnMouseOut(this,0)">
+                         <td class="CheckBoxsmall">
+                             @Html.CheckBox("chk" + Model[i].Id, new { id ="chkSelect", onclick= "Javascript:chkSelect_OnClick(this," + i + ")", onchange = "Javascript:chkSelect_Change(this)"})
+                         </td>  
+                         
+                         <td class="Text">@Html.DisplayFor(modelItem => Model[i].Name)</td>
+                         <td class="Number">@Html.DisplayFor(modelItem => Model[i].Tel)</td>
+                         <td class="TextShort">@{@DongHo.Models.StringClass.ShowSupportType(Model[i].Type.ToString());}</td>
+                         <td class="Number">@Html.DisplayFor(modelItem => Model[i].Nick )</td>
+                         <td class="Number">@Html.DisplayFor(modelItem => Model[i].Ord)</td>
+                         <td class="Function">
+                             @Html.ActionLink("Sửa", "SupportEdit", new { id = Model[i].Id }, new { @class = "vedit" }) 
+                             @Html.ActionLink("Xóa", "SupportDelete", new { id = Model[i].Id }, new { @onclick = "return DeleteConfirm()", @class = "vdelete" }) 
+                            @if (@Model[i].Active == 1)
+                            {@Html.ActionLink("Active", "SupportActive", new { id = Model[i].Id }, new { @class = "vactive" })}
+                            else
+                            {@Html.ActionLink("Active", "SupportActive", new { id = Model[i].Id }, new { @class = "vnotactive" })}
+                        </td>
+
+                     </tr>
+                }
+                else
+                {
+                      <tr id="trEven_@i" class="trEven" onmousemove="Javascript:chkSelect_OnMouseMove(this)" onmouseout="Javascript:chkSelect_OnMouseOut(this,0)">
+                          <td class="CheckBoxsmall">
+                              @Html.CheckBox("chk" + Model[i].Id, new { id ="chkSelect", onclick= "Javascript:chkSelect_OnClick(this," + i + ")", onchange = "Javascript:chkSelect_Change(this)"})
+                          </td>  
+                         <td class="Text">@Html.DisplayFor(modelItem => Model[i].Name)</td>
+                         <td class="Number">@Html.DisplayFor(modelItem => Model[i].Tel)</td>
+                          <td class="TextShort">@{@DongHo.Models.StringClass.ShowSupportType(Model[i].Type.ToString());}</td>
+                         <td class="Number">@Html.DisplayFor(modelItem => Model[i].Nick )</td>
+                         <td class="Number">@Html.DisplayFor(modelItem => Model[i].Ord)</td>
+                          <td class="Function">
+                             @Html.ActionLink("Sửa", "SupportEdit", new { id = Model[i].Id }, new { @class = "vedit" }) 
+                             @Html.ActionLink("Xóa", "SupportDelete", new { id = Model[i].Id }, new { @onclick = "return DeleteConfirm()", @class = "vdelete" }) 
+                            @if (@Model[i].Active == 1)
+                            {@Html.ActionLink("Active", "SupportActive", new { id = Model[i].Id }, new { @class = "vactive" })}
+                            else
+                            {@Html.ActionLink("Active", "SupportActive", new { id = Model[i].Id }, new { @class = "vnotactive" })} 
+                          </td>
+                      </tr>
+                }
+
+            }
+    </table>
+    @Html.Raw(ViewBag.Pager)
+      <div class="Control">
+        <ul>
+            <li>@Html.ActionLink("Thêm mới","SupportCreate","", new {@class="vadd"})</li>
+            <li><input type="submit", value=" Xóa " class="mulDel" /></li>
+            <li>@Html.ActionLink("Làm mới", "SupportIndex", "", new { @class = "vrefresh" })</li>
+            <li> <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a></li>
+        </ul>
+    </div>
+}

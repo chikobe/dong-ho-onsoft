@@ -1,0 +1,55 @@
+﻿@model DongHo.Models.GroupLibraryModels
+@{
+    ViewBag.Title = "Thêm nhóm thư viện";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm())
+{
+    <table class="TableUpdate" border="1">
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở lại", "GroupLibraryIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th>Nhóm thư viện</th>
+            <td>@Html.TextBox("Name")@Html.ValidationMessageFor(m=>m.Name)</td>
+        </tr>
+        <tr>
+            <th>Hình ảnh</th>
+            <td>@Html.TextBox("Image","", new{@class="text"})<input id="SelectImages" type="button" value="Chọn ảnh" class="bottom" /></td>
+        </tr>
+        <tr>
+            <th>Thứ tự</th>
+            <td>@Html.TextBox("Ord", "", new { @onkeypress = "OnlyInputNumber(0)" })@Html.ValidationMessageFor(m=>m.Ord)</td>
+        </tr>
+        <tr>
+            <th>Kích hoạt</th>
+            <td>@Html.CheckBox("Actives")</td>
+        </tr>
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở lại", "GroupLibraryIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+}
+<script language="javascript" type="text/javascript">
+    $(function () {
+        $("#SelectImages").click(function () {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                $("#Image").val(fileUrl);
+            };
+            finder.popup();
+        });
+    });
+</script>

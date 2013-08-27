@@ -1,0 +1,40 @@
+﻿@model DongHo.Models.PricesModels
+@{
+    ViewBag.Title = "PricesCreate";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Thêm mới khoảng giá</h2>
+@using (Html.BeginForm())
+{
+    <table class="TableUpdate" border="1">
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở về", "PricesIndex","", new {@class="uback" })</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th>Khoảng giá</th>
+            <td>@Html.TextBox("Name")@Html.ValidationMessageFor(m=>m.Name)</td>
+        </tr>
+        <tr>
+            <th>Giá từ - đến</th>
+            <td>@Html.TextBox("PriceFrom", "", new { @onkeypress="OnlyInputNumber(0)"}) - @Html.TextBox("PriceTo", "", new { @onkeypress=" return OnlyInputNumber();"})@Html.ValidationMessageFor(m=>m.PriceFrom)  @Html.ValidationMessageFor(m=>m.PriceTo)</td>
+        </tr>
+        <tr>
+            <th>Thứ tự</th>
+            <td>@Html.TextBox("Ord", "", new { @onkeypress="OnlyInputNumber(0)"})@Html.ValidationMessageFor(m=>m.Ord)</td>
+        </tr>
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở về", "PricesIndex","", new {@class="uback" })</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+}

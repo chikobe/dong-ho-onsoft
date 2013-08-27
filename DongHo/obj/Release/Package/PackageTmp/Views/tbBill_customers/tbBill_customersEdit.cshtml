@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Cập nhật tình trạng đơn hàng";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@*<div class="ViewBill">
+    <div class="title">
+        <p>Họ tên</p>
+        <p>Ngày sinh</p>
+        <p>Địa chỉ</p>
+        <p>Điện thoại</p>
+        <p>Email</p>
+        <p>Tỉnh/Thành phố</p>
+    </div>
+    <div class="info">
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+    </div>
+    <div class="clearfix"></div>
+</div>*@
+<table class="TableUpdate" border="1">
+    <tr>
+        <td class="Control">
+            @Html.Raw(ViewBag.li)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.Raw(ViewBag.cus)
+            @Html.Raw(ViewBag.rec)
+            @Html.Raw(ViewBag.billdetail)
+        </td>
+    </tr>
+    <tr>
+        <td class="Control">
+            @Html.Raw(ViewBag.li)
+        </td>
+    </tr>
+</table>

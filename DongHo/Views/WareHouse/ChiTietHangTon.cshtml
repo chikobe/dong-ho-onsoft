@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Chi tiết hàng còn trong kho";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<div class="ImportDetail">
+    <div class="Control">
+        <ul>
+            <li>@Html.ActionLink("Trở lại", "HangTon", "", new { @class="uback"})</li>
+        </ul>
+    </div>
+    <h2>@ViewBag.Title</h2>
+    <p>@DateTime.Now.ToString()</p>
+    @Html.Raw(ViewBag.View)
+    <div class="Control">
+        <ul>
+            <li>@Html.ActionLink("Trở lại", "HangTon", "", new { @class="uback"})</li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+﻿@model DongHo.Models.tbCUSTOMER
+@{
+    ViewBag.Title = "Chỉnh sửa thông tin khách hàng";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+@using(Html.BeginForm())
+{
+@Html.ValidationSummary(true)
+    <table class="TableUpdate" border="1">
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở lại", "tbCUSTOMERSIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th>Họ và tên</th>
+            <td>@Html.TextBoxFor(n=>n.vcusname)@Html.ValidationMessageFor(m=>m.vcusname)</td>
+        </tr>
+        <tr>
+            <th>Ngày sinh</th>
+            <td>@Html.TextBoxFor(n=>n.dbirthday)</td>
+        </tr>
+        <tr>
+            <th>Tỉnh/Thành phố</th>
+            <td>@Html.TextBoxFor(n=>n.vprovince)</td>
+        </tr>
+        <tr>
+            <th>Địa chỉ</th>
+            <td>@Html.TextBoxFor(n=>n.vaddress)@Html.ValidationMessageFor(m=>m.vaddress)</td>
+        </tr>
+        <tr>
+            <th>Số điện thoại</th>
+            <td>@Html.TextBoxFor(n => n.vphone, new { @onkeypress = "OnlyInputNumber" })@Html.ValidationMessageFor(m=>m.vphone)</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>@Html.TextBoxFor(n=>n.vemail)@Html.ValidationMessageFor(m=>m.vemail)</td>
+        </tr>
+        <tr>
+            <th>Kích hoạt</th>
+            <td>@Html.CheckBox("istatus",(Model.istatus==1)?true:false)</td>
+        </tr>
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở lại", "tbCUSTOMERSIndex","", new { @class="uback"})</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+}

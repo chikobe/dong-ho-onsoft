@@ -1,0 +1,71 @@
+﻿@model DongHo.Models.Export
+@{
+    ViewBag.Title = "ExportEdit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using(Html.BeginForm())
+{
+@Html.ValidationSummary(true)
+<div class="ImportCreate">
+    <div class="Control">
+        <ul>
+            <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+            <li>@Html.ActionLink("Trở lại", "ExportIndex","", new { @class="uback"})</li>
+        </ul>
+    </div>
+    <h2>Phiếu xuất</h2>
+    <p>@Html.Raw(ViewBag.ViewDate)</p>
+    <table class="TableUpdate" border="1">
+        <tr>
+            <th>Kho hàng</th>
+            <td>@Html.DropDownList("WareHouse")</td>
+        </tr>
+        <tr>
+            <th colspan="2">Thông tin sản phẩm nhập</th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.Raw(ViewBag.ProImport)
+            </td>
+        </tr>
+        <tr>
+            <th>Ghi chú</th>
+            <td>@Html.TextArea("Note")</td>
+        </tr>
+        <tr>
+            <th>Thứ tự</th>
+            <td>@Html.TextBoxFor(m => m.Ord, new { @onkeypress = "OnlyInputNumber(0)" })</td>
+        </tr>
+    </table>
+    <div class="Control">
+        <ul>
+            <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+            <li>@Html.ActionLink("Trở lại", "ExportIndex","", new { @class="uback"})</li>
+        </ul>
+    </div>
+</div>
+}
+<script type="text/javascript">
+    var editor;
+    function createEditor(languageCode, id) {
+        var editor = CKEDITOR.replace(id, {
+            language: languageCode
+        });
+    }
+
+    $(function () {
+        createEditor('vi', 'Note');
+    });
+</script>
+<script>
+    $('.money').change(function () {
+        debugger
+        var total=0;
+        $('.money').each(function () {
+            var a = $(this).val();
+            total -= a;
+        });
+        $('#total').val(-total);
+    });
+</script>

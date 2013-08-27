@@ -1,0 +1,140 @@
+﻿@model IList<DongHo.Models.sp_Product_PagingResult>
+@{
+    ViewBag.Title = "ExportCreate";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using (Html.BeginForm("ExportCreate", "Export", FormMethod.Post))
+{
+    <div class="ImportCreate">
+    <div class="Control">
+        <ul>
+            <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+            <li>@Html.ActionLink("Trở lại", "ExportIndex","", new { @class="uback"})</li>
+        </ul>
+    </div>
+    @*<h2>Phiếu xuất</h2>
+    <p>@DateTime.Now.ToShortDateString()</p>
+    <table class="TableUpdate" border="1">
+        <tr>
+            <th>Kho hàng</th>
+            <td>@Html.DropDownList("WareHouse")</td>
+        </tr>
+        <tr>
+            <th colspan="2">Thông tin sản phẩm xuất</th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.Raw(ViewBag.ProImport)
+            </td>
+        </tr>
+        <tr>
+            <th>Ghi chú</th>
+            <td>@Html.TextArea("Note")</td>
+        </tr>
+        <tr>
+            <th>Thứ tự</th>
+            <td>@Html.TextBox("Ord", "", new { @onkeypress="OnlyInputNumber(0)"})</td>
+        </tr>
+    </table>*@
+    <div class="boxImpExp">
+		<div class="boxTitle clearfix">
+            <ul>
+                <li>Phiếu xuất <span>OSX_@ViewBag.ExpId</span></li>
+                <li>
+                    <span>Kho hàng</span>
+                    @Html.DropDownList("WareHouse")
+					<span>Nhân viên</span>
+                    @Html.Raw(ViewBag.NameEmp)
+					<span>Khách hàng</span>
+                    @Html.TextBox("NameCus")
+                </li>
+                <li>Ngày xuất <span>@DateTime.Now</span></li>
+            </ul>
+			<div class="clear"></div>
+		</div>
+        @Html.Raw(ViewBag.tbExport)
+        <div class="note">
+            <h4>Ghi chú</h4>
+            @Html.TextArea("Note", new { cols="30", rows="5", placeholder="Ghi chú"})
+        </div>
+        <div style="width:100%; border-bottom:1px dotted #747474; margin:10px 0 30px;">&nbsp;</div>
+    </div>
+</div>
+}
+<div class="boxImpExp">
+    @using(Html.BeginForm("ExportSearchPro","Export",FormMethod.Post))
+    {
+	    <div class="boxTitle clearfix">
+		    <ul>
+			    <li>Chọn theo loại mặt hàng</li>
+			    <li>
+                    @Html.Raw(ViewBag.proCat)
+			    </li>
+			    <li>Chọn theo nhà CC</li>
+			    <li>
+                    @Html.DropDownList("Supplier","=== Chọn nhà cung cấp ===")
+			    </li>
+                <li><input type="submit" value="Tìm kiếm" class="btnSubmit"/></li>
+		    </ul>
+		    <div class="clear"></div>
+	    </div>
+    }
+    @using(Html.BeginForm("ExportProAddMulti","Export",FormMethod.Post))
+    {
+        <table border="1" class="tbViewPro">
+		    <tr>
+			    <th class="first"><input type="checkbox" onclick="Javascript: chkSelectAll_OnClick(this)" id="chkSelectAll" /></th>
+			    <th>Tên sản phẩm</th>
+			    <th>Số lượng sp còn</th>
+			    <th class="last">Chức năng</th>
+		    </tr>
+        @for (int i = 0; i < Model.Count;i++ )
+        {
+		    <tr>
+			    <td class="first">@Html.CheckBox("chk" + Model[i].Id, new { id = "chkSelect", onclick = "Javascript:chkSelect_OnClick(this,0)", @class="chk" })</td>
+			    <td class="text">@Model[i].Name</td>
+			    <td>@Model[i].SpTon</td>
+			    <td class="last"><a href="/Export/AddProductExport/@Model[i].Id" class="add" title="Thêm vào phiếu xuất">Thêm vào phiếu xuất</a></td>
+		    </tr>
+        }
+        </table>
+        <input type="submit" value="Thêm vào phiếu xuất" class="btnSubmit" />
+        @Html.Raw(ViewBag.Pager)
+    }
+</div>
+@*<script type="text/javascript">
+    var editor;
+    function createEditor(languageCode, id) {
+        var editor = CKEDITOR.replace(id, {
+            language: languageCode
+        });
+    }
+
+    $(function () {
+        createEditor('vi', 'Note');
+    });
+</script>*@
+<script>
+    $('.quantity').change(function () {
+        debugger
+        var total = 0;
+        $('.quantity').each(function () {
+            debugger;
+            var price = $(this).parent().next().children(0);
+            var a = price.text();
+            var b = $(this).val();
+            var money = a * b;
+            var c = $(this).parent().next().next().children(0);
+            var d = $(this).parent().next().next().children(1);
+            $(c).text(money);
+            $(d).val(money);
+        });
+        $('.money').each(function () {
+            debugger;
+            var a = $(this).text();
+            total -= a;
+        });
+        $('#total').text(-total);
+        $('#hideTotal').val(-total);
+    });
+</script>

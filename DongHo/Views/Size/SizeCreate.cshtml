@@ -1,0 +1,44 @@
+﻿@model DongHo.Models.SizeModel
+@{
+    ViewBag.Title = "SizeCreate";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>SizeCreate</h2>
+@using(Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <table class="TableUpdate" border="1">
+        <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở về", "SizeIndex","", new {@class="uback" })</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th>Cỡ</th>
+            <td>
+                 @Html.TextBoxFor(model => model.Name, new {@class="text" })
+                 @Html.ValidationMessageFor(m => m.Name)
+            </td>
+        </tr>
+        <tr>
+            <th>Miêu tả</th>
+            <td>
+                @Html.TextBoxFor(model => model.Des, new { @class="text"})
+                @Html.ValidationMessageFor(m=>m.Des)
+            </td>
+        </tr>
+     
+         <tr>
+            <td class="Control" colspan="2">
+                <ul>
+                    <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở về", "SizeIndex","", new {@class="uback" })</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+}

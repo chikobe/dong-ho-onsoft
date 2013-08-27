@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "chitiet";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+@{Html.RenderAction("_support", "My_PartialView");}
+<div class="clear"></div>
+@{Html.RenderAction("_siteMap");}
+<div class="content">
+    <div class="content-left">
+        <div class="boxMain">
+            @Html.Raw(ViewBag.View)
+        </div>
+        <div class="clear"></div>
+        <div class="tabs">
+            <div class="titleTabs">
+                <ul>
+                    <li class="active"><a href="#tab-gioithieu" class="tab">Giới thiệu sản phẩm</a></li>
+                    <li><a href="#tab-huongdan" class="last tab">Hướng dẫn mua hàng</a></li>
+                    <li><a href="javascript:;" class="last btn-cart">Mua ngay</a></li>
+                </ul>
+            </div>
+            <div class="contentTabs">
+                <div class="tab-content" id="tab-gioithieu">
+                    <div class="title">Giới thiệu sản phẩm</div>
+                    <div class="content">
+                        @Html.Raw(ViewBag.Content)
+                    </div>
+                </div>
+                <div class="tab-content" id="tab-huongdan">
+                    <div class="title">Hướng dẫn mua hàng</div>
+                    <div class="content">
+                        <h3>Bước 1:Khách hàng xem sản phẩm trên Dongho</h3>
+                        <p>
+                            Bạn đăng nhập (không bắt buộc) vào hệ thống với tài khoản của Dongho để được hưởng đầy đủ những dịch vụ cũng như tính năng của website. 
+                            Xem và lựa chọn sản phẩm trên website Dongho.
+                        </p>
+                        <h3>Bước 2: Khách hàng chọn mua sản phẩm</h3>
+                        <p>
+                            Tại trang chi tiết sản phẩm, bạn bấm vào nút "Đặt mua" để cho sản phẩm đó vào giỏ hàng của bạn. Sau khi chọn xong sản phẩm, bạn bấm vào "Giỏ hàng" để xem toàn bộ sản phẩm, đơn giá, tổng giá trị đơn hàng của mình. 
+                            Bấm vào nút "Thanh toán", bạn sẽ được chuyển sang trang thông tin đặt hàng - Vui lòng điền chính xác thông tin đặt hàng để Dongho chuyển chính xác tới địa chỉ của bạn (chúng tôi sẽ gọi lại cho bạn sau khi bạn đặt hàng để xác thực thông tin). 
+                        </p>
+                        <h3>Bước 3: Chọn phương thức thanh toán</h3>
+                        <p>
+                             Lựa chọn hình thức thanh toán. Chúng tôi có nhiều hình thức hỗ trợ thanh toán. Xem các hình thức thanh toán (Chuyển khoản ngân hàng, Bảo Kim, Internet/Mobile Banking, thanh toán trực tuyến).
+                        </p>
+                        <h3>Bước 4: Dongho chuyển hàng đến địa chỉ của khách hàng</h3>
+                        <p>
+                            Hoàn tất quá trình đặt hàng. Sau khi xác nhận thông tin, Dongho sẽ chuyển hàng tới đúng địa chỉ bạn đã đăng ký trong quá trình mua hàng. 
+                        </p>
+                        <h4>Chú ý:</h4>
+                        <p>
+                            Nếu bạn không muốn đặt hàng qua hệ thống website, có thể gọi điện theo số điện thoại của công ty hoặc số Hotline : để được tư vấn và đặt mua sản phẩm.
+                            Sau khi đặt hàng qua hệ thống website, hệ thống sẽ gửi mail xác nhận và nếu như bạn có sử dụng tài khoản trên Dongho, bạn có thể liên tục theo dõi tình trạng đơn đặt hàng của mình ( đã được xác nhận, đã được chuyển đi, đã hoàn thành...)
+                            Khi nhân viên giao hàng chuyển sản phẩm cho khách hàng, xin vui lòng kiểm tra tình trạng sản phẩm trước khi nhận.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-right">
+        <div class="boxModule">
+            <div class="mdTitle">Thông tin sản phẩm</div>
+            <div>
+                <p>Đã có trên <span class="require">@Html.Raw(ViewBag.Count)</span> người mua</p>
+                <p>Nhanh chân sở hữu sản phẩm hữu ích này cho gia đình bạn</p>
+                <p>Chỉ bằng <span class="require">1</span> thao tác</p>
+            </div>
+            @Html.Raw(ViewBag.AddCart)
+            @*<a title="Mua ngay" href="javascript:;" class="btnAddCart mg10_45" rel="/sanpham/checkout"><span>Mua ngay</span></a>*@
+            <div class="clear"></div>
+        </div>
+        <div class="boxModule">
+            <div class="mdTitle">Sản phẩm cùng loại</div>
+            @Html.Raw(ViewBag.sp)
+        </div>
+    </div>
+</div>

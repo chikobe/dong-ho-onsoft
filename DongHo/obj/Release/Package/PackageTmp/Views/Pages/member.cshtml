@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "member";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+<div class="pathway">
+    <a href="/Home/Index">Trang chủ</a><a href="/Pages/member">Thông tin tài khoản</a>
+</div>
+<div class="content">
+    <div class="content-small">
+        @{Html.RenderAction("colFunctionCus", "Pages");}
+    </div>
+    <div class="content-big">
+        <h2>Thông tin tài khoản</h2>
+        <div class="InfoAcc">
+            <div class="InfoAcc-Welcome mg20">
+                <h3>Xin chào, @ViewBag.Name</h3>
+                <p>Từ bảng điều khiển tài khoản bạn có thể xem ngắn gọn về các giao dịch vừa thực hiện và cập nhật thông tin tài khoản. Lựa chọn đường dẫn dưới đây để xem và chỉnh sửa thông tin.</p>
+            </div>
+            <div class="InfoAcc-Info mg20">
+                @Html.Raw(ViewBag.Info)
+                @*<h3>Thông tin tài khoản</h3>
+                <p>Họ và tên: Nguyễn</p>
+                <p>Email: fsd@fd.fd</p>
+                <p>Địa chỉ: 32 fsd</p>
+                <p>Điện thoại: 0985434</p>*@
+                <a href="/Pages/edit_info">Chỉnh sửa thông tin</a>
+                <a href="/Pages/doi_mat_khau">Đổi mật khẩu</a>
+            </div>
+            <div class="InfoAcc-Bill mg20">
+                <h3>Quản lý đơn hàng</h3>
+                <table class="tbBill">
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã đơn hàng</th>
+                        <th>Ngày đặt</th>
+                        <th>Người nhận</th>
+                        <th>Thanh toán</th>
+                        <th>Trạng thái</th>
+                        <th></th>
+                    </tr>
+                    @Html.Raw(ViewBag.View)
+                    @*<tr>
+                        <td>1</td>
+                        <td>12</td>
+                        <td>11/11/1111</td>
+                        <td>Nguyễn Kim CHi</td>
+                        <td>100.000 VNĐ</td>
+                        <td>Hoàn thành</td>
+                        <td><a href="/Pages/chitiet">Chi tiết</a></td>
+                    </tr>*@
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

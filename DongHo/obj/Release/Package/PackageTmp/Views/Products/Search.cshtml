@@ -1,0 +1,50 @@
+﻿@using (Html.BeginForm(new { id = "frmSearch", name = "frmSearch" }))
+{
+    <div class="TopSearch">
+        <ul>
+            <li>Nhóm sản phẩm</li>
+            <li>@Html.DropDownList("Cat", " === Chọn nhóm sản phẩm === ")</li>
+            <li>Thương hiệu</li>
+            <li>@Html.DropDownList("Brand", " === Chọn thương hiệu === ")</li>
+            <li>Tên sản phẩm</li>
+            <li>@Html.TextBox("Name")</li>
+            <li><input type="submit" value="Tìm kiếm" /></li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+    
+    <script type="text/javascript">
+        debugger
+        var drop = @ViewBag.dropC;
+        var stt = document.frmSearch.Cat.length;
+        var st = stt;
+        for (var i = 0; document.frmSearch.Cat.length; i++)
+        {
+            var gt = document.frmSearch.Cat[i].value;
+            var congt = gt.toString();
+            var abc = congt;
+            if (document.frmSearch.Cat[i].value == drop.toString())
+            {
+                document.frmSearch.Cat[i].selected = true;
+                break;
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        debugger
+        var drop = @ViewBag.dropB;
+        var stt = document.frmSearch.Cat.length;
+        var st = stt;
+        for (var i = 0; document.frmSearch.Brand.length; i++)
+        {
+            var gt = document.frmSearch.Brand[i].value;
+            var congt = gt.toString();
+            var abc = congt;
+            if (document.frmSearch.Brand[i].value == drop.toString())
+            {
+                document.frmSearch.Brand[i].selected = true;
+                break;
+            }
+        }
+    </script>
+}

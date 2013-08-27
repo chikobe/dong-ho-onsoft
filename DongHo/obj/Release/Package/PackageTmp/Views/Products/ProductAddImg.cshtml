@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "AddImg";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Thêm ảnh</h2>
+@using (Html.BeginForm("ProductAddImg", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <table class="TableUpdate" border="1">
+        <tr>
+            <td class="Control">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở về", "ProductIndex", "", new { @class = "uback" })</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>@*<a href="#" id="addImg">Thêm ảnh mới</a>*@
+                <input type="file" name="fileImg" id="fileImg" multiple />
+                <output id="result" />
+            </td>
+        </tr>
+        <tr>
+            <td class="Control">
+                <ul>
+                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    <li>@Html.ActionLink("Trở về", "ProductIndex", "", new { @class = "uback" })</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+}
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        $('#addImg').click(function () {
+            debugger
+            var tr = $(this).parent(0);
+            tr.append("<br/><input type='file' name='fileImg' id='fileImg'/>");
+        });
+    });
+</script>
+<script type="text/javascript">
+    window.onload = function () {
+
+        //Check File API support
+        if (window.File && window.FileList && window.FileReader) {
+            var filesInput = document.getElementById("fileImg");
+
+            filesInput.addEventListener("change", function (event) {
+
+                var files = event.target.files; //FileList object
+                var output = document.getElementById("result");
+
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+
+                    //Only pics
+                    if (!file.type.match('image'))
+                        continue;
+
+                    var picReader = new FileReader();
+
+                    picReader.addEventListener("load", function (event) {
+
+                        var picFile = event.target;
+
+                        var div = document.createElement("div");
+
+                        div.innerHTML = "<img class='thumbnail' src='" + picFile.result + "'" +
+								"title='" + picFile.name + "'/><span>" + file.name + "</span>";
+
+                        output.insertBefore(div, null);
+
+                    });
+
+                    //Read the image
+                    picReader.readAsDataURL(file);
+                }
+
+            });
+        }
+        else {
+            console.log("Your browser does not support File API");
+        }
+    }
+	</script>

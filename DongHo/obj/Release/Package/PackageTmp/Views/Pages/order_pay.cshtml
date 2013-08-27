@@ -1,0 +1,72 @@
+﻿@model DongHo.Models.tbCUSTOMER
+@{
+    ViewBag.Title = "order_pay";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+<div class="pathway">
+    <a href="/Home/Index">Trang chủ</a><a href="/Pages/order_pay">Thanh toán</a>
+</div>
+@Html.Raw(ViewBag.Err)
+<div class="content">
+    @using (Html.BeginForm("order_pay", "Pages", FormMethod.Post, new { id="frOrder",name="frOrder"}))
+    {
+    <div class="infoCus">
+        <h3>Thông tin tài khoản</h3>
+        <div class="editInfoCus">
+            <p>Họ và tên</p>
+            @Html.TextBoxFor(m => m.vcusname)<br />
+            @Html.ValidationMessageFor(m => m.vcusname)
+            <p>Email</p>
+            @Html.TextBoxFor(m => m.vemail)<br />
+            @Html.ValidationMessageFor(m => m.vemail)
+            <p>Số điện thoại</p> 
+            @Html.TextBoxFor(m => m.vphone)<br />
+            @Html.ValidationMessageFor(m => m.vphone)
+            <p>Địa chỉ</p>
+            @Html.TextBoxFor(m => m.vaddress)<br />
+            @Html.ValidationMessageFor(m => m.vaddress)
+        </div>
+    </div>
+    <div class="typePay">
+        <h3>Phương thức thanh toán</h3>
+        <p><input type="radio" name="rdbPay" value="1" checked="checked"/>
+        Thanh toán tại nhà</p>
+        <p><input type="radio" name="rdbPay" value="2" />
+        Thanh toán tại cửa hàng</p>
+        <p><input type="radio" name="rdbPay" value="3" />
+        Thanh toán trực tuyến qua Ngân lượng</p>
+    </div>
+    <div class="infoCart">
+        @Html.Raw(ViewBag.ViewPro)
+        @Html.TextArea("Note", new { rows = "5", cols = "25", placeholder = "Ghi chú" })
+        @Html.Raw(ViewBag.ViewTotal)
+        @*<h3>Thông tin giỏ hàng</h3>
+        <div class="infoPro">
+            <img src="~/Images/smallpro1.PNG" />
+            <h4>dong do cao cap</h4>
+            <p>Giá bán: <span>987342 VNĐ</span></p>
+            <p>Số lượng: <span>43</span></p>
+        </div>
+        <div class="clear"></div>
+        <div class="totalCart">
+            <p class="fl">Giá trị đơn hàng</p>
+            <span class="fr">54334 VNĐ</span>
+            <div class="clear"></div>
+            <p class="fl">Phí vận chuyển</p>
+            <span class="fr">0 VNĐ</span>
+            <div class="clear"></div>
+            <p class="fl">Tổng cộng</p>
+            <span class="fr">4523 VNĐ</span>
+            <div class="clear"></div>
+            <input type="submit" value="Xác nhận thanh toán" />
+        </div>*@
+    </div>
+    
+    }
+</div>
+<script type="text/javascript">
+    $('#frOrder').submit(function () {
+
+        $.removeCookie('onetop_str_item_id', { path: '/' });
+    });
+</script>

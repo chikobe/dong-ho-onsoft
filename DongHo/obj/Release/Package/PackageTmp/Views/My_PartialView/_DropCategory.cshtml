@@ -1,0 +1,30 @@
+﻿<div class="dropCat" id="big-daddy">
+    <a href="javascript:;" class="viewCat_item">
+        <p class="fs11">Danh mục</p><span>Sản phẩm</span><b>&nbsp;</b>
+    </a>
+    <div class="sub_item_nav clear" id="flyout">
+        <div id="wrap-parent">
+            @*<ul class="sub-level1 clearfix">
+                <li id="nav_cat_0" class="par_cat"><a href="#">Đồng hồ cao cấp</a></li>
+                <li id="nav_cat_1" ><a href="#">Đồng hồ cao cấp1</a></li>
+                <li id="nav_cat_2" ><a href="#">Đồng hồ cao cấp2</a></li>
+                <li id="nav_cat_3"><a href="#">Đồng hồ cao cấp3</a></li>
+                <li id="nav_cat_4"><a href="#">Đồng hồ cao cấp4</a></li>
+            </ul>*@
+            @Html.Raw(ViewBag.Cat)
+        </div>
+        <div id="wrap-child">
+            @Html.Raw(ViewBag.Catsub)
+            @*<div id="sub_cat_0" class="wrap-sub">
+                <ul class="sub-level2">
+                    <li><a href="#">Omega</a></li>
+                    <li><a href="#">Omega</a></li>
+                    <li><a href="#">Omega</a></li>
+                    <li><a href="#">Omega</a></li>
+                    <li><a href="#">Omega</a></li>
+                    <li><a href="#">Omega</a></li>
+                </ul>
+            </div>*@
+        </div>
+    </div>
+</div>
