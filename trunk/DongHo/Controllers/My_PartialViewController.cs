@@ -242,12 +242,12 @@ namespace DongHo.Controllers
             var list = data.Advertises.Where(m => m.Position == 3 && m.Active == true).ToList();
             if (list.Count > 0)
             {
+                chuoi += "<div class=\"slideshow\">";
                 for (int i = 0; i < list.Count; i++)
                 {
-                    chuoi += "<div class=\"slide\">";
-                    chuoi += "<a href=\"" + list[i].Link + "\" title=\"" + list[i].Name + "\" target=\"" + list[i].Target + "\"><img src=\"" + list[i].Image + "\" width=\"" + list[i].Width + "\" height=\"" + list[i].Height + "\" alt=\"Images " + (i + 1) + "\"></a>";
-                    chuoi += "</div>";
+                    chuoi += "<a href=\"" + list[i].Link + "\" target=\"" + list[i].Target + "\"><img src=\"" + list[i].Image + "\" width=\"" + list[i].Width + "\" height=\"" + list[i].Height + "\" alt=\"Images " + (i + 1) + "\"></a>";
                 }
+                chuoi += "</div>";
             }
             ViewBag.View = chuoi;
             return PartialView();
@@ -260,12 +260,12 @@ namespace DongHo.Controllers
             var list = data.Advertises.Where(m => m.Position == 2 && m.Active == true).ToList();
             if (list.Count > 0)
             {
+                chuoi += "<div class=\"slideshow\">";
                 for (int i = 0; i < list.Count; i++)
                 {
-                    chuoi += "<div class=\"slide\">";
                     chuoi += "<a href=\"" + list[i].Link + "\" target=\"" + list[i].Target + "\"><img src=\"" + list[i].Image + "\" width=\"" + list[i].Width + "\" height=\"" + list[i].Height + "\" alt=\"Images " + (i + 1) + "\"></a>";
-                    chuoi += "</div>";
                 }
+                chuoi += "</div>";
             }
             ViewBag.View = chuoi;
             return PartialView();

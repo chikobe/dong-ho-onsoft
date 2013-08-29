@@ -16,28 +16,28 @@ namespace DongHo.Controllers
             List<Product> list = new List<Product>();
             if (req == "" || req == "Hot nhất")
             {
-                list = data.Products.Where(m => m.Index == 1).ToList();
+                list = data.Products.Where(m => m.Index == 1 && m.Active == 1).ToList();
                 Session["Type"] = "1";
             }
             else if (req == "Sản phẩm mới nhất")
             {
-                list = data.Products.OrderByDescending(m => m.Date).ToList();
+                list = data.Products.Where(m => m.Active == 1).OrderByDescending(m => m.Date).ToList();
                 Session["Type"] = "2";
             }
             else if (req == "Xem nhiều")
             {
-                list = data.Products.OrderByDescending(m=>m.View).ToList();
+                list = data.Products.Where(m => m.Active == 1).OrderByDescending(m => m.View).ToList();
                 Session["Type"] = "3";
             }
             else if (req == "Mua nhiều")
             {
-                list = data.Products.OrderByDescending(m => m.Count).ToList();
+                list = data.Products.Where(m => m.Active == 1).OrderByDescending(m => m.Count).ToList();
                 Session["Type"] = "4";
                 //list = (from n in data.Products where (from m in data.tbBilldetails select m.proid).Contains(n.Id) select n).ToList();
             }
             else if (req == "Giảm giá nhiều")
             {
-                list = data.Products.OrderByDescending(m => m.Codepro).ToList();
+                list = data.Products.Where(m => m.Active == 1).OrderByDescending(m => m.Codepro).ToList();
                 Session["Type"] = "5";
             }
             for (int i = 0; i < list.Count; i++)
