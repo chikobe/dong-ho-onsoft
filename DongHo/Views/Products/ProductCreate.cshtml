@@ -45,6 +45,10 @@
             <td>@Html.TextArea("Detail")</td>
         </tr>
         <tr>
+            <th>Số lượt xem</th>
+            <td>0</td>
+        </tr>
+        <tr>
             <th>Giá</th>
             <td>@Html.TextBox("Price","", new { @onkeypress="OnlyInputNumber(0)"}) VNĐ @Html.ValidationMessageFor(m=>m.Price)</td>
         </tr>

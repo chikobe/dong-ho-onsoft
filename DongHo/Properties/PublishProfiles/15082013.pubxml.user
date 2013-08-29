@@ -24,7 +24,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/11/2013 08:59:59</publishTime>
     </File>
     <File Include="bin/DongHo.dll">
-      <publishTime>08/27/2013 11:32:06</publishTime>
+      <publishTime>08/28/2013 09:10:01</publishTime>
     </File>
     <File Include="bin/DotNetOpenAuth.AspNet.dll">
       <publishTime>07/11/2013 08:59:46</publishTime>
@@ -3555,7 +3555,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/14/2013 11:37:01</publishTime>
     </File>
     <File Include="Scripts/common.js">
-      <publishTime>08/27/2013 11:19:36</publishTime>
+      <publishTime>08/27/2013 16:24:40</publishTime>
     </File>
     <File Include="Scripts/ddlevelsmenu.js">
       <publishTime>08/07/2013 16:07:15</publishTime>
@@ -3587,6 +3587,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/jquery-ui.js">
       <publishTime>07/11/2013 19:06:23</publishTime>
     </File>
+    <File Include="Scripts/jquery.cycle.all.js">
+      <publishTime>08/28/2013 08:47:03</publishTime>
+    </File>
     <File Include="Scripts/jquery.datepick.js">
       <publishTime>07/21/2013 23:05:47</publishTime>
     </File>
@@ -3595,6 +3598,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Scripts/jquery.min.js">
       <publishTime>07/24/2013 00:15:43</publishTime>
+    </File>
+    <File Include="Scripts/jquery.nivo.slider.js">
+      <publishTime>08/27/2013 16:41:39</publishTime>
     </File>
     <File Include="Scripts/jquery.simplePagination.js">
       <publishTime>08/09/2013 01:11:54</publishTime>
@@ -3630,7 +3636,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/11/2013 08:59:55</publishTime>
     </File>
     <File Include="Scripts/library.js">
-      <publishTime>08/27/2013 11:25:57</publishTime>
+      <publishTime>08/27/2013 14:15:19</publishTime>
     </File>
     <File Include="Scripts/modernizr-2.6.2.js">
       <publishTime>07/11/2013 08:59:38</publishTime>
@@ -3762,10 +3768,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/06/2013 01:15:32</publishTime>
     </File>
     <File Include="Views/Advertise/AdvertiseCreate.cshtml">
-      <publishTime>08/27/2013 00:21:12</publishTime>
+      <publishTime>08/27/2013 14:17:16</publishTime>
     </File>
     <File Include="Views/Advertise/AdvertiseEdit.cshtml">
-      <publishTime>08/27/2013 00:21:35</publishTime>
+      <publishTime>08/27/2013 14:17:27</publishTime>
     </File>
     <File Include="Views/Advertise/AdvertiseIndex.cshtml">
       <publishTime>08/27/2013 00:13:41</publishTime>
@@ -3909,10 +3915,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/06/2013 00:06:38</publishTime>
     </File>
     <File Include="Views/My_PartialView/_quangCao2Ben_benPhai.cshtml">
-      <publishTime>08/26/2013 22:45:11</publishTime>
+      <publishTime>08/28/2013 09:08:22</publishTime>
     </File>
     <File Include="Views/My_PartialView/_quangCao2Ben_benTrai.cshtml">
-      <publishTime>08/26/2013 22:44:58</publishTime>
+      <publishTime>08/28/2013 09:08:20</publishTime>
     </File>
     <File Include="Views/My_PartialView/_support.cshtml">
       <publishTime>08/22/2013 17:59:48</publishTime>
@@ -4047,7 +4053,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/21/2013 14:19:59</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutDefault.cshtml">
-      <publishTime>08/27/2013 11:30:57</publishTime>
+      <publishTime>08/28/2013 09:08:38</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutSecond.cshtml">
       <publishTime>07/31/2013 22:52:13</publishTime>
@@ -4380,7 +4386,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/24/2013 14:09:49</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/27/2013 11:32:10</publishTime>
+      <publishTime>08/28/2013 09:10:19</publishTime>
     </File>
   </ItemGroup>
 </Project>

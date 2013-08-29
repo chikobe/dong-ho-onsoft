@@ -22,7 +22,7 @@
         </tr>
         <tr>
             <th>Nhóm sản phẩm cấp 2</th>
-            <td><select id="CatL2"  name="CatL2" disabled="disabled"></select></td>
+            <td>@Html.DropDownList("CatL2"," === Nhóm sản phẩm cấp 2 ===")</td>
         </tr>
         <tr>
             <th>Thương hiệu</th>
@@ -43,6 +43,10 @@
         <tr>
             <th>Nội dung chi tiết</th>
             <td>@Html.TextArea("Detail")</td>
+        </tr>
+        <tr>
+            <th>Số lượt xem</th>
+            <td>@Model.View</td>
         </tr>
         <tr>
             <th>Giá</th>

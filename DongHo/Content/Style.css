@@ -11,7 +11,7 @@ img         { border:none;}
 .fl         { float:left;}
 .fr         { float:right;}
 .reloadCaptcha { background:url(images/refresh-icon.gif) no-repeat; display:inline-block; text-indent:-9999px; width:16px; height:16px; margin-left:10px}
-.pErr { color:red; margin:10px 5px 5px;}
+.pErr       { color:red; margin:10px 5px 5px;}
 .wrapper    { width: 1030px; margin:0 auto;}
 
 header                                  { background:#fff url(images/bg_menu.png) repeat-x bottom; }
@@ -25,10 +25,10 @@ header                                  { background:#fff url(images/bg_menu.png
 .headerTop_Left ul li:hover a, .headerTop_Right ul li:hover a   { color:#000000}
 
 .headerWrap                             { }
-.headerMain                             { width:992px; margin:0 auto; height:50px; background: #fff url(images/bg_menu.png) repeat-x bottom;}
+.headerMain                             { width:1030px; margin:0 auto; height:50px; background: #fff url(images/bg_menu.png) repeat-x bottom;}
 .headerMain div                         { float:left;}
-.logo                                   { width:200px; display:block; }
-.searchTop                              { width:562px; margin:9px 13px; position:relative;}
+.logo                                   { width:220px; display:block; }
+.searchTop                              { width:562px; margin:9px 10px 9px 16px; position:relative;}
 .searchTop input[type="text"]           { width:444px; height:30px; border:1px solid #dddddd; padding-left:5px; border-radius:5px;}
 .searchTop input[type="submit"]         { height: 30px; color: #fff; font-size: 14px; width: 35px; background: #ce171f url(images/search.png) no-repeat center; border-radius:5px; border-style: none; cursor:pointer;}
 .searchTop input[type="submit"]:hover   { background: #c30b14 url(images/search.png) no-repeat center; }
@@ -56,7 +56,7 @@ header                                  { background:#fff url(images/bg_menu.png
 
 nav                         { background:#36449e url(images/bg_menu.png) repeat-x bottom; height: 25px;}
 
-.viewType                   { margin: 0 0 5px 3px;}
+.viewType                   { margin: 0 0 5px -4px;}
 .viewType .btnViewType      { float: left; color: #666666; position: relative; padding: 5px 15px; margin: 10px 3px 3px 3px; border: 1px solid #e6e5e5; border-radius: 5px; background: url(images/bg-item-home.png); cursor:pointer;}
 .viewType .btnViewType:hover{ color: #fff; background: #08dcea; border: 1px solid #61e9b9;}
 .viewType .activeViewType   { float: left; color: #fff; background: #08dcea;  position: relative;  padding: 5px 15px; margin: 10px 3px 1px 3px; border: 1px solid #56cca2; border-radius: 5px}
@@ -364,7 +364,7 @@ footer p    { color: #19252d; font-size:13px;}
 	background: -o-linear-gradient(top, #ffffff 0%,#efefef 100%); /* Opera11.10+ */
 	background: -ms-linear-gradient(top, #ffffff 0%,#efefef 100%); /* IE10+ */
 	background: linear-gradient(top, #ffffff 0%,#efefef 100%); /* W3C */}
-.pages ul li:not(.on) a:hover   {text-decoration: none; background: #FCFCFC;}
+.pages ul li:not(.on) a:hover   { text-decoration: none; background: #FCFCFC;}
 .pages ul li.on a               { background: #666; color: #FFF; border-color: #444; box-shadow: 0 1px 0 rgba(255,255,255,1), 0 0 2px rgba(0, 0, 0, 0.3) inset; cursor: default; font-size:14px; line-height:24px; font-weight: normal; text-align: center; border: 1px solid #BBB; min-width: 14px; padding: 5px 10px; margin: 0 5px 0 0; border-radius: 3px;}
 .pages ul li span span          { color: #bfbfbf; padding: 5px 10px; background: #454545; margin: 0 5px 0 0; border-radius: 3px; border:1px solid #525461}
 

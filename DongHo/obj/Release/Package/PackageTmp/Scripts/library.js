@@ -350,10 +350,9 @@ jQuery(document).ready(function ($) {
         if (toado > 640) {
             jQuery('.titleTabs').css('position', 'fixed').css('top', '0')
             jQuery(".titleTabs").css('background', '#fff')
-            .css('width', '100%').css('border-bottom', '1px solid #CCC').css('padding', '10px')
+            .css('width', '73%').css('border-bottom', '1px solid #CCC').css('padding', '10px')
             jQuery('li.btn-cart').css('display', 'block')
             jQuery('li.active').css('height', '51px')
-
         }
         else {
             jQuery(".titleTabs").css('background', 'none').css('top', '300px').css('position', 'static').css('padding', '0px').css('padding-top', '7px')

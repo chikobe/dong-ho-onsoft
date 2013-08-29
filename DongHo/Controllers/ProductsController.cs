@@ -284,6 +284,15 @@ namespace DongHo.Controllers
                 {
                     ViewBag.Cat = new SelectList(cat, "Id", "Name", Edit.CatId);
                 }
+                var catL1 = data.Categories.Where(m => m.Id == Edit.CatId).ToList();
+                var catL2 = data.Categories.Where(m => m.Level.Length == (catL1[0].Level.Length + 5) && m.Level.Substring(0, 5) == catL1[0].Level && m.Active == 1).ToList();
+                if (catL2.Count > 0)
+                {
+                    for (int j = 0; j < catL2.Count; j++)
+                    {
+                        ViewBag.CatL2 = new SelectList(catL2, "Id", "Name", Edit.CatL2);
+                    }
+                }
                 var brand = data.Brands.ToList();
                 for (int i = 0; i < brand.Count; i++)
                 {

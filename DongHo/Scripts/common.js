@@ -5,15 +5,23 @@ function FloatTopDiv() {
     startRX = ((document.body.clientWidth - MainContentW) / 2) + MainContentW + RightAdjust, startRY = TopAdjust + 80;
     var d = document;
     function ml(id) {
+        debugger;
         var el = d.getElementById ? d.getElementById(id) : d.all ? d.all[id] : d.layers[id];
-        el.sP = function (x, y) { this.style.left = x + 'px'; this.style.top = y + 'px'; };
+        el.sP = function (x, y) {
+            this.style.left = x + 'px';
+            this.style.top = y + 'px';
+        };
         el.x = startRX;
         el.y = startRY;
         return el;
     }
     function m2(id) {
+        debugger;
         var e2 = d.getElementById ? d.getElementById(id) : d.all ? d.all[id] : d.layers[id];
-        e2.sP = function (x, y) { this.style.left = x + 'px'; this.style.top = y + 'px'; };
+        e2.sP = function (x, y) {
+            this.style.left = x + 'px';
+            this.style.top = y + 'px';
+        };
         e2.x = startLX;
         e2.y = startLY;
         return e2;
@@ -23,7 +31,7 @@ function FloatTopDiv() {
             var pY = document.documentElement.scrollTop;
         else if (document.body)
             var pY = document.body.scrollTop;
-        if (document.body.scrollTop > 30) { startLY = 3; startRY = 3; } else { startLY = TopAdjust; startRY = TopAdjust; };
+        if (document.body.scrollTop > 30) { startLY = 100; startRY = 100; } else { startLY = TopAdjust; startRY = TopAdjust; };
         ftlObj.y += (pY + startRY - ftlObj.y) / 16;
         ftlObj.sP(ftlObj.x, ftlObj.y);
         ftlObj2.y += (pY + startLY - ftlObj2.y) / 16;

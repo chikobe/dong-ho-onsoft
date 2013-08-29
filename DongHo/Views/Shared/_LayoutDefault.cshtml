@@ -15,7 +15,8 @@
     <script src="~/Scripts/jquery.jsonSuggest.js"></script>
     <script src="~/Scripts/json.js"></script>
     <script src="~/Scripts/jquery.simplePagination.js"></script>
-    <script src="~/Scripts/slides.min.jquery.js"></script>
+    <script src="~/Scripts/jquery.cycle.all.js"></script>
+    @*<script src="~/Scripts/slides.min.jquery.js"></script>*@
     <script type="text/javascript">
         function OnlyInputNumber(Characters) {
             var re;
@@ -35,22 +36,27 @@
         }
     </script>
     <script>
-        $(function () {
-            $('#slidesLeft').slides({
-                preload: true,
-                preloadImage: '~/Images/loading.gif',
-                play: 5000,
-                pause: 2500,
-                hoverPause: true,
-            });
-            $('#slidesRight').slides({
-                preload: true,
-                preloadImage: '~/Images/loading.gif',
-                play: 5000,
-                pause: 2500,
-                hoverPause: true,
+        $(document).ready(function () {
+            $('.slideshow').cycle({
+                fx: 'all' // choose your transition type, ex: fade, scrollUp, shuffle, etc...
             });
         });
+        //$(function () {
+        //    $('#slidesLeft').slides({
+        //        preload: true,
+        //        preloadImage: '~/Images/loading.gif',
+        //        play: 5000,
+        //        pause: 2500,
+        //        hoverPause: true,
+        //    });
+        //    $('#slidesRight').slides({
+        //        preload: true,
+        //        preloadImage: '~/Images/loading.gif',
+        //        play: 5000,
+        //        pause: 2500,
+        //        hoverPause: true,
+        //    });
+        //});
 	</script>
 </head>
 <body>
@@ -87,13 +93,13 @@
             @{Html.RenderAction("_support", "My_PartialView");}
         </div>
     </div>*@
-    <div id="divAdRight" style="DISPLAY: none; POSITION: absolute; TOP: 50px">  
+    <div id="divAdRight" style="DISPLAY: none; POSITION: absolute; TOP: 100px">  
         @{Html.RenderAction("_quangCao2Ben_benPhai", "My_PartialView");}
     </div> 
     <div class="wrapper">
         @RenderBody()
     </div>
-    <div id="divAdLeft" style="DISPLAY: none; POSITION: absolute; TOP: 50px">     
+    <div id="divAdLeft" style="DISPLAY: none; POSITION: absolute; TOP: 100px">    
         @{Html.RenderAction("_quangCao2Ben_benTrai", "My_PartialView");}   
     </div> 
     <div class="clear"></div>
