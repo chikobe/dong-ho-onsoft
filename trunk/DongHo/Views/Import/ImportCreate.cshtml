@@ -16,16 +16,16 @@
     <div class="boxImpExp">
 		<div class="boxTitle clearfix">
             <ul>
-                <li>Phiếu xuất <span>OSN_@ViewBag.ImpId</span></li>
+                <li>Phiếu nhập <span>OSN_@ViewBag.ImpId</span></li>
                 <li>
                     <span>Kho hàng</span>
                     @Html.DropDownList("WareHouse")
 					<span>Nhân viên</span>
                     @Html.Raw(ViewBag.NameEmp)
-					<span>Khách hàng</span>
-                    @Html.DropDownList("Supplier","=== Chọn nhà cung cấp ===")
+					<span>Nhà cung cấp</span>
+                    @Html.DropDownList("Supplier")
                 </li>
-                <li>Ngày xuất <span>@DateTime.Now</span></li>
+                <li>Ngày nhập <span>@DateTime.Now</span></li>
             </ul>
 			<div class="clear"></div>
 		</div>
@@ -111,7 +111,7 @@
 		    </tr>
         }
         </table>
-        <input type="submit" value="Thêm vào phiếu xuất" class="btnSubmit" />
+        <input type="submit" value="Thêm vào phiếu nhập" class="btnSubmit" />
         @Html.Raw(ViewBag.Pager)
     }
 </div>

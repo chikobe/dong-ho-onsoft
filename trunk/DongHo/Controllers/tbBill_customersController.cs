@@ -106,12 +106,12 @@ namespace DongHo.Controllers
                     chuoicus += "<p>Tỉnh/Thành phố</p>";
                     chuoicus += "</div>";
                     chuoicus += "<div class=\"info\">";
-                    chuoicus += "<p>" + cus[0].vcusname + "</p>";
-                    chuoicus += "<p>" + cus[0].dbirthday + "</p>";
-                    chuoicus += "<p>" + cus[0].vaddress + "</p>";
-                    chuoicus += "<p>" + cus[0].vphone + "</p>";
-                    chuoicus += "<p>" + cus[0].vemail + "</p>";
-                    chuoicus += "<p>" + cus[0].vprovince + "</p>";
+                    chuoicus += "<p> " + cus[0].vcusname + "</p>";
+                    chuoicus += "<p> " + cus[0].dbirthday + "</p>";
+                    chuoicus += "<p> " + cus[0].vaddress + "</p>";
+                    chuoicus += "<p> " + cus[0].vphone + "</p>";
+                    chuoicus += "<p> " + cus[0].vemail + "</p>";
+                    chuoicus += "<p> " + cus[0].vprovince + "</p>";
                     chuoicus += "</div>";
                     chuoicus += "<div class=\"clearfix\"></div>";
                     chuoicus += "</div>";
