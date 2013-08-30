@@ -1029,7 +1029,7 @@ namespace DongHo.Controllers
                 chuoi += "<p style=\"float:right; color:#525461; font-weight:bold\">Ngày "+ DateTime.Now.Day +" Tháng "+ DateTime.Now.Month +" Năm "+ DateTime.Now.Year +"</p>";
                 chuoi += "<div style=\"clear:both;\"></div>";
                 chuoi += "</div>";
-                chuoi += "<div style=\"background:#fff; border-radius:15px 0 15px 0; padding:10px; margin:20px;\">";
+                chuoi += "<div style=\"background:#fff; border-radius:15px 0 15px 0; padding:10px; margin:20px; overflow:hidden\">";
                 chuoi += "<h2 style=\"padding-bottom:20px; border-bottom:1px solid #e8e8e8\">Cám ơn bạn đã mua sản phẩm của chúng tôi!</h2>";
                 chuoi += "<h3 style=\"text-align:center; margin:10px 0; font-size:16px;\">Thông tin đơn hàng của bạn</h3>";
                 chuoi += "<h4 style=\"margin:10px 0; font-size:14px;\">Thông tin người mua</h4>";
