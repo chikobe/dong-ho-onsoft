@@ -12,7 +12,7 @@ img         { border:none;}
 .fr         { float:right;}
 .reloadCaptcha { background:url(images/refresh-icon.gif) no-repeat; display:inline-block; text-indent:-9999px; width:16px; height:16px; margin-left:10px}
 .pErr       { color:red; margin:10px 5px 5px;}
-.wrapper    { width: 1030px; margin:0 auto;}
+.wrapper    { width: 1011px; margin:0 auto;}
 
 header                                  { background:#fff url(images/bg_menu.png) repeat-x bottom; }
 .header                                 { height: 26px; background:#fff;}
@@ -25,10 +25,10 @@ header                                  { background:#fff url(images/bg_menu.png
 .headerTop_Left ul li:hover a, .headerTop_Right ul li:hover a   { color:#000000}
 
 .headerWrap                             { }
-.headerMain                             { width:1030px; margin:0 auto; height:50px; background: #fff url(images/bg_menu.png) repeat-x bottom;}
+.headerMain                             { width:1011px; margin:0 auto; height:50px; background: #fff url(images/bg_menu.png) repeat-x bottom;}
 .headerMain div                         { float:left;}
 .logo                                   { width:220px; display:block; }
-.searchTop                              { width:562px; margin:9px 10px 9px 16px; position:relative;}
+.searchTop                              { width:561px; margin:9px 10px 9px 16px; position:relative;}
 .searchTop input[type="text"]           { width:444px; height:30px; border:1px solid #dddddd; padding-left:5px; border-radius:5px;}
 .searchTop input[type="submit"]         { height: 30px; color: #fff; font-size: 14px; width: 35px; background: #ce171f url(images/search.png) no-repeat center; border-radius:5px; border-style: none; cursor:pointer;}
 .searchTop input[type="submit"]:hover   { background: #c30b14 url(images/search.png) no-repeat center; }
@@ -78,11 +78,12 @@ border-radius: 5px;
 -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2) 0 1px 2px rgba(0, 0, 0, 0.05);
 box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2) 0 1px 2px rgba(0, 0, 0, 0.05); cursor:pointer;}
 .viewType .btnViewType:hover{ background:#e5e5e5; background: -moz-linear-gradient(top,  #e5e5e5 0%, #f8f8f8 100%);background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e5e5e5), color-stop(100%,#f8f8f8));background: -webkit-linear-gradient(top,  #e5e5e5 0%,#f8f8f8 100%);background: -o-linear-gradient(top,  #e5e5e5 0%,#f8f8f8 100%);background: -ms-linear-gradient(top,  #e5e5e5 0%,#f8f8f8 100%);background:linear-gradient(to bottom,  #e5e5e5 0%,#f8f8f8 100%);filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#f8f8f8',GradientType=0)}
-.viewType .activeViewType   { float: left; color: #fff; background: #08dcea;  position: relative;  padding: 5px 15px; margin: 10px 3px 1px 3px; border: 1px solid #56cca2; border-radius: 5px}
+.viewType .activeViewType   { float: left; color: #fff; background: #1bc2f9;  position: relative;  padding: 5px 15px; margin: 10px 3px 1px 3px; border: 1px solid #56cca2; border-radius: 5px}
 
 
 .box-pro                        { position:relative;}
 .box-pro .div-pro               { width: 238px; height: 340px; border:1px solid #e0e0e0; float:left; margin: 10px 17px 10px 0; -webkit-transition: opacity 0.6s ease-in-out; -moz-transition: opacity 0.6s ease-in-out; -o-transition: opacity 0.6s ease-in-out; -ms-transition: opacity 0.6s ease-in-out; transition: opacity 0.6s ease-in-out; box-shadow:0 0 4px #a0a0a0}
+.box-pro .div-pro:nth-child(4n+4) { width: 238px; height: 340px; border:1px solid #e0e0e0; float:left; margin: 10px 0; -webkit-transition: opacity 0.6s ease-in-out; -moz-transition: opacity 0.6s ease-in-out; -o-transition: opacity 0.6s ease-in-out; -ms-transition: opacity 0.6s ease-in-out; transition: opacity 0.6s ease-in-out; box-shadow:0 0 4px #a0a0a0}
 .box-pro a                      { display:block; position:relative;}
 .box-pro a img                  { width:238px; height:263px; display:block;}
 .box-pro .titlePro              { height:74px; background: #fff; display:block; -webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -ms-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; position:absolute; bottom:-77px; left:0px; width:238px; overflow:hidden; opacity:0.8;}
