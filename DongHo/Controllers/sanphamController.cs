@@ -19,7 +19,7 @@ namespace DongHo.Controllers
             string tag = "";
             string chuoi = "";
             string detail = "";
-            string count = "0";
+            int? count = 0;
             string sptt = "";
             string anh = "";
             string anhHuge = "";
@@ -101,7 +101,7 @@ namespace DongHo.Controllers
                 chuoi += "</div>";
                 chuoi += "</div>";
                 detail += list.Detail;
-                count += list.Count;
+                count = list.Count;
                 sptt += "<ul>";
                 for (int i = 0; i < pro.Count; i++)
                 {
