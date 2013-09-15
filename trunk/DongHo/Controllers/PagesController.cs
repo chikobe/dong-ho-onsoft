@@ -992,7 +992,7 @@ namespace DongHo.Controllers
             if (Name == "" || Email == "" || Phone == "" || Address == "")
             {
                 ViewBag.Err = "<div class=\"err\">Bạn phải điền đầy đủ thông tin</div>";
-                return View();
+                return Redirect("/Pages/order_pay");
             }
             else
             {

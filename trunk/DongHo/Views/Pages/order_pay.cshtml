@@ -65,8 +65,18 @@
     }
 </div>
 <script type="text/javascript">
-    $('#frOrder').submit(function () {
 
-        $.removeCookie('onetop_str_item_id', { path: '/' });
+    $('#frOrder').submit(function () {
+        debugger;
+        var name = $("vcusname").val();
+        var email = $("vemail").val();
+        var phone = $("vphone").val();
+        var address = $("vaddress").val();
+        if (name == undefined || email == undefined || phone == undefined || address == undefined) {
+            $("content").prepend("<div class=\"err\">Bạn phải điền đầy đủ thông tin</div>");
+        }
+        else {
+            $.removeCookie('onetop_str_item_id', { path: '/' });
+        }
     });
 </script>
