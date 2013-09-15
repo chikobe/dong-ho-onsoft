@@ -269,3 +269,4 @@ F:\IT\onsoft\dongho\www\donghochinhhang\DongHo\bin\zh-Hans\System.Spatial.resour
 F:\IT\onsoft\dongho\www\donghochinhhang\DongHo\bin\zh-Hant\System.Spatial.resources.dll
 F:\IT\onsoft\dongho\www\donghochinhhang\DongHo\obj\Debug\DongHo.dll
 F:\IT\onsoft\dongho\www\donghochinhhang\DongHo\obj\Debug\DongHo.pdb
+F:\IT\onsoft\dongho\www\donghochinhhang\DongHo\obj\Debug\DongHo.csprojResolveAssemblyReference.cache
