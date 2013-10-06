@@ -1,7 +1,8 @@
-﻿@model IList<DongHo.Models.sp_Member_PagingResult>
+﻿@model IList<DongHo.Models.Member>
 @{
     ViewBag.Title = "MemberIndex";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
 }
 
 <h2>Quản lý tài khoản nhân viên</h2>
@@ -10,7 +11,14 @@
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới", "MemberCreate","", new { @class = "vadd" })</li>
-            <li><input type="submit" value="Xóa" class="mulDel" /></li>
+            @if (username == null || username == string.Empty)
+            {
+                <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
+            }
+            else
+            {
+                <li><input type="submit" value=" Xóa " class="mulDel" /></li>
+            }
             <li>@Html.ActionLink("Làm mới", "MemberIndex", "", new { @class = "vrefresh" })</li>
             <li><a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a></li>
         </ul>
@@ -34,7 +42,14 @@
                     <td class="Text">@Html.DisplayFor(modelItem => Model[i].Username)</td>                        
                     <td class="Function">
                         @Html.ActionLink("Sửa", "MemberEdit", new { id = Model[i].Id }, new { @class = "vedit" }) 
-                        @Html.ActionLink("Xóa", "MemberDelete", new { id = Model[i].Id }, new { @onclick = "return DeleteConfirm()", @class = "vdelete" })     
+                        @if (username == null || username == string.Empty)
+                        {
+                            <p class="vdelete" onclick="AlertErr()">Xóa</p>
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Xóa", "MemberDelete", new { id = Model[i].Id }, new { @onclick = "return DeleteConfirm()", @class = "vdelete" }) 
+                        }
                         @if (Model[i].Active == 1)
                         {@Html.ActionLink("Active", "MemberActive", new { id = Model[i].Id }, new { @class = "vactive" })}
                         else
@@ -51,7 +66,14 @@
                     <td class="Text">@Html.DisplayFor(modelItem => Model[i].Username)</td>                        
                     <td class="Function">
                         @Html.ActionLink("Sửa", "MemberEdit", new { id = Model[i].Id }, new { @class = "vedit" }) 
-                        @Html.ActionLink("Xóa", "MemberDelete", new { id = Model[i].Id }, new { @onclick = "return DeleteConfirm()", @class = "vdelete" }) 
+                        @if (username == null || username == string.Empty)
+                        {
+                            <p class="vdelete" onclick="AlertErr()">Xóa</p>
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Xóa", "MemberDelete", new { id = Model[i].Id }, new { @onclick = "return DeleteConfirm()", @class = "vdelete" }) 
+                        }
                         @if (Model[i].Active == 1)
                         {@Html.ActionLink("Active", "MemberActive", new { id = Model[i].Id }, new { @class = "vactive" })}
                         else
@@ -64,8 +86,15 @@
     @Html.Raw(ViewBag.Pager)
     <div class="Control">
         <ul>
-            <li>@Html.ActionLink("Thêm mới", "MemberCreate","", new { @class = "vadd" })</li>
-            <li><input type="submit" value="Xóa" class="mulDel" /></li>
+            <li>@Html.ActionLink("Thêm mới", "MemberCreate", "", new { @class = "vadd" })</li>
+            @if (username == null || username == string.Empty)
+            {
+                <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
+            }
+            else
+            {
+                <li><input type="submit" value=" Xóa " class="mulDel" /></li>
+            }
             <li>@Html.ActionLink("Làm mới", "MemberIndex", "", new { @class = "vrefresh" })</li>
             <li><a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a></li>
         </ul>

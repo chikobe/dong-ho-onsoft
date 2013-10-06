@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+<div class="content">
+    <div class="content-small">
+        @{Html.RenderAction("colFunctionCus", "Pages");}
+    </div>
+    <div class="content-big">
+        <div class="billDetail">
+            <h1>Chi tiết đơn hàng</h1>
+            @Html.Raw(ViewBag.View)
+            @*<p class="ptime">Ngày đặt: 04/10/2013</p>
+            <div class="infoCus clearfix">
+                <p>Họ tên: <span>Nguyễn kim chi</span></p>
+                <p>SĐT: <span>0987654321</span></p>
+                <p>Email: <span>chi@gmail.com</span></p>
+                <p>Địa chỉ: <span>123 bạch mai</span></p>
+            </div>*@
+            @*<div class="infoPro">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Sản phẩm</th>
+                            <th>Giá bán</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td class="pro"><img src="~/Images/smallpro1.PNG" /><p>Đồng hồ nữ Skagen Women's H01SSLW (phiên bản giới hạn)</p></td>
+                            <td>1.200.000 VNĐ</td>
+                            <td>2</td>
+                            <td>2.400.000 VNĐ</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="4">Tổng tiền</th>
+                            <th>2.400.000 VNĐ</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>*@
+            @*<div class="statusBill">
+                <p>Phương thức thanh toán: <span>Thanh toán tại nhà</span></p>
+                <p>Tình trạng đơn hàng: <span>Chưa giao hàng</span></p>
+                <a href="#">Hủy đơn hàng</a>
+            </div>*@
+        </div>
+    </div>
+</div>

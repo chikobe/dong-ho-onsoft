@@ -1,4 +1,4 @@
-﻿@model IList<DongHo.Models.sp_WareHouse_PagingResult>
+﻿@model IList<DongHo.Models.WareHouse>
 @{
     ViewBag.Title = "Quản lý kho hàng";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -10,7 +10,14 @@
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới", "WareHouseCreate", "", new { @class = "vadd" })</li>
-            <li><input type="submit" value="Xóa" class="mulDel" /></li>
+            @if (Session["Username"] != null)
+            {
+            <li><input type="submit" value=" Xóa " class="mulDel" /></li>
+            }
+            else
+            {
+                <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
+            }
             <li>@Html.ActionLink("Làm mới", "WareHouseIndex", "", new { @class = "vrefresh" })</li>
             <li> <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a></li>
         </ul>
@@ -63,7 +70,14 @@
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới", "WareHouseCreate", "", new { @class = "vadd" })</li>
-            <li><input type="submit" value="Xóa" class="mulDel" /></li>
+            @if (Session["Username"] != null)
+            {
+            <li><input type="submit" value=" Xóa " class="mulDel" /></li>
+            }
+            else
+            {
+                <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
+            }
             <li>@Html.ActionLink("Làm mới", "WareHouseIndex", "", new { @class = "vrefresh" })</li>
             <li> 
                 <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a> 

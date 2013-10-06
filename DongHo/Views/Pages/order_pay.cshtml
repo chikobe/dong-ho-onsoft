@@ -14,16 +14,20 @@
         <h3>Thông tin tài khoản</h3>
         <div class="editInfoCus">
             <p>Họ và tên</p>
-            @Html.TextBoxFor(m => m.vcusname)<br />
+            <input type="text" data-val="true" data-val-required="Không được để trống" id="vcusname" name="vcusname" value="@Model.vcusname" />
+            <br />
             @Html.ValidationMessageFor(m => m.vcusname)
             <p>Email</p>
-            @Html.TextBoxFor(m => m.vemail)<br />
+            <input type="text" data-val="true" data-val-required="Không được để trống" data-val-regex="Không đúng định dạng email" data-val-regex-pattern='regEmail()' id="vemail" name="vemail" value="@Model.vemail" />
+            @*@Html.TextBoxFor(m => m.vemail)*@<br />
             @Html.ValidationMessageFor(m => m.vemail)
             <p>Số điện thoại</p> 
-            @Html.TextBoxFor(m => m.vphone)<br />
+            <input type="text" data-val="true" data-val-required="Không được để trống" id="vphone" name="vphone" value="@Model.vphone" />
+            @*@Html.TextBoxFor(m => m.vphone)*@<br />
             @Html.ValidationMessageFor(m => m.vphone)
             <p>Địa chỉ</p>
-            @Html.TextBoxFor(m => m.vaddress)<br />
+            <input type="text" data-val="true" data-val-required="Không được để trống" id="vaddress" name="vaddress" value="@Model.vaddress" />
+            @*@Html.TextBoxFor(m => m.vaddress)*@<br />
             @Html.ValidationMessageFor(m => m.vaddress)
         </div>
     </div>
@@ -73,7 +77,7 @@
         var phone = $("vphone").val();
         var address = $("vaddress").val();
         if (name == undefined || email == undefined || phone == undefined || address == undefined) {
-            $("content").prepend("<div class=\"err\">Bạn phải điền đầy đủ thông tin</div>");
+            $(".content").prepend("<div class=\"err\">Bạn phải điền đầy đủ thông tin</div>");
         }
         else {
             $.removeCookie('onetop_str_item_id', { path: '/' });

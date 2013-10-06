@@ -15,42 +15,29 @@ namespace DongHo.Controllers
         #region[tbCUSTOMERSIndex]
         public ActionResult tbCUSTOMERSIndex()
         {
-            if (Session["Username"] != null)
+            string page = "1";//so phan trang hien tai
+            var pagesize = 25;//so ban ghi tren 1 trang
+            var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
+            int curpage = 0; // trang hien tai dung cho phan trang
+            if (Request["page"] != null)
             {
-                string page = "1";//so phan trang hien tai
-                var pagesize = "25";//so ban ghi tren 1 trang
-                var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
-                int curpage = 0; // trang hien tai dung cho phan trang
-                if (Request["page"] != null)
-                {
-                    page = Request["page"];
-                    curpage = Convert.ToInt32(page) - 1;
-                }
-                var all = data.tbCUSTOMERs.ToList();
-                var pages = data.sp_tbCUSTOMERS_Phantrang(page, pagesize, "", "").ToList();
-                var url = Request.Path;
-                numOfNews = all.Count;
-                ViewBag.Pager = DongHo.Models.Phantrang.PhanTrang(25, curpage, numOfNews, url);
-                return View(pages);
+                page = Request["page"];
+                curpage = Convert.ToInt32(page) - 1;
             }
-            else
-            {
-                return Redirect("/Admins/admins");
-            }
+            var all = data.tbCUSTOMERs.ToList();
+            var pages = all.Skip(curpage * pagesize).Take(pagesize).ToList();
+            //var pages = data.sp_tbCUSTOMERS_Phantrang(page, pagesize, "", "").ToList();
+            var url = Request.Path;
+            numOfNews = all.Count;
+            ViewBag.Pager = DongHo.Models.Phantrang.PhanTrang(pagesize, curpage, numOfNews, url);
+            return View(pages);
         }
         #endregion
         #region[tbCUSTOMERSEdit]
         public ActionResult tbCUSTOMERSEdit(int id)
         {
-            if (Session["Username"] != null)
-            {
-                var Edit = data.tbCUSTOMERs.First(m => m.iusid == id);
-                return View(Edit);
-            }
-            else
-            {
-                return Redirect("/Admins/admins");
-            }
+            var Edit = data.tbCUSTOMERs.First(m => m.iusid == id);
+            return View(Edit);
         }
         #endregion
         #region[tbCUSTOMERSEdit]

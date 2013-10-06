@@ -1,4 +1,4 @@
-﻿@model IList<DongHo.Models.sp_tbBill_customers_PagingResult>
+﻿@model IList<DongHo.Models.tbBill_customer>
 @{
     ViewBag.Title = "Thông tin đơn hàng";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -9,7 +9,14 @@
 {
     <div class="Control">
         <ul>
-            <li><input type="submit" value="Xóa" class="mulDel" /></li>
+            @if (Session["Username"] != null)
+            {
+            <li><input type="submit" value=" Xóa " class="mulDel" /></li>
+            }
+            else
+            {
+                <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
+            }
             <li>@Html.ActionLink("Làm mới", "tbBill_customersIndex", "", new { @class = "vrefresh" })</li>
             <li> 
                 <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a> 
@@ -31,7 +38,14 @@
     @Html.Raw(ViewBag.Pager)
     <div class="Control">
         <ul>
-            <li><input type="submit" value="Xóa" class="mulDel" /></li>
+            @if (Session["Username"] != null)
+            {
+            <li><input type="submit" value=" Xóa " class="mulDel" /></li>
+            }
+            else
+            {
+                <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
+            }
             <li>@Html.ActionLink("Làm mới", "tbBill_customersIndex", "", new { @class = "vrefresh" })</li>
             <li> 
                 <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a> 

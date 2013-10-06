@@ -15,44 +15,38 @@ namespace DongHo.Controllers
         #region[AdvertiseIndex]
         public ActionResult AdvertiseIndex(int? position=1)
         {
-            if (Session["Username"] != null)
+            ViewBag.Position = new SelectList(StringClass.DDLTypeAdvertise(), "value", "text");
+            string page = "1";//so phan trang hien tai
+            var pagesize = 25;//so ban ghi tren 1 trang
+            var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
+            int curpage = 0; // trang hien tai dung cho phan trang
+            if (Request["page"] != null)
             {
-                ViewBag.Position = new SelectList(StringClass.DDLTypeAdvertise(), "value", "text");
-                string page = "1";//so phan trang hien tai
-                var pagesize = "25";//so ban ghi tren 1 trang
-                var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
-                int curpage = 0; // trang hien tai dung cho phan trang
-                if (Request["page"] != null)
-                {
-                    page = Request["page"];
-                    curpage = Convert.ToInt32(page) - 1;
-                }
-                var all = new List<DongHo.Models.Advertise>();
-                all = (from adv in data.Advertises where adv.Position == position select adv).ToList();
-                var pages = data.sp_Advertise_Phantrang(page, pagesize, "Position=" + position + "", "Id desc").ToList();
-                var url = Request.Path;
-                numOfNews = all.Count;
-                ViewBag.Pager = DongHo.Models.Phantrang.PhanTrang(25, curpage, numOfNews, url);
-                return View(pages);
+                page = Request["page"];
+                curpage = Convert.ToInt32(page) - 1;
+            }
+            var all = new List<DongHo.Models.Advertise>();
+            all = (from adv in data.Advertises where adv.Position == position select adv).OrderByDescending(m=>m.Id).ToList();
+            var pages = all.Skip(curpage * pagesize).Take(pagesize).ToList();
+            //var pages = data.sp_Advertise_Phantrang(page, pagesize, "Position=" + position + "", "Id desc").ToList();
+            var url = Request.Path;
+            numOfNews = all.Count;
+            if (numOfNews > 0)
+            {
+                ViewBag.Pager = DongHo.Models.Phantrang.PhanTrang(pagesize, curpage, numOfNews, url);
             }
             else
             {
-                return Redirect("/Admins/admins");
+                ViewBag.Pager = "";
             }
+            return View(pages);
         }
         #endregion
         #region[AdvertiseCreate]
         public ActionResult AdvertiseCreate()
         {
-            if (Session["Username"] != null)
-            {
-                ViewBag.Position = new SelectList(StringClass.DDLTypeAdvertise(), "value", "text");
-                return View();
-            }
-            else
-            {
-                return Redirect("/Admins/admins");
-            }
+            ViewBag.Position = new SelectList(StringClass.DDLTypeAdvertise(), "value", "text");
+            return View();
         }
         #endregion
         #region[AdvertiseCreate]
@@ -96,16 +90,9 @@ namespace DongHo.Controllers
         #region[AdvertiseEdit]
         public ActionResult AdvertiseEdit(int id)
         {
-            if (Session["Username"] != null)
-            {
-                var Edit = data.Advertises.Where(a => a.Id == id).Single();
-                ViewBag.Position = new SelectList(StringClass.DDLTypeAdvertise(), "value", "text", Edit.Position);
-                return View(Edit);
-            }
-            else
-            {
-                return Redirect("/Admins/admins");
-            }
+            var Edit = data.Advertises.Where(a => a.Id == id).Single();
+            ViewBag.Position = new SelectList(StringClass.DDLTypeAdvertise(), "value", "text", Edit.Position);
+            return View(Edit);
         }
         #endregion
         #region[AdvertiseEdit]

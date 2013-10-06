@@ -10,7 +10,13 @@
 <div class="ImportCreate">
     <div class="Control">
         <ul>
-            <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+            @if (Session["Username"]!=null)
+            {
+                <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+            }
+            else{
+                <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>   
+            }
             <li>@Html.ActionLink("Trở lại", "ImportIndex","", new { @class="uback"})</li>
         </ul>
     </div>
@@ -40,7 +46,13 @@
     </table>
     <div class="Control">
         <ul>
-            <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+            @if (Session["Username"]!=null)
+            {
+                <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+            }
+            else{
+                <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>   
+            }
             <li>@Html.ActionLink("Trở lại", "ImportIndex","", new { @class="uback"})</li>
         </ul>
     </div>

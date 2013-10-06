@@ -11,7 +11,13 @@
     <tr>
         <td colspan="2" class="Control">
             <ul>
-                <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                @if (Session["Username"]!=null)
+                {
+                    <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+                }
+                else{
+                    <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>   
+                }
                 <li> 
                     <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a> 
                 </li>
@@ -57,7 +63,13 @@
     <tr>
         <td colspan="2" class="Control">
             <ul>
-                <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                @if (Session["Username"]!=null)
+                {
+                    <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+                }
+                else{
+                    <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>   
+                }
                 <li> 
                     <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a> 
                 </li>

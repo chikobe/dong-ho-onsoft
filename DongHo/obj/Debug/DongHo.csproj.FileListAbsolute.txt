@@ -201,7 +201,6 @@ F:\IT\onsoft\dongho\www\donghochinhhang\DongHo\bin\System.Web.Http.OData.dll
 F:\IT\onsoft\dongho\www\donghochinhhang\DongHo\bin\System.Web.Http.WebHost.dll
 F:\IT\onsoft\dongho\www\donghochinhhang\DongHo\bin\System.Web.Optimization.dll
 F:\IT\onsoft\dongho\www\donghochinhhang\DongHo\bin\WebGrease.dll
-F:\IT\onsoft\dongho\www\donghochinhhang\DongHo\bin\DongHo.pdb
 F:\IT\onsoft\dongho\www\donghochinhhang\DongHo\bin\Microsoft.Web.Infrastructure.dll
 F:\IT\onsoft\dongho\www\donghochinhhang\DongHo\bin\System.Net.Http.dll
 F:\IT\onsoft\dongho\www\donghochinhhang\DongHo\bin\System.Net.Http.WebRequest.dll
@@ -269,4 +268,4 @@ F:\IT\onsoft\dongho\www\donghochinhhang\DongHo\bin\zh-Hans\System.Spatial.resour
 F:\IT\onsoft\dongho\www\donghochinhhang\DongHo\bin\zh-Hant\System.Spatial.resources.dll
 F:\IT\onsoft\dongho\www\donghochinhhang\DongHo\obj\Debug\DongHo.dll
 F:\IT\onsoft\dongho\www\donghochinhhang\DongHo\obj\Debug\DongHo.pdb
-F:\IT\onsoft\dongho\www\donghochinhhang\DongHo\obj\Debug\DongHo.csprojResolveAssemblyReference.cache
+F:\IT\onsoft\dongho\www\donghochinhhang\DongHo\bin\DongHo.pdb

@@ -263,9 +263,28 @@ jQuery(document).ready(function ($) {
         if ($('#' + $(this).attr('txt-id')).val().trim() != '') {
             countToUpdate = $('#' + $(this).attr('txt-id')).val();
         }
+        var str_product = $.cookie('onetop_str_item_id');
+        if (str_product) {
+            var obj = $.parseJSON(str_product);
+            var dem = $(this).closest("tr").find("input[type='text']");
+            var check = 0;
+            for (key in obj) {
+                if (key == recordToUpdate) { obj[key] = parseInt(countToUpdate); check = 1; }
+            }
+            if (check == 0) { obj[recordToUpdate] = dem.val(); }
+            str_product = JSON.stringify(obj);
+        } else {
+            var arr = {};
+            arr[recordToUpdate] = count;
+            str_product = JSON.stringify(arr);
+        }
+        var date = new Date();
+        date.setTime(date.getTime() + (2 * 3600 * 1000));
+        $.cookie('onetop_str_item_id', str_product, { expires: date, domain: '', path: '/' });
+        var co = $.cookie("onetop_str_item_id");
         if (recordToUpdate != '') {
             clearUpdateMessage();
-            $.post('/sanpham/UpdateCartCountItem', { 'id': recordToUpdate, 'cartCount': countToUpdate },
+            $.post('/sanpham/UpdateTopCart', { 'co': co, 'type': 0 },
                 function () { location.reload();});
         }
     });
@@ -425,3 +444,8 @@ function get_angel(coordinates1, coordinates2) {
     return Math.acos(dx / Math.sqrt(dx * dx + dy * dy)) * (180 / Math.PI);
 }
 
+//Dung cho fr order_pay
+function regEmail() {
+    var regemail = '^[\w\.=-]+@[\w\.-]+\.[\w]{2,3}$';
+    return regemail;
+}

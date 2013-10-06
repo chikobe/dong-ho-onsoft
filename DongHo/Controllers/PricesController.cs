@@ -15,28 +15,14 @@ namespace DongHo.Controllers
         #region[PricesIndex]
         public ActionResult PricesIndex()
         {
-            if (Session["Username"] != null)
-            {
-                var list = data.Prices.ToList();
-                return View(list);
-            }
-            else
-            {
-                return Redirect("/Admins/admins");
-            }
+            var list = data.Prices.ToList();
+            return View(list);
         }
         #endregion
         #region[PricesCreate]
         public ActionResult PricesCreate()
         {
-            if (Session["Username"] != null)
-            {
-                return View();
-            }
-            else
-            {
-                return Redirect("/Admins/admins");
-            }
+            return View();
         }
         #endregion
         #region[PricesCreate]
@@ -62,15 +48,8 @@ namespace DongHo.Controllers
         #region[PricesEdit]
         public ActionResult PricesEdit(int id)
         {
-            if (Session["Username"] != null)
-            {
-                var edit = data.Prices.First(m => m.Id == id);
-                return View(edit);
-            }
-            else
-            {
-                return Redirect("/Admins/admins");
-            }
+            var edit = data.Prices.First(m => m.Id == id);
+            return View(edit);
         }
         #endregion
         #region[PricesEdit]

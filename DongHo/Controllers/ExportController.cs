@@ -15,93 +15,87 @@ namespace DongHo.Controllers
         #region[ExportIndex]
         public ActionResult ExportIndex()
         {
-            if (Session["Username"] != null)
-            {
-                #region[Khai bao bien]
-                string page = "1";//so phan trang hien tai
-                var pagesize = "25";//so ban ghi tren 1 trang
-                var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
-                int curpage = 0; // trang hien tai dung cho phan trang
-                var DateBegin = "";
-                var DateEnd = "";
-                var CusName = "";
-                var EmpName = "";
-                var PriceFrom = "";
-                var PriceTo = "";
-                var ExpId = "";
-                var str = "1=1";
-                #endregion
-                #region[check Request]
-                if (Request["page"] != null) { page = Request["page"]; curpage = Convert.ToInt32(page) - 1;}
-                if (Request["dateForm"] != null) { DateBegin = Request["dateForm"].ToString(); if (DateBegin != "") { str += " and xdate >= '" + DateTimeClass.ConvertDateTimeMMddyyyy(DateBegin) + "'"; } }
-                if (Request["dateTo"] != null) { DateEnd = Request["dateTo"].ToString(); if (DateEnd != "") { str += " and xdate <= '" + DateTimeClass.ConvertDateTimeMMddyyyy(DateEnd) + "'"; } }
-                if (Request["cus"] != null) { CusName = Request["cus"].ToString(); if (CusName != "") { str += " and CusName like N'%" + CusName + "%'"; } }
-                if (Request["emp"] != null) { EmpName = Request["emp"].ToString(); if (EmpName != "") { str += " and UserId = " + EmpName + ""; } }
-                if (Request["priceForm"] != null) { PriceFrom = Request["priceForm"].ToString(); if (PriceFrom != "") { str += " and TotalMoney <= '" + PriceFrom + "'"; } }
-                if (Request["priceTo"] != null) { PriceTo = Request["priceTo"].ToString(); if (PriceTo != "") { str += " and TotalMoney >= '" + PriceTo + "'"; } }
-                if (Request["expCode"] != null) { ExpId = Request["expCode"].ToString(); if (ExpId != "") { str += " and Id = " + ExpId + ""; } }
-                #endregion
-                var all = data.sp_Export_GetByTop("", str, "").ToList();
-                var pages = data.sp_Export_Phantrang(page, pagesize, str, "xdate desc").ToList();
-                var url = Request.Path;
-                numOfNews = all.Count;
+            #region[Khai bao bien]
+            string page = "1";//so phan trang hien tai
+            var pagesize = 25;//so ban ghi tren 1 trang
+            var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
+            int curpage = 0; // trang hien tai dung cho phan trang
+            var DateBegin = "";
+            var DateEnd = "";
+            var CusName = "";
+            var EmpName = "";
+            var PriceFrom = "";
+            var PriceTo = "";
+            var ExpId = "";
+            var str = "1=1";
+            #endregion
+            #region[check Request]
+            if (Request["page"] != null) { page = Request["page"]; curpage = Convert.ToInt32(page) - 1;}
+            if (Request["dateForm"] != null) { DateBegin = Request["dateForm"].ToString(); if (DateBegin != "") { str += " and xdate >= '" + DateTimeClass.ConvertDateTimeMMddyyyy(DateBegin) + "'"; } }
+            if (Request["dateTo"] != null) { DateEnd = Request["dateTo"].ToString(); if (DateEnd != "") { str += " and xdate <= '" + DateTimeClass.ConvertDateTimeMMddyyyy(DateEnd) + "'"; } }
+            if (Request["cus"] != null) { CusName = Request["cus"].ToString(); if (CusName != "") { str += " and CusName like N'%" + CusName + "%'"; } }
+            if (Request["emp"] != null) { EmpName = Request["emp"].ToString(); if (EmpName != "") { str += " and UserId = " + EmpName + ""; } }
+            if (Request["priceForm"] != null) { PriceFrom = Request["priceForm"].ToString(); if (PriceFrom != "") { str += " and TotalMoney >= '" + PriceFrom + "'"; } }
+            if (Request["priceTo"] != null) { PriceTo = Request["priceTo"].ToString(); if (PriceTo != "") { str += " and TotalMoney <= '" + PriceTo + "'"; } }
+            if (Request["expCode"] != null) { ExpId = Request["expCode"].ToString(); if (ExpId != "") { str += " and Id = " + ExpId + ""; } }
+            #endregion
+            var all = data.sp_Export_GetByTop("", str, "").OrderByDescending(m=>m.xdate).ToList();
+            var pages = all.Skip(curpage * pagesize).Take(pagesize).ToList();
+            //var pages = data.sp_Export_Phantrang(page, pagesize, str, "xdate desc").ToList();
+            var url = Request.Path;
+            numOfNews = all.Count;
 
-                string chuoi = "";
-                if (pages.Count > 0)
-                { 
-                    for (int i = 0; i < pages.Count; i++)
+            string chuoi = "";
+            if (pages.Count > 0)
+            { 
+                for (int i = 0; i < pages.Count; i++)
+                {
+                    var wh = data.WareHouses.First(m => m.Id == pages[i].WareHouseId);
+                    var user = data.Members.First(m => m.Id == pages[i].UserId);
+                    if (i % 2 == 0)
                     {
-                        var wh = data.WareHouses.First(m => m.Id == pages[i].WareHouseId);
-                        var user = data.Members.First(m => m.Id == pages[i].UserId);
-                        if (i % 2 == 0)
-                        {
-                            chuoi += "<tr id=\"trOdd_" + i + "\" class=\"trOdd\" onmousemove=\"Javascript:chkSelect_OnMouseMove1(this)\" onmouseout=\"Javascript:chkSelect_OnMouseOut1(this,0)\">";
-                            chuoi += "<td class=\"CheckBoxsmall\"><input id='chkSelect' name='chk" + pages[i].Id + "' onclick = 'Javascript:chkSelect_OnClick(this,0)' class='chk' type='checkbox'/></td>";
-                            chuoi += "<td class='Text'>" + wh.Name + "</td>";
-                            chuoi += "<td class='Text'>" + user.Name + "</td>";
-                            chuoi += "<td class='Text'>" + pages[i].CusName + "</td>";
-                            chuoi += "<td class='Number'>" + Format_Price(pages[i].TotalMoney) + " VNĐ</td>";
-                            chuoi += "<td class='DateTimesmal'>" + Models.DateTimeClass.ConvertDateTimeddMMyyyy(pages[i].xdate.ToString()) + "</td>";
-                            chuoi += "<td class='Function'>";
-                            chuoi += "<a href='/Export/ExportViewDetail/" + pages[i].Id + "' class='views' title='Xem'>Xem</a>";
-                            chuoi += "<a href='/Export/ExportEdit/" + pages[i].Id + "' class='vedit' title='Sửa'>Sửa</a>";
-                            chuoi += "<a href='/Export/ExportDelete/" + pages[i].Id + "' class='vdelete' onclick='return DeleteConfirm()' title='Xóa'>Xóa</a>";
-                            chuoi += "</td>";
-                            chuoi += "</tr>";
-                        }
-                        else
-                        {
-                            chuoi += "<tr id=\"trEven_" + i + "\" class=\"trEven\" onmousemove=\"Javascript:chkSelect_OnMouseMove1(this)\" onmouseout=\"Javascript:chkSelect_OnMouseOut1(this," + i + ")\">";
-                            chuoi += "<td class=\"CheckBoxsmall\"><input id='chkSelect' name='chk" + pages[i].Id + "' onclick = 'Javascript:chkSelect_OnClick(this,0)' class='chk' type='checkbox'/></td>";
-                            chuoi += "<td class='Text'>" + wh.Name + "</td>";
-                            chuoi += "<td class='Text'>" + user.Name + "</td>";
-                            chuoi += "<td class='Text'>" + pages[i].CusName + "</td>";
-                            chuoi += "<td class='Number'>" + Format_Price(pages[i].TotalMoney) + " VNĐ</td>";
-                            chuoi += "<td class='DateTimesmal'>" + Models.DateTimeClass.ConvertDateTimeddMMyyyy(pages[i].xdate.ToString()) + "</td>";
-                            chuoi += "<td class='Function'>";
-                            chuoi += "<a href='/Export/ExportViewDetail/" + pages[i].Id + "' class='views' title='Xem'>Xem</a>";
-                            chuoi += "<a href='/Export/ExportEdit/" + pages[i].Id + "' class='vedit' title='Sửa'>Sửa</a>";
-                            chuoi += "<a href='/Export/ExportDelete/" + pages[i].Id + "' class='vdelete' onclick='return DeleteConfirm()' title='Xóa'>Xóa</a>";
-                            chuoi += "</td>";
-                            chuoi += "</tr>";
-                        }
+                        chuoi += "<tr id=\"trOdd_" + i + "\" class=\"trOdd\" onmousemove=\"Javascript:chkSelect_OnMouseMove1(this)\" onmouseout=\"Javascript:chkSelect_OnMouseOut1(this,0)\">";
+                        chuoi += "<td class=\"CheckBoxsmall\"><input id='chkSelect' name='chk" + pages[i].Id + "' onclick = 'Javascript:chkSelect_OnClick(this,0)' class='chk' type='checkbox'/></td>";
+                        chuoi += "<td class='Text'>" + wh.Name + "</td>";
+                        chuoi += "<td class='Text'>" + user.Name + "</td>";
+                        chuoi += "<td class='Text'>" + pages[i].CusName + "</td>";
+                        chuoi += "<td class='Number'>" + Format_Price(pages[i].TotalMoney) + " VNĐ</td>";
+                        chuoi += "<td class='DateTimesmal'>" + Models.DateTimeClass.ConvertDateTimeddMMyyyy(pages[i].xdate.ToString()) + "</td>";
+                        chuoi += "<td class='Function'>";
+                        chuoi += "<a href='/Export/ExportViewDetail/" + pages[i].Id + "' class='views' title='Xem'>Xem</a>";
+                        chuoi += "<a href='/Export/ExportEdit/" + pages[i].Id + "' class='vedit' title='Sửa'>Sửa</a>";
+                        chuoi += "<a href='/Export/ExportDelete/" + pages[i].Id + "' class='vdelete' onclick='return DeleteConfirm()' title='Xóa'>Xóa</a>";
+                        chuoi += "</td>";
+                        chuoi += "</tr>";
+                    }
+                    else
+                    {
+                        chuoi += "<tr id=\"trEven_" + i + "\" class=\"trEven\" onmousemove=\"Javascript:chkSelect_OnMouseMove1(this)\" onmouseout=\"Javascript:chkSelect_OnMouseOut1(this," + i + ")\">";
+                        chuoi += "<td class=\"CheckBoxsmall\"><input id='chkSelect' name='chk" + pages[i].Id + "' onclick = 'Javascript:chkSelect_OnClick(this,0)' class='chk' type='checkbox'/></td>";
+                        chuoi += "<td class='Text'>" + wh.Name + "</td>";
+                        chuoi += "<td class='Text'>" + user.Name + "</td>";
+                        chuoi += "<td class='Text'>" + pages[i].CusName + "</td>";
+                        chuoi += "<td class='Number'>" + Format_Price(pages[i].TotalMoney) + " VNĐ</td>";
+                        chuoi += "<td class='DateTimesmal'>" + Models.DateTimeClass.ConvertDateTimeddMMyyyy(pages[i].xdate.ToString()) + "</td>";
+                        chuoi += "<td class='Function'>";
+                        chuoi += "<a href='/Export/ExportViewDetail/" + pages[i].Id + "' class='views' title='Xem'>Xem</a>";
+                        chuoi += "<a href='/Export/ExportEdit/" + pages[i].Id + "' class='vedit' title='Sửa'>Sửa</a>";
+                        chuoi += "<a href='/Export/ExportDelete/" + pages[i].Id + "' class='vdelete' onclick='return DeleteConfirm()' title='Xóa'>Xóa</a>";
+                        chuoi += "</td>";
+                        chuoi += "</tr>";
                     }
                 }
-                ViewBag.View = chuoi;
-                if (pages.Count > 0)
-                {
-                    ViewBag.Pager = DongHo.Models.Phantrang.PhanTrang(25, curpage, numOfNews, url);
-                }
-                else
-                {
-                    ViewBag.Pager = "";
-                }
-                return View();
+            }
+            ViewBag.View = chuoi;
+            if (pages.Count > 0)
+            {
+                ViewBag.Pager = DongHo.Models.Phantrang.PhanTrang(25, curpage, numOfNews, url);
             }
             else
             {
-                return Redirect("/Admins/admins");
+                ViewBag.Pager = "";
             }
+            return View();
         }
         #endregion
         #region[ExportViewDetail]
@@ -192,14 +186,15 @@ namespace DongHo.Controllers
         #region[ExportCreate]
         public ActionResult ExportCreate()
         {
+            string chuoiEmp = "";
+            string chuoiCat = "";
+            var str = "1=1";
+            ViewBag.WareHouse = new SelectList(data.WareHouses, "Id", "Name");
+            #region[View DDL Ten nhan vien]
+            var grmem = data.GroupMembers.ToList();
+            chuoiEmp += "<select id='NameEmp' name='NameEmp'>";
             if (Session["Username"] != null)
             {
-                string chuoiEmp = "";
-                string chuoiCat = "";
-                ViewBag.WareHouse = new SelectList(data.WareHouses, "Id", "Name");
-                #region[View DDL Ten nhan vien]
-                var grmem = data.GroupMembers.ToList();
-                chuoiEmp += "<select id='NameEmp' name='NameEmp'>";
                 chuoiEmp += "<option value>==== Chọn tên nhân viên ====</option>";
                 for (int i = 0; i < grmem.Count; i++)
                 {
@@ -220,122 +215,124 @@ namespace DongHo.Controllers
                         }
                     }
                 }
-                chuoiEmp += "</select>";
-                ViewBag.NameEmp = chuoiEmp;
-                #endregion
-                var exp = data.Exports.OrderByDescending(m => m.Id).FirstOrDefault();
-                ViewBag.ExpId = (exp.Id + 1);//Ma phieu xuat moi cua phieu xuat chuan bi create
-                #region[View DDL Nhom san pham]
-                var cat = data.Categories.OrderBy(m=>m.Level).ToList();
-                chuoiCat += "<select id='proCat' name='proCat'>";
-                chuoiCat += "<option value>==== Chọn nhóm sản phẩm ====</option>";
-                for (int j = 0; j < cat.Count; j++)
-                {
-                    chuoiCat += "<option value='" + cat[j].Id+ "'>" + StringClass.ShowNameLevel(cat[j].Name,cat[j].Level) + "</option>";
-                }
-                chuoiCat += "</select>";
-                ViewBag.proCat = chuoiCat;
-                #endregion
-                ViewBag.Supplier = new SelectList(data.Suppliers, "Id", "Name");
-                #region[View table Phieu xuat]
-                string chuoipro = "";
-                chuoipro += "<table border=\"1\" class=\"proImport\">";
-                chuoipro += "<tr>";
-                chuoipro += "<th>TT</th>";
-                chuoipro += "<th>Sản phẩm</th>";
-                chuoipro += "<th>Số lượng</th>";
-                chuoipro += "<th>Đơn giá xuất</th>";
-                chuoipro += "<th>Thành tiền</th>";
-                chuoipro += "<th>Chức năng</th>";
-                chuoipro += "</tr>";
-                if (Session["AddProductExport"] != null)
-                {
-                    List<Product> list = (List<Product>)Session["AddProductExport"];
-                    for (int i = 0; i < list.Count; i++)
-                    {
-                        chuoipro += "<tr>";
-                        chuoipro += "<td>" + (i + 1) + "</td>";
-                        chuoipro += "<td>" + list[i].Name + "</td>";
-                        chuoipro += "<td><input type=\"text\" value=\"0\" name=\"txtQuantity_" + i + "\" id=\"txtQuantity_" + i + "\" class='quantity'/></td>";
-                        chuoipro += "<td><span class='price'>" + list[i].Price + "</span><input type='hidden' name='hidePrice_" + i + "' id='hidePrice_" + i + "' value='" + list[i].Price + "'/> VNĐ</td>";
-                        chuoipro += "<td><span class='money'>0</span><input type='hidden' name='hideMoney_" + i + "' id='hideMoney_" + i + "' value='0'/> VNĐ</td>";
-                        chuoipro += "<td><a href=\"/Export/ExportRemove/" + i + "\" class=\"vdel\" title='Xóa'>Xóa</a></td>";
-                        chuoipro += "</tr>";
-                    }
-                    chuoipro += "<tr class='trTotal'>";
-                    chuoipro += "<td colspan=\"4\" class=\"trTilte\"><input type='hidden' name='hideTotal' id='hideTotal' value='0'/>Tổng tiền</td>";
-                    chuoipro += "<td colspan=\"2\" class=\"trTotal\"><span id='total'>0</span> VNĐ</td>";
-                    chuoipro += "</tr>";
-                }
-                chuoipro += "</table>";
-                ViewBag.tbExport = chuoipro;
-                #endregion
-                string page = "1";//so phan trang hien tai
-                var pagesize = "10";//so ban ghi tren 1 trang
-                var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
-                int curpage = 0; // trang hien tai dung cho phan trang
-                var str = "1=1";
-                var cats = "";
-                var sup = "";
-                #region[check request category]
-                if (Request["cat"] != null) 
-                { 
-                    cats = Request["cat"].ToString(); 
-                    if (cats != "") 
-                    {
-                        var c = data.Categories.Where(m => m.Id == int.Parse(cats)).FirstOrDefault();
-                        if (c.Level.Length == 5){ str += " and CatId = '" + cats + "'";}
-                        else if (c.Level.Length == 10){ str += " and CatL2 = '" + cats + "'";}
-                    }
-                }
-                #endregion
-                #region[check request supplier]
-                if (Request["cc"] != null) 
-                {
-                    sup = Request["cc"].ToString();
-                    if (sup != "")
-                    {
-                        var brand = data.Brands.Where(m => m.SupplierId == int.Parse(sup)).ToList();
-                        if (brand.Count > 0)
-                        {
-                            for (int i = 0; i < brand.Count; i++)
-                            {
-                                if (i == 0){ str += " and BrandId='" + brand[i].Id + "'";}
-                                else{ str += " or BrandId='" + brand[i].Id + "'";}
-                            }
-                        }
-                    }
-                }
-                #endregion
-                if (Request["page"] != null) { page = Request["page"]; curpage = Convert.ToInt32(page) - 1; }
-                var all = data.sp_Product_GetByTop("", str, "").ToList();
-                var pages = data.sp_Product_Phantrang(page, pagesize, str, "SpTon desc").ToList();
-                numOfNews = all.Count;
-                if (pages.Count > 0)
-                {
-                    if (sup == "" && cats == "")
-                    {
-                        var url = Request.Path;
-                        ViewBag.Pager = DongHo.Models.Phantrang.PhanTrang(10, curpage, numOfNews, url);
-                    }
-                    else
-                    {
-                        var url = Request.Url.PathAndQuery;
-                        int u = url.IndexOf("&page=");
-                        if (u > 0){ url = url.Substring(0, u);}
-                        ViewBag.Pager = DongHo.Models.PhantrangQuery.PhanTrangQuery(10, curpage, numOfNews, url);
-                    }
-                }
-                else
-                {
-                    ViewBag.Pager = "";
-                }
-                return View(pages);
             }
             else
             {
-                return Redirect("/Admins/admins");
+                chuoiEmp += "<option>Khách</option>";
             }
+            chuoiEmp += "</select>";
+            ViewBag.NameEmp = chuoiEmp;
+            #endregion
+            var exp = data.Exports.OrderByDescending(m => m.Id).FirstOrDefault();
+            ViewBag.ExpId = (exp.Id + 1);//Ma phieu xuat moi cua phieu xuat chuan bi create
+            #region[View DDL Nhom san pham]
+            var cat = data.Categories.OrderBy(m=>m.Level).ToList();
+            chuoiCat += "<select id='proCat' name='proCat'>";
+            chuoiCat += "<option value>==== Chọn nhóm sản phẩm ====</option>";
+            for (int j = 0; j < cat.Count; j++)
+            {
+                chuoiCat += "<option value='" + cat[j].Id+ "'>" + StringClass.ShowNameLevel(cat[j].Name,cat[j].Level) + "</option>";
+            }
+            chuoiCat += "</select>";
+            ViewBag.proCat = chuoiCat;
+            #endregion
+            ViewBag.Supplier = new SelectList(data.Suppliers, "Id", "Name");
+            #region[View table Phieu xuat]
+            string chuoipro = "";
+            var tong = 0;
+            chuoipro += "<table border=\"1\" class=\"proImport\">";
+            chuoipro += "<tr>";
+            chuoipro += "<th>TT</th>";
+            chuoipro += "<th>Sản phẩm</th>";
+            chuoipro += "<th>Số lượng</th>";
+            chuoipro += "<th>Đơn giá xuất</th>";
+            chuoipro += "<th>Thành tiền</th>";
+            chuoipro += "<th>Chức năng</th>";
+            chuoipro += "</tr>";
+            if (Session["AddProductExport"] != null)
+            {
+                List<Product> list = (List<Product>)Session["AddProductExport"];
+                for (int i = 0; i < list.Count; i++)
+                {
+                    chuoipro += "<tr>";
+                    chuoipro += "<td>" + (i + 1) + "</td>";
+                    chuoipro += "<td>" + list[i].Name + "</td>";
+                    chuoipro += "<td><input type=\"text\" value=\"1\" name=\"txtQuantity_" + i + "\" id=\"txtQuantity_" + i + "\" class='quantity' /></td>";
+                    chuoipro += "<td><span class='price'>" + list[i].Price + "</span><input type='hidden' name='hidePrice_" + i + "' id='hidePrice_" + i + "' value='" + list[i].Price + "'/> VNĐ</td>";
+                    chuoipro += "<td><span class='money'>" + list[i].Price + "</span><input type='hidden' name='hideMoney_" + i + "' id='hideMoney_" + i + "' value='1'/> VNĐ</td>";
+                    chuoipro += "<td><a href=\"/Export/ExportRemove/" + i + "\" class=\"vdel\" title='Xóa'>Xóa</a></td>";
+                    chuoipro += "</tr>";
+                    tong += int.Parse(list[i].Price.ToString());
+                    str += " and Id != " + list[i].Id + "";
+                }
+                chuoipro += "<tr class='trTotal'>";
+                chuoipro += "<td colspan=\"4\" class=\"trTilte\"><input type='hidden' name='hideTotal' id='hideTotal' value='0'/>Tổng tiền</td>";
+                chuoipro += "<td colspan=\"2\" class=\"trTotal\"><span id='total'>0</span> VNĐ</td>";
+                chuoipro += "</tr>";
+            }
+            chuoipro += "</table>";
+            ViewBag.tbExport = chuoipro;
+            #endregion
+            string page = "1";//so phan trang hien tai
+            var pagesize = "10";//so ban ghi tren 1 trang
+            var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
+            int curpage = 0; // trang hien tai dung cho phan trang
+            var cats = "";
+            var sup = "";
+            #region[check request category]
+            if (Request["cat"] != null) 
+            { 
+                cats = Request["cat"].ToString(); 
+                if (cats != "") 
+                {
+                    var c = data.Categories.Where(m => m.Id == int.Parse(cats)).FirstOrDefault();
+                    if (c.Level.Length == 5){ str += " and CatId = '" + cats + "'";}
+                    else if (c.Level.Length == 10){ str += " and CatL2 = '" + cats + "'";}
+                }
+            }
+            #endregion
+            #region[check request supplier]
+            if (Request["cc"] != null) 
+            {
+                sup = Request["cc"].ToString();
+                if (sup != "")
+                {
+                    var brand = data.Brands.Where(m => m.SupplierId == int.Parse(sup)).ToList();
+                    if (brand.Count > 0)
+                    {
+                        for (int i = 0; i < brand.Count; i++)
+                        {
+                            if (i == 0){ str += " and BrandId='" + brand[i].Id + "'";}
+                            else{ str += " or BrandId='" + brand[i].Id + "'";}
+                        }
+                    }
+                }
+            }
+            #endregion
+            if (Request["page"] != null) { page = Request["page"]; curpage = Convert.ToInt32(page) - 1; }
+            var all = data.sp_Product_GetByTop("", str, "").ToList();
+            var pages = data.sp_Product_Phantrang(page, pagesize, str, "SpTon desc").ToList();
+            numOfNews = all.Count;
+            if (pages.Count > 0)
+            {
+                if (sup == "" && cats == "")
+                {
+                    var url = Request.Path;
+                    ViewBag.Pager = DongHo.Models.Phantrang.PhanTrang(10, curpage, numOfNews, url);
+                }
+                else
+                {
+                    var url = Request.Url.PathAndQuery;
+                    int u = url.IndexOf("&page=");
+                    if (u > 0){ url = url.Substring(0, u);}
+                    ViewBag.Pager = DongHo.Models.PhantrangQuery.PhanTrangQuery(10, curpage, numOfNews, url);
+                }
+            }
+            else
+            {
+                ViewBag.Pager = "";
+            }
+            return View(pages);
         }
         #endregion
         #region[ExportCreate]
@@ -388,49 +385,42 @@ namespace DongHo.Controllers
         #region[ExportEdit]
         public ActionResult ExportEdit(int id)
         {
-            if (Session["Username"] != null)
+            var Edit = data.Exports.First(m => m.Id == id);
+            var impDetail = data.ExportDetails.Where(m => m.ExportId == Edit.Id).ToList();
+            var wh = data.WareHouses.ToList();
+            for (int k = 0; k < wh.Count; k++)
             {
-                var Edit = data.Exports.First(m => m.Id == id);
-                var impDetail = data.ExportDetails.Where(m => m.ExportId == Edit.Id).ToList();
-                var wh = data.WareHouses.ToList();
-                for (int k = 0; k < wh.Count; k++)
-                {
-                    ViewBag.WareHouse = new SelectList(wh, "Id", "Name", Edit.WareHouseId);
-                }
-                ViewBag.ViewDate = DateTimeClass.ConvertDateTimeddMMyyyy(Edit.xdate.ToString());
-                string chuoipro = "";
-                chuoipro += "<table class='proImport'>";
-                chuoipro += "<tr>";
-                chuoipro += "<th>Mã sản phẩm</th>";
-                chuoipro += "<th>Tên sản phẩm</th>";
-                chuoipro += "<th>Số lượng xuất</th>";
-                chuoipro += "<th>Thành tiền</th>";
-                chuoipro += "</tr>";
-                for (int i = 0; i < impDetail.Count; i++)
-                {
-                    var listPro = data.Products.Where(m => m.Id == impDetail[i].ProId).FirstOrDefault();
-                    if (listPro != null)
-                    {
-                        chuoipro += "<tr>";
-                        chuoipro += "<td>" + listPro.Id + "</td>";
-                        chuoipro += "<td>" + listPro.Name + "</td>";
-                        chuoipro += "<td><input type='text' id='quantity_" + i + "' name='quantity_" + i + "' value='" + impDetail[i].Quantity + "'/></td>";
-                        chuoipro += "<td><input type='text' id='money_" + i + "' name='money_" + i + "' value='" + impDetail[i].Money + "' class='money'/> VNĐ</td>";
-                        chuoipro += "</tr>";
-                    }
-                }
-                chuoipro += "<tr>";
-                chuoipro += "<td colspan='3'>Tổng tiền</td>";
-                chuoipro += "<td><input type='text' id='total' name='total' value='" + Edit.TotalMoney + "'/> VNĐ</td>";
-                chuoipro += "</tr>";
-                chuoipro += "</table>";
-                ViewBag.ProImport = chuoipro;
-                return View(Edit);
+                ViewBag.WareHouse = new SelectList(wh, "Id", "Name", Edit.WareHouseId);
             }
-            else
+            ViewBag.ViewDate = DateTimeClass.ConvertDateTimeddMMyyyy(Edit.xdate.ToString());
+            string chuoipro = "";
+            chuoipro += "<table class='proImport'>";
+            chuoipro += "<tr>";
+            chuoipro += "<th>Mã sản phẩm</th>";
+            chuoipro += "<th>Tên sản phẩm</th>";
+            chuoipro += "<th>Số lượng xuất</th>";
+            chuoipro += "<th>Thành tiền</th>";
+            chuoipro += "</tr>";
+            for (int i = 0; i < impDetail.Count; i++)
             {
-                return Redirect("/Admins/admins");
+                var listPro = data.Products.Where(m => m.Id == impDetail[i].ProId).FirstOrDefault();
+                if (listPro != null)
+                {
+                    chuoipro += "<tr>";
+                    chuoipro += "<td>" + listPro.Id + "</td>";
+                    chuoipro += "<td>" + listPro.Name + "</td>";
+                    chuoipro += "<td><input type='text' id='quantity_" + i + "' name='quantity_" + i + "' value='" + impDetail[i].Quantity + "'/></td>";
+                    chuoipro += "<td><input type='text' id='money_" + i + "' name='money_" + i + "' value='" + impDetail[i].Money + "' class='money'/> VNĐ</td>";
+                    chuoipro += "</tr>";
+                }
             }
+            chuoipro += "<tr>";
+            chuoipro += "<td colspan='3'>Tổng tiền</td>";
+            chuoipro += "<td><input type='text' id='total' name='total' value='" + Edit.TotalMoney + "'/> VNĐ</td>";
+            chuoipro += "</tr>";
+            chuoipro += "</table>";
+            ViewBag.ProImport = chuoipro;
+            return View(Edit);
         }
         #endregion
         #region[ExportEdit]

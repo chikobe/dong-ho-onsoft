@@ -9,6 +9,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Web.Configuration;
+using DongHo.ViewModels;
 
 namespace DongHo.Controllers
 {
@@ -20,28 +21,14 @@ namespace DongHo.Controllers
         #region[Default]
         public ActionResult Default()
         {
-            if (Session["Username"] != null)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("admins");
-            }
+            return View();
         }
         #endregion
         #region[ConfigEdit]
         public ActionResult ConfigEdit()
         {
-            if (Session["Username"] != null)
-            {
-                var all = data.Configs.Single();
-                return View(all);
-            }
-            else
-            {
-                return RedirectToAction("admins");
-            }
+            var all = data.Configs.Single();
+            return View(all);
         }
         #endregion
         #region[ConfigEdit]
@@ -49,7 +36,8 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult ConfigEdit(FormCollection collection)
         {
-            if (Session["Username"] != null)
+            var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
+            if (username != null || username != "")
             {
                 var config = data.Configs.Single();
                 var Mail_Smtp = collection["Mail_Smtp"];
@@ -83,53 +71,47 @@ namespace DongHo.Controllers
         #region[PageIndex]
         public ActionResult PageIndex()
         {
-            if (Session["Username"] != null)
+            string page = "1";//so phan trang hien tai
+            var pagesize = 25;//so ban ghi tren 1 trang
+            var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
+            int curpage = 0; // trang hien tai dung cho phan trang
+            if (Request["page"] != null)
             {
-                string page = "1";//so phan trang hien tai
-                var pagesize = "25";//so ban ghi tren 1 trang
-                var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
-                int curpage = 0; // trang hien tai dung cho phan trang
-                if (Request["page"] != null)
-                {
-                    page = Request["page"];
-                    curpage = Convert.ToInt32(page) - 1;
-                }
-                var all = data.Pages.ToList();
-                var pages = data.sp_Page_Phantrang(page, pagesize, "", "[Level] asc").ToList();
-                var url = Request.Path;
-                numOfNews = all.Count;
-                ViewBag.Pager = DongHo.Models.Phantrang.PhanTrang(25, curpage, numOfNews, url);
-                return View(pages);
+                page = Request["page"];
+                curpage = Convert.ToInt32(page) - 1;
+            }
+            var all = data.Pages.OrderBy(m=>m.Level).ToList();
+            var pages = all.Skip(curpage * pagesize).Take(pagesize).ToList();
+            //var pages = data.sp_Page_Phantrang(page, pagesize, "", "[Level] asc").ToList();
+            var url = Request.Path;
+            numOfNews = all.Count;
+            if (numOfNews > 0)
+            {
+                ViewBag.Pager = DongHo.Models.Phantrang.PhanTrang(pagesize, curpage, numOfNews, url);
             }
             else
             {
-                return RedirectToAction("admins");
+                ViewBag.Pager = "";
             }
+            return View(pages);
         }
         #endregion
         #region[PageCreate]
         public ActionResult PageCreate()
         {
-            if (Session["Username"] != null)
+            var module = data.Pages.OrderBy(m => m.Level).ToList();
+            List<SelectListItem> listpage = new List<SelectListItem>();
+            listpage.Clear();
+            for (int i = 0; i < module.Count; i++)
             {
-                var module = data.Pages.OrderBy(m => m.Level).ToList();
-                List<SelectListItem> listpage = new List<SelectListItem>();
-                listpage.Clear();
-                for (int i = 0; i < module.Count; i++)
-                {
-                    listpage.Add(new SelectListItem { Text = StringClass.ShowNameLevel(module[i].Name, module[i].Level), Value = module[i].Link });
-                }
-                ViewBag.LinkModule = listpage;
-                ViewBag.LinkDDL = new SelectList(ShowLinkDDL(), "valuepage", "namepage");
-                ViewBag.Position = new SelectList(ShowPosition(), "valuepage", "namepage");
-                ViewBag.Target = new SelectList(ShowTarget(), "valuepage", "namepage");
-                ViewBag.Type = new SelectList(ShowType(), "valuepage", "namepage");
-                return View();
+                listpage.Add(new SelectListItem { Text = StringClass.ShowNameLevel(module[i].Name, module[i].Level), Value = module[i].Link });
             }
-            else
-            {
-                return RedirectToAction("admins");
-            }
+            ViewBag.LinkModule = listpage;
+            ViewBag.LinkDDL = new SelectList(ShowLinkDDL(), "value", "text");
+            ViewBag.Position = new SelectList(ShowPosition(), "value", "text");
+            ViewBag.Target = new SelectList(ShowTarget(), "value", "text");
+            ViewBag.Type = new SelectList(ShowType(), "value", "text");
+            return View();
         }
         #endregion
         #region[PageCreate]
@@ -137,7 +119,8 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult PageCreate(FormCollection collection, Page page)
         {
-            if (Session["Username"] != null)
+            var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
+            if (username != null || username != string.Empty)
             {
                 page.Name = collection["Name"];
                 page.Type = Convert.ToInt32(collection["Type"]);
@@ -175,26 +158,19 @@ namespace DongHo.Controllers
         #region[PageAddSub]
         public ActionResult PageAddSub()
         {
-            if (Session["Username"] != null)
+            var module = data.Pages.OrderBy(m => m.Level).ToList();
+            List<SelectListItem> listpage = new List<SelectListItem>();
+            listpage.Clear();
+            for (int i = 0; i < module.Count; i++)
             {
-                var module = data.Pages.OrderBy(m => m.Level).ToList();
-                List<SelectListItem> listpage = new List<SelectListItem>();
-                listpage.Clear();
-                for (int i = 0; i < module.Count; i++)
-                {
-                    listpage.Add(new SelectListItem { Text = StringClass.ShowNameLevel(module[i].Name, module[i].Level), Value = module[i].Link });
-                }
-                ViewBag.LinkModule = listpage;
-                ViewBag.Position = new SelectList(ShowPosition(), "valuepage", "namepage");
-                ViewBag.Target = new SelectList(ShowTarget(), "valuepage", "namepage");
-                ViewBag.Type = new SelectList(ShowType(), "valuepage", "namepage");
-                ViewBag.LinkDDL = new SelectList(ShowLinkDDL(), "valuepage", "namepage");
-                return View();
+                listpage.Add(new SelectListItem { Text = StringClass.ShowNameLevel(module[i].Name, module[i].Level), Value = module[i].Link });
             }
-            else
-            {
-                return RedirectToAction("admins");
-            }
+            ViewBag.LinkModule = listpage;
+            ViewBag.Position = new SelectList(ShowPosition(), "value", "text");
+            ViewBag.Target = new SelectList(ShowTarget(), "value", "text");
+            ViewBag.Type = new SelectList(ShowType(), "value", "text");
+            ViewBag.LinkDDL = new SelectList(ShowLinkDDL(), "value", "text");
+            return View();
         }
         #endregion
         #region[PageAddSub]
@@ -202,7 +178,8 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult PageAddSub(FormCollection collection, Page page,string Level)
         {
-            if (Session["Username"] != null)
+            var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
+            if (username != null || username != "")
             {
                 page.Name = collection["Name"];
                 page.Type = Convert.ToInt32(collection["Type"]);
@@ -242,21 +219,14 @@ namespace DongHo.Controllers
         #region[PageEdit]
         public ActionResult PageEdit(int id)
         {
-            if (Session["Username"] != null)
-            {
-                var Edit = data.Pages.First(m => m.Id == id);
-                ViewBag.LinkModule = new SelectList(showlistPagerodule(), "valuepage", "namepage", Edit.Link);
-                ViewBag.LinkDDL = new SelectList(ShowLinkDDL(), "valuepage", "namepage", 1);
-                ViewBag.Position = new SelectList(ShowPosition(), "valuepage", "namepage", Edit.Position);
-                ViewBag.Target = new SelectList(ShowTarget(), "valuepage", "namepage", Edit.Target);
-                ViewBag.Type = new SelectList(ShowType(), "valuepage", "namepage", Edit.Type);
-                //Level = Edit.Level;
-                return View(Edit);
-            }
-            else
-            {
-                return RedirectToAction("admins");
-            }
+            var Edit = data.Pages.First(m => m.Id == id);
+            ViewBag.LinkModule = new SelectList(showlistPagerodule(), "value", "text", Edit.Link);
+            ViewBag.LinkDDL = new SelectList(ShowLinkDDL(), "value", "text", 1);
+            ViewBag.Position = new SelectList(ShowPosition(), "value", "text", Edit.Position);
+            ViewBag.Target = new SelectList(ShowTarget(), "value", "text", Edit.Target);
+            ViewBag.Type = new SelectList(ShowType(), "value", "text", Edit.Type);
+            //Level = Edit.Level;
+            return View(Edit);
         }
         #endregion
         #region[PageEdit]
@@ -264,7 +234,8 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult PageEdit(int id, FormCollection collection)
         {
-            if (Session["Username"] != null)
+            var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
+            if (username != null || username != "")
             {
                 var page = data.Pages.First(m => m.Id == id);
                 page.Name = collection["Name"];
@@ -304,7 +275,8 @@ namespace DongHo.Controllers
         #region[PageAcitve]
         public ActionResult PageActive(int id)
         {
-            if (Session["Username"] != null)
+            var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
+            if (username != null || username != "")
             {
                 var act = data.Pages.First(m => m.Id == id);
                 if (act.Active == 1)
@@ -327,7 +299,8 @@ namespace DongHo.Controllers
         #region[PageDelete]
         public ActionResult PageDelete(int id)
         {
-            if (Session["Username"] != null)
+            var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
+            if (username != null || username != "")
             {
                 var del = data.Pages.First(m => m.Id == id);
                 data.Pages.DeleteOnSubmit(del);
@@ -343,7 +316,8 @@ namespace DongHo.Controllers
         #region[MultiDelete]
         public ActionResult MultiDelete()
         {
-            if (Session["Username"] != null)
+            var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
+            if (username != null || username != "")
             {
                 string str = "";
                 foreach (string key in Request.Form)
@@ -370,8 +344,8 @@ namespace DongHo.Controllers
             }
         }
         #endregion
-        #region[listPageModule]
-        private List<SelectListItem> listPageModule()
+        #region[listDropDownList]
+        private List<SelectListItem> listDropDownList()
         {
             List<SelectListItem> listpage = new List<SelectListItem>();
             listpage.Clear();
@@ -390,99 +364,61 @@ namespace DongHo.Controllers
             return listpage;
         }
         #endregion
-        #region[commonpage]
-        public Page commonpage(string tag)
-        {
-            Page obj = new Page();
-            if (tag.Length > 0)
-            {
-                obj = data.Pages.Where(m => m.Tag == tag).FirstOrDefault();
-                if (obj != null)
-                {
-                    ViewBag.ltrTitle = obj.Name;
-                    ViewBag.ltrContent = obj.Detail;
-                }
-            }
-            return obj;
-        }
-        #endregion
-        #region[class PageModule]
-        public class PageModule
-        {
-            private string _valuepage;
-            private string _namepage;
-
-            public string valuepage { get { return _valuepage; } set { _valuepage = value; } }
-            public string namepage { get { return _namepage; } set { _namepage = value; } }
-
-            public PageModule()
-            {
-                this._valuepage = "";
-                this._namepage = "";
-            }
-
-            public PageModule(string klk, string name)
-            {
-                this._valuepage = klk;
-                this._namepage = name;
-            }
-        }
-        #endregion
         #region[Hien thi Dropdownlist - Module]
-        public static List<PageModule> showlistPagerodule()
+        public static List<DropDownList> showlistPagerodule()
         {
             DataDataContext data = new DataDataContext();
             var listg = data.Pages.OrderByDescending(m => m.Level).ToList();
-            List<PageModule> list = new List<PageModule>();
-            //list.Add(new PageModule { valuepage = "", namepage = "Trang chủ" });
+            List<DropDownList> list = new List<DropDownList>();
+            //list.Add(new DropDownList { value = "", text = "Trang chủ" });
             if (listg.Count > 0)
             {
                 for (int i = 0; i < listg.Count; i++)
                 {
-                    list.Add(new PageModule { valuepage = listg[i].Link, namepage = StringClass.ShowNameLevel(listg[i].Name, listg[i].Level) });
+                    list.Add(new DropDownList { value = listg[i].Link, text = StringClass.ShowNameLevel(listg[i].Name, listg[i].Level) });
                 }
 
             }
-            //list.Add(new PageModule { valuepage = "/thu-vien/", namepage = "Tài liệu" });
-            //list.Add(new PageModule { valuepage = "/hoc-cung-doanh-nghiep/", namepage = "Liên hệ" });
-            //list.Add(new PageModule { valuepage = "/dang-ky-online/", namepage = "Đăng ký Online" });
+            //list.Add(new DropDownList { value = "/thu-vien/", text = "Tài liệu" });
+            //list.Add(new DropDownList { value = "/hoc-cung-doanh-nghiep/", text = "Liên hệ" });
+            //list.Add(new DropDownList { value = "/dang-ky-online/", text = "Đăng ký Online" });
 
             return list;
         }
         #endregion
         #region[Hien thi Dropdownlist - Link]
-        public static List<PageModule> ShowLinkDDL()
+        public static List<DropDownList> ShowLinkDDL()
         {
-            List<PageModule> list = new List<PageModule>();
-            list.Add(new PageModule { valuepage = "0", namepage = "Nhập liên kết" });
-            list.Add(new PageModule { valuepage = "1", namepage = "Liên kết Module" });
+            List<DropDownList> list = new List<DropDownList>();
+            list.Add(new DropDownList { value = "0", text = "Nhập liên kết" });
+            list.Add(new DropDownList { value = "1", text = "Liên kết Module" });
             return list;
         }
         #endregion
         #region[Hien thi Dropdownlist - Position]
-        public static List<PageModule> ShowPosition()
+        public static List<DropDownList> ShowPosition()
         {
-            List<PageModule> list = new List<PageModule>();
-            list.Add(new PageModule { valuepage = "0", namepage = "Menu trên cùng" });
-            list.Add(new PageModule { valuepage = "1", namepage = "Menu chình" });
+            List<DropDownList> list = new List<DropDownList>();
+            list.Add(new DropDownList { value = "0", text = "Menu trên cùng" });
+            list.Add(new DropDownList { value = "1", text = "Menu chình" });
             return list;
         }
         #endregion
         #region[Hien thi Dropdownlist - Target]
-        public static List<PageModule> ShowTarget()
+        public static List<DropDownList> ShowTarget()
         {
-            List<PageModule> list = new List<PageModule>();
-            list.Add(new PageModule { valuepage = "_self", namepage = "_self" });
-            list.Add(new PageModule { valuepage = "_blank", namepage = "_blank" });
+            List<DropDownList> list = new List<DropDownList>();
+            list.Add(new DropDownList { value = "_self", text = "_self" });
+            list.Add(new DropDownList { value = "_blank", text = "_blank" });
             return list;
         }
         #endregion
         #region[Hien thi Dropdownlist - Type]
-        public static List<PageModule> ShowType()
+        public static List<DropDownList> ShowType()
         {
-            List<PageModule> list = new List<PageModule>();
-            list.Add(new PageModule { valuepage = "0", namepage = "Trang nội dung" });
-            list.Add(new PageModule { valuepage = "1", namepage = "Trang liên kết" });
+            List<DropDownList> list = new List<DropDownList>();
+            list.Add(new DropDownList { value = "0", text = "Trang nội dung" });
+            list.Add(new DropDownList { value = "1", text = "Trang liên kết" });
             return list;
         }
         #endregion
@@ -491,6 +427,8 @@ namespace DongHo.Controllers
         {
             Session["Fullname"] = null;
             Session["Username"] = null;
+            Session.Abandon();
+            FormsAuthentication.SetAuthCookie(string.Empty, false);
             return View();
         }
         #endregion
@@ -511,8 +449,9 @@ namespace DongHo.Controllers
             else if (user.ToLower() == "chink" && pass.ToLower() == "chink")
             {
                 FormsAuthentication.SetAuthCookie(pass, false);
-                Session["FullName"] = "Admin";
-                Session["UserName"] = "chink";
+                
+                Session["Fullname"] = "Admin";
+                Session["Username"] = "chink";
                 return RedirectToAction("Default", "Admins");
             }
             else
@@ -520,6 +459,19 @@ namespace DongHo.Controllers
                 ViewBag.Err = "Đăng nhập không thành công!";
                 return View();
             }
+            ////create cookie
+            //var cookie = new HttpCookie("cookieName");
+
+            //cookie.Value = "value";
+            //Response.Cookies.Add(cookie);
+
+            ////remove cookie
+            //var cookie = new HttpCookie("cookieName");
+            //cookie.Expires = DateTime.Now.AddDays(-1d);
+            //Response.Cookies.Add(cookie);
+
+            ////To Request the cookies value
+            //var val = Request.Cookies["cookieName"].Value;
         }
         #endregion
         #region[GenDB]

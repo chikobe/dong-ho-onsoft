@@ -1,4 +1,4 @@
-﻿@model IList<DongHo.Models.sp_Shop_PagingResult>
+﻿@model IList<DongHo.Models.Shop>
 @{
     ViewBag.Title = "Quản lý cửa hàng";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -10,7 +10,14 @@
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới", "ShopCreate", "", new { @class = "vadd" })</li>
-            <li><input type="submit" value="Xóa" class="mulDel" /></li>
+            @if (Session["Username"] != null)
+            {
+            <li><input type="submit" value=" Xóa " class="mulDel" /></li>
+            }
+            else
+            {
+                <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
+            }
             <li>@Html.ActionLink("Làm mới", "ShopIndex", "", new { @class = "vrefresh" })</li>
             <li> 
                 <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a> 
@@ -35,32 +42,55 @@
                     <td class="Text">@Model[i].Address</td>
                     <td class="Number">@Model[i].PhoneNumber</td>
                     <td class="Function">
-                         @Html.ActionLink("Sửa", "ShopEdit", new { id = Model[i].id }, new { @class = "vedit" }) @Html.ActionLink("Xóa", "ShopDelete", new { id = Model[i].id }, new { @onclick = "DeleteConfirm()", @class = "vdelete" })
+                         @Html.ActionLink("Sửa", "ShopEdit", new { id = Model[i].id }, new { @class = "vedit" }) 
+                        @if (Session["Username"]!=null)
+                        {
+                        @Html.ActionLink("Xóa", "ShopDelete", new { id = Model[i].id }, new { @onclick = "DeleteConfirm()", @class = "vdelete" })
+                        }
+                        else
+                        {
+                         <p class="vdelete">Xóa</p>   
+                        }
                     </td>
                 </tr>
             }
             else
             {
                 <tr id="trEven_@i" class="trEven" onmousemove="Javascript:chkSelect_OnMouseMove(this)" onmouseout="Javascript:chkSelect_OnMouseOut(this,@i)">
-                    <td class="CheckBoxsmall">@Html.CheckBox("chk" + Model[i].id, new { id = "chkSelect", onclick = "Javascript:chkSelect_OnClick(this,0)", @class="chk" })</td>
+                    <td class="CheckBoxsmall">@Html.CheckBox("chk" + Model[i].id, new { id = "chkSelect", onclick = "Javascript:chkSelect_OnClick(this,0)", @class = "chk" })</td>
                     <td class="Text">@Model[i].Name</td>
                     <td class="Text">@Model[i].Address</td>
                     <td class="Number">@Model[i].PhoneNumber</td>
                     <td class="Function">
-                         @Html.ActionLink("Sửa", "ShopEdit", new { id = Model[i].id }, new { @class = "vedit" }) @Html.ActionLink("Xóa", "ShopDelete", new { id = Model[i].id }, new { @onclick = "DeleteConfirm()", @class = "vdelete" })
+                         @Html.ActionLink("Sửa", "ShopEdit", new { id = Model[i].id }, new { @class = "vedit" }) 
+                        @if (Session["Username"] != null)
+                        {
+                        @Html.ActionLink("Xóa", "ShopDelete", new { id = Model[i].id }, new { @onclick = "DeleteConfirm()", @class = "vdelete" })
+                        }
+                        else
+                        {
+                         <p class="vdelete">Xóa</p>   
+                        }
                     </td>
                 </tr>
             }
         }
     </table>
-    if(Model.Count>0)
-    {
+        if (Model.Count > 0)
+        {
         @Html.Raw(ViewBag.Pager)
-    }
+        }
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới", "ShopCreate", "", new { @class = "vadd" })</li>
-            <li><input type="submit" value="Xóa" class="mulDel" /></li>
+            @if (Session["Username"] != null)
+            {
+            <li><input type="submit" value=" Xóa " class="mulDel" /></li>
+            }
+            else
+            {
+                <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
+            }
             <li>@Html.ActionLink("Làm mới", "ShopIndex", "", new { @class = "vrefresh" })</li>
             <li> 
                 <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a> 

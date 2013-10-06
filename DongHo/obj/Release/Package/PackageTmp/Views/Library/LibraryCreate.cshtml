@@ -10,7 +10,13 @@
         <tr>
             <td class="Control" colspan="2">
                 <ul>
-                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    @if (Session["Username"]!=null)
+                    {
+                        <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+                    }
+                    else{
+                     <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>   
+                    }
                     <li>@Html.ActionLink("Trở lại", "LibraryIndex","", new { @class="uback"})</li>
                 </ul>
             </td>
@@ -46,7 +52,13 @@
         <tr>
             <td class="Control" colspan="2">
                 <ul>
-                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    @if (Session["Username"]!=null)
+                    {
+                        <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+                    }
+                    else{
+                     <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>   
+                    }
                     <li>@Html.ActionLink("Trở lại", "LibraryIndex","", new { @class="uback"})</li>
                 </ul>
             </td>

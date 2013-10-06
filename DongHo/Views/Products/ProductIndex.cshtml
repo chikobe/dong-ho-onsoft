@@ -12,14 +12,19 @@
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới", "ProductCreate", "", new { @class = "vadd" })</li>
-            <li>@*<input type="submit" value="Xóa" class="mulDel" />*@
-                <button id="MultiDelete" type="submit" name="command" value="MultiDelete" class="mulDel">Xóa</button>
-            </li>
+            @if (Session["Username"]!=null)
+            {
+            <li><button id="MultiDelete" type="submit" name="command" value="MultiDelete" class="mulDel">Xóa</button></li>
+            }
+            else
+            {
+             <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>   
+            }
             <li>@Html.ActionLink("Làm mới", "ProductIndex", "", new { @class = "vrefresh" })</li>
-            <li>@*<input type="submit" value="Thêm sản phẩm vào phiếu nhập" class="vadd" />*@
+            @*<li><input type="submit" value="Thêm sản phẩm vào phiếu nhập" class="vadd" />
                 <button id="AddImport" type="submit" name="command" value="AddImport" class="vadd">Thêm sản phẩm vào phiếu nhập</button>
-            </li>
-            <li><button id="AddExport" type="submit" name="command" value="AddExport" class="vadd">Thêm sản phẩm vào phiếu xuất</button></li>
+            </li>*@
+            @*<li><button id="AddExport" type="submit" name="command" value="AddExport" class="vadd">Thêm sản phẩm vào phiếu xuất</button></li>*@
             <li> 
                 <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a> 
             </li>
@@ -119,10 +124,17 @@
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới", "ProductCreate", "", new { @class = "vadd" })</li>
-            <li><button id="MultiDelete1" type="submit" name="command" value="MultiDelete" class="mulDel">Xóa</button></li>
+             @if (Session["Username"]!=null)
+            {
+            <li><button id="MultiDelete" type="submit" name="command" value="MultiDelete" class="mulDel">Xóa</button></li>
+            }
+            else
+            {
+             <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>   
+            }
             <li>@Html.ActionLink("Làm mới", "ProductIndex", "", new { @class = "vrefresh" })</li>
-            <li><button id="AddImport1" type="submit" name="command" value="AddImport" class="vadd">Thêm sản phẩm vào phiếu nhập</button></li>
-            <li><button id="AddExport1" type="submit" name="command" value="AddExport" class="vadd">Thêm sản phẩm vào phiếu xuất</button></li>
+            @*<li><button id="AddImport1" type="submit" name="command" value="AddImport" class="vadd">Thêm sản phẩm vào phiếu nhập</button></li>
+            <li><button id="AddExport1" type="submit" name="command" value="AddExport" class="vadd">Thêm sản phẩm vào phiếu xuất</button></li>*@
             <li> 
                 <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a> 
             </li>

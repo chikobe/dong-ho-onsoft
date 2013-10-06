@@ -16,42 +16,36 @@ namespace DongHo.Controllers
         #region[BrandsIndex]
         public ActionResult BrandsIndex()
         {
-            if (Session["Username"] != null)
+            string page = "1";//so phan trang hien tai
+            var pagesize = 25;//so ban ghi tren 1 trang
+            var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
+            int curpage = 0; // trang hien tai dung cho phan trang
+            if (Request["page"] != null)
             {
-                string page = "1";//so phan trang hien tai
-                var productize = "25";//so ban ghi tren 1 trang
-                var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
-                int curpage = 0; // trang hien tai dung cho phan trang
-                if (Request["page"] != null)
-                {
-                    page = Request["page"];
-                    curpage = Convert.ToInt32(page) - 1;
-                }
-                var all = data.Brands.ToList();
-                var pages = data.sp_Brands_Phantrang(page, productize, "", "").ToList();
-                var url = Request.Path;
-                numOfNews = all.Count;
-                ViewBag.Pager = DongHo.Models.Phantrang.PhanTrang(25, curpage, numOfNews, url);
-                return View(pages);
+                page = Request["page"];
+                curpage = Convert.ToInt32(page) - 1;
+            }
+            var all = data.Brands.ToList();
+            var pages = all.Skip(curpage * pagesize).Take(pagesize).ToList();
+            //var pages = data.sp_Brands_Phantrang(page, productize, "", "").ToList();
+            var url = Request.Path;
+            numOfNews = all.Count;
+            if (numOfNews > 0)
+            {
+                ViewBag.Pager = Phantrang.PhanTrang(pagesize, curpage, numOfNews, url);
             }
             else
             {
-                return Redirect("/Admins/admins");
+                ViewBag.Pager = "";
             }
+            return View(pages);
         }
         #endregion
         #region[BrandsCreate]
         public ActionResult BrandsCreate()
         {
-            if (Session["Username"] != null)
-            {
-                ViewBag.Supplier = new SelectList(data.Suppliers, "Id", "Name");
-                return View();
-            }
-            else
-            {
-                return Redirect("/Admins/admins");
-            }
+            ViewBag.Supplier = new SelectList(data.Suppliers, "Id", "Name");
+            return View();
         }
         #endregion
         #region[BrandsCreate]
@@ -82,16 +76,9 @@ namespace DongHo.Controllers
         #region[BrandsEdit]
         public ActionResult BrandsEdit(int id)
         {
-            if (Session["Username"] != null)
-            {
-                var Edit = data.Brands.First(m => m.Id == id);
-                ViewBag.Supplier = new SelectList(data.Suppliers, "Id", "Name", Edit.SupplierId);
-                return View(Edit);
-            }
-            else
-            {
-                return Redirect("/Admins/admins");
-            }
+            var Edit = data.Brands.First(m => m.Id == id);
+            ViewBag.Supplier = new SelectList(data.Suppliers, "Id", "Name", Edit.SupplierId);
+            return View(Edit);
         }
         #endregion
         #region[BrandsEdit]

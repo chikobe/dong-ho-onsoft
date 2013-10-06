@@ -12,7 +12,14 @@
         <tr>
             <td class="Control" colspan="2">
                 <ul>
-                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    @if (Session["Username"]!=null)
+                    {
+                        <li><input type="submit" value=" Xóa " class="mulDel" /></li>
+                    }
+                    else
+                    {
+                        <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
+                    }
                     <li>@Html.ActionLink("Trở về", "AdvertiseIndex","", new { @class="uback"})</li>
                 </ul>
             </td>
@@ -65,7 +72,14 @@
         <tr>
             <td class="Control" colspan="2">
                 <ul>
-                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    @if (Session["Username"]!=null)
+                    {
+                        <li><input type="submit" value=" Xóa " class="mulDel" /></li>
+                    }
+                    else
+                    {
+                        <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
+                    }
                     <li>@Html.ActionLink("Trở về", "AdvertiseIndex","", new { @class="uback"})</li>
                 </ul>
             </td>

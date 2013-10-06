@@ -1,7 +1,8 @@
-﻿@model List<DongHo.Models.sp_Advertise_PagingResult>
+﻿@model List<DongHo.Models.Advertise>
 @{
     ViewBag.Title = "AdvertiseIndex";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
 }
 
 <h2>Quản lý quảng cáo</h2>
@@ -14,7 +15,14 @@
 <div class="Control">
     <ul>
         <li>@Html.ActionLink("Thêm mới", "AdvertiseCreate", "", new { @class = "vadd" })</li>
-        <li><input type="submit" value="Xóa" class="mulDel" /></li>
+        @if (username == null || username == string.Empty)
+        {
+            <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
+        }
+        else
+        {
+            <li><input type="submit" value=" Xóa " class="mulDel" /></li>
+        }
         <li> 
             <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a> 
         </li>
@@ -43,7 +51,15 @@
                 <td class="Number">@Html.DisplayFor(modelItem => Model[i].Height)</td>
                 <td class="Number">@Html.DisplayFor(modelItem => Model[i].Link)</td>
                 <td class="Number">@Html.DisplayFor(modelItem => Model[i].Ord)</td>
-                <td class="Function">@Html.ActionLink("Sửa", "AdvertiseEdit", new { id = Model[i].Id }, new { @class = "vedit" }) @Html.ActionLink("Xóa", "AdvertiseDelete", new { id = Model[i].Id }, new { @onclick = "return DeleteConfirm()", @class = "vdelete" })
+                <td class="Function">@Html.ActionLink("Sửa", "AdvertiseEdit", new { id = Model[i].Id }, new { @class = "vedit" }) 
+                    @if (username == null || username == string.Empty)
+                    {
+                        <p class="vdelete" onclick="AlertErr()">Xóa</p>
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Xóa", "AdvertiseDelete", new { id = Model[i].Id }, new { @onclick = "return DeleteConfirm()", @class = "vdelete" })
+                    }
                     @if (Model[i].Active == true)
                     {@Html.ActionLink("Active", "AdvertiseActive", new { id = Model[i].Id }, new { @class = "vactive" })}
                     else
@@ -61,7 +77,15 @@
                 <td class="Number">@Html.DisplayFor(modelItem => Model[i].Height)</td>
                 <td class="Number">@Html.DisplayFor(modelItem => Model[i].Link)</td>
                 <td class="Number">@Html.DisplayFor(modelItem => Model[i].Ord)</td>
-                <td class="Function">@Html.ActionLink("Sửa", "AdvertiseEdit", new { id = Model[i].Id }, new { @class = "vedit" }) @Html.ActionLink("Xóa", "AdvertiseDelete", new { id = Model[i].Id }, new { @onclick = "return DeleteConfirm()", @class = "vdelete" })
+                <td class="Function">@Html.ActionLink("Sửa", "AdvertiseEdit", new { id = Model[i].Id }, new { @class = "vedit" }) 
+                    @if (username == null || username == string.Empty)
+                    {
+                        <p class="vdelete" onclick="AlertErr()">Xóa</p>
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Xóa", "AdvertiseDelete", new { id = Model[i].Id }, new { @onclick = "return DeleteConfirm()", @class = "vdelete" })
+                    }
                     @if (Model[i].Active == true)
                     {@Html.ActionLink("Active", "AdvertiseActive", new { id = Model[i].Id }, new { @class = "vactive" })}
                     else
@@ -75,7 +99,14 @@
 <div class="Control">
     <ul>
         <li>@Html.ActionLink("Thêm mới", "AdvertiseCreate", "", new { @class = "vadd" })</li>
-        <li><input type="submit" value="Xóa" class="mulDel" /></li>
+        @if (username == null || username == string.Empty)
+        {
+            <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
+        }
+        else
+        {
+            <li><input type="submit" value=" Xóa " class="mulDel" /></li>
+        }
         <li> 
             <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a> 
         </li>

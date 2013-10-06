@@ -2,40 +2,25 @@
 @{
     ViewBag.Title = "ExportCreate";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
 }
 @using (Html.BeginForm("ExportCreate", "Export", FormMethod.Post))
 {
     <div class="ImportCreate">
     <div class="Control">
         <ul>
-            <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+            @if (username == null || username == string.Empty)
+            {
+                <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>  
+            }
+            else
+            {
+                <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+                      
+            }
             <li>@Html.ActionLink("Trở lại", "ExportIndex","", new { @class="uback"})</li>
         </ul>
     </div>
-    @*<h2>Phiếu xuất</h2>
-    <p>@DateTime.Now.ToShortDateString()</p>
-    <table class="TableUpdate" border="1">
-        <tr>
-            <th>Kho hàng</th>
-            <td>@Html.DropDownList("WareHouse")</td>
-        </tr>
-        <tr>
-            <th colspan="2">Thông tin sản phẩm xuất</th>
-        </tr>
-        <tr>
-            <td colspan="2">
-                @Html.Raw(ViewBag.ProImport)
-            </td>
-        </tr>
-        <tr>
-            <th>Ghi chú</th>
-            <td>@Html.TextArea("Note")</td>
-        </tr>
-        <tr>
-            <th>Thứ tự</th>
-            <td>@Html.TextBox("Ord", "", new { @onkeypress="OnlyInputNumber(0)"})</td>
-        </tr>
-    </table>*@
     <div class="boxImpExp">
 		<div class="boxTitle clearfix">
             <ul>
@@ -114,7 +99,7 @@
         createEditor('vi', 'Note');
     });
 </script>*@
-<script>
+@*<script>
     $('.quantity').change(function () {
         debugger
         var total = 0;
@@ -122,8 +107,9 @@
             debugger;
             var price = $(this).parent().next().children(0);
             var a = price.text();
-            var b = $(this).val();
+            var b = parseInt($(this).val());
             var money = a * b;
+            $(this).val(b);
             var c = $(this).parent().next().next().children(0);
             var d = $(this).parent().next().next().children(1);
             $(c).text(money);
@@ -137,4 +123,14 @@
         $('#total').text(-total);
         $('#hideTotal').val(-total);
     });
-</script>
+    $('.quantity').keyup(function () {
+        debugger;
+        var spton = parseInt($(this).attr('data-id'));
+        var soluong = parseInt($(this).val());
+        var str = new String(soluong);
+        if (str == "NaN" || soluong == 0) $(this).val('1');
+        if (soluong > spton) {
+            $(this).val(spton);
+        }
+    });
+</script>*@

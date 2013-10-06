@@ -349,7 +349,7 @@ namespace DongHo.Controllers
                     str += "<td>" + list.vcusname + "</td>";
                     str += "<td>" + StringClass.Format_Price(bill[i].totalmoney) + " VNĐ</td>";
                     str += "<td>" + StringClass.ShowStateBill(bill[i].state.ToString()) + "</td>";
-                    str += "<td><a href=\"/Pages/chitiet\">Chi tiết</a></td>";
+                    str += "<td><a href=\"/Pages/chitiet/" + bill[i].billid + "\">Chi tiết</a></td>";
                     str += "</tr>";
                 }
                 ViewBag.View = str;
@@ -576,7 +576,7 @@ namespace DongHo.Controllers
                     chuoi += "<td>" + list.vcusname + "</td>";
                     chuoi += "<td>" + StringClass.Format_Price(bill[i].totalmoney) + " VNĐ</td>";
                     chuoi += "<td>" + StringClass.ShowStateBill(bill[i].state.ToString()) + "</td>";
-                    chuoi += "<td><a href=\"/Pages/chitiet\">Chi tiết</a></td>";
+                    chuoi += "<td><a href=\"/Pages/chitiet/" + bill[i].billid + "\">Chi tiết</a></td>";
                     chuoi += "</tr>";
                 }
                 ViewBag.View = chuoi;
@@ -592,6 +592,7 @@ namespace DongHo.Controllers
         public ActionResult timkiem()
         {
             #region[khoi tao bien]
+            int dem = 0;//dung de dem trong vong lap foreach de hien thi sp
             string str = "";
             string searchC = "";
             string chuoi = "";
@@ -611,7 +612,7 @@ namespace DongHo.Controllers
                 else if (order == "date_down") { ddlvalue = " [Date] desc"; }
             }
             string page = "1";//so phan trang hien tai
-            var pagesize = "1";//so ban ghi tren 1 trang
+            var pagesize = 12;//so ban ghi tren 1 trang
             var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
             int curpage = 0; // trang hien tai dung cho phan trang
             if (Request["page"] != null)
@@ -624,14 +625,14 @@ namespace DongHo.Controllers
             string[] array = sr.Split(' ');
             if (array.Length == 1)
             {
-                string patternSearch = RemoveUnicode(array[0].Replace(" ", "%%"), true);
+                string patternSearch = RemoveUnicode(array[0].Replace(" ", "%%").Replace("'", ""), true);
                 str += " Product.Name like N'%" + patternSearch + "%'";
             }
             else
             {
                 for (int i = 0; i < array.Length; i++)
                 {
-                    string patternSearch = RemoveUnicode(array[i].Replace(" ", "%%"), true);
+                    string patternSearch = RemoveUnicode(array[i].Replace(" ", "%%").Replace("'", ""), true);
                     if (i == 0)
                     {
                         str += "(Product.Name like N'%" + patternSearch + "%'";
@@ -727,7 +728,8 @@ namespace DongHo.Controllers
                 }
             }
             var cmdText1 = data.sp_Product_Search(str, ddlvalue).ToList();
-            var pages = data.sp_Product_Phantrang(page, pagesize, str, ddlvalue).ToList();
+            //var pages = data.sp_Product_Phantrang(page, pagesize, str, ddlvalue).ToList();
+            var pages = cmdText1.Skip(curpage * pagesize).Take(pagesize).ToList();
             numOfNews = cmdText1.Count;
             var url = Request.Url.PathAndQuery;
             var a = url.LastIndexOf("&page=");
@@ -740,14 +742,23 @@ namespace DongHo.Controllers
             {
                 k = url;
             }
-            ViewBag.Pager = DongHo.Models.PhantrangQuery.PhanTrangQuery(1, curpage, numOfNews, k);
+            ViewBag.Pager = DongHo.Models.PhantrangQuery.PhanTrangQuery(pagesize, curpage, numOfNews, k);
             #region[Hien thi ket qua tim kiem - phan sp]
             if (sr != null)
             {
                 chuoiList += "<ul class='box-pro'>";
                 foreach (var item in pages)
                 {
-                    chuoi += "<div class=\"div-pro\">";
+                    if (dem != 3)
+                    {
+                        chuoi += "<div class=\"div-pro\">";
+                        dem++;
+                    }
+                    else
+                    {
+                        chuoi += "<div class=\"viewSrFour\">";
+                        dem = 0;
+                    }
                     chuoi += "<a href=\"/sanpham/chitiet/" + item.Tag + "\">";
                     chuoi += "<img src=\"" + item.Image + "\" />";
                     chuoi += "<div class=\"titlePro\">";
@@ -805,7 +816,16 @@ namespace DongHo.Controllers
                 groupFunc += "<p class=\"ketquaSearh\">Có tổng cộng <span>" + cmdText1.Count + "</span> kết quả phù hợp với từ khóa: <span>\"" + sr + "\"</span></p>";
             }
             groupFunc += "<div class=\"boxFuncSearch\">";
-            groupFunc += "<p>Hiển thị từ 13 - 25 trong số "+cmdText1.Count+" kết quả</p>";
+            var countView = (curpage * pagesize) + 1;
+            var demViewDu = (countView + pagesize) - 1;
+            if (demViewDu > cmdText1.Count)
+            {
+                groupFunc += "<p>Hiển thị từ " + countView + " - " + cmdText1.Count + " trong số " + cmdText1.Count + " kết quả</p>";
+            }
+            else
+            {
+                groupFunc += "<p>Hiển thị từ " + countView + " - " + demViewDu + " trong số " + cmdText1.Count + " kết quả</p>";
+            }
             groupFunc += "<div>";
             groupFunc += "<p>Hiển thị theo</p>";
             groupFunc += "<a href=\"#\" class=\"iconGridView grid-view-click act\">&nbsp;</a>";
@@ -1142,6 +1162,90 @@ namespace DongHo.Controllers
         public ActionResult order_success()
         {
             return View();
+        }
+        #endregion
+        #region[xem chi tiet don hang]
+        public ActionResult chitiet(int id)
+        {
+            if (Session["Email"] != null)
+            {
+                string chuoi = "";
+                var bill = data.tbBill_customers.Where(m => m.billid == id).FirstOrDefault();
+                var cus = data.tbCUSTOMERs.Where(m => m.iusid == bill.userid).FirstOrDefault();
+                if (bill != null)
+                {
+                    var chitiet = data.tbBilldetails.Where(m => m.bilid == bill.billid).ToList();
+                    chuoi += "<p class=\"ptime\">Ngày đặt: " + DateTimeClass.ConvertDateTimeddMMyyyy(bill.idate.ToString()) + "</p>";
+                    chuoi += "<div class=\"infoCus clearfix\">";
+                    chuoi += "<p>Họ tên: <span>" + cus.vcusname + "</span></p>";
+                    chuoi += "<p>SĐT: <span>" + cus.vphone + "</span></p>";
+                    chuoi += "<p>Email: <span>" + cus.vemail + "</span></p>";
+                    chuoi += "<p>Địa chỉ: <span>" + cus.vaddress + "</span></p>";
+                    chuoi += "</div>";
+                    chuoi += "<div class=\"infoPro\">";
+                    chuoi += "<table border=\"1\">";
+                    chuoi += "<thead>";
+                    chuoi += "<tr>";
+                    chuoi += "<th>STT</th>";
+                    chuoi += "<th>Sản phẩm</th>";
+                    chuoi += "<th>Giá bán</th>";
+                    chuoi += "<th>Số lượng</th>";
+                    chuoi += "<th>Thành tiền</th>";
+                    chuoi += "</tr>";
+                    chuoi += "</thead>";
+                    chuoi += "<tbody>";
+                    for (int i = 0; i < chitiet.Count; i++)
+                    {
+                        var anh = "";
+                        var pro = data.Products.Where(m => m.Id == chitiet[i].proid).FirstOrDefault();
+                        var proimg = data.ProImages.Where(m => m.ProId == pro.Id).ToList();
+                        for (int k = 0; k < proimg.Count; k++)
+                        {
+                            var a = proimg[k].Image.IndexOf("_noz");
+                            if (a > 0) { anh = proimg[k].Image; break; }
+                        }
+                        chuoi += "<tr>";
+                        chuoi += "<td>" + (i + 1) + "</td>";
+                        chuoi += "<td class=\"pro\"><img src=\"" + anh + "\" /><p>" + pro.Name + "</p></td>";
+                        chuoi += "<td>" + StringClass.Format_Price(chitiet[i].bilprice) + " VNĐ</td>";
+                        chuoi += "<td>" + chitiet[i].quantity + "</td>";
+                        chuoi += "<td>" + StringClass.Format_Price(chitiet[i].bilmoney) + " VNĐ</td>";
+                        chuoi += "</tr>";
+                    }
+                    chuoi += "</tbody>";
+                    chuoi += "<tfoot>";
+                    chuoi += "<tr>";
+                    chuoi += "<th colspan=\"4\">Tổng tiền</th>";
+                    chuoi += "<th>" + StringClass.Format_Price(bill.totalmoney) + " VNĐ</th>";
+                    chuoi += "</tr>";
+                    chuoi += "</tfoot>";
+                    chuoi += "</table>";
+                    chuoi += "</div>";
+                    chuoi += "<div class=\"statusBill\">";
+                    chuoi += "<p>Phương thức thanh toán: <span>" + StringClass.ShowTypePay(bill.typepay.ToString()) + "</span></p>";
+                    chuoi += "<p>Tình trạng đơn hàng: <span>" + StringClass.ShowStateBill(bill.state.ToString()) + "</span></p>";
+                    if (bill.state == 0)
+                    {
+                        chuoi += "<a href=\"/Pages/cancel_bill/" + bill.billid + "\">Hủy đơn hàng</a>";
+                    }
+                    chuoi += "</div>";
+                }
+                ViewBag.View = chuoi;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("dangnhap");
+            }
+        }
+        #endregion
+        #region[Huy don hang]
+        public ActionResult cancel_bill(int id)
+        {
+            var bill = data.tbBill_customers.Where(m => m.billid == id).FirstOrDefault();
+            bill.state = 2;
+            data.SubmitChanges();
+            return RedirectToAction("quan_ly_don_hang");
         }
         #endregion
     }

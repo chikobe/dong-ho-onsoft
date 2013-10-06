@@ -98,7 +98,7 @@ button 					{ padding: 1px 6px; border:none;}
 .Control a:link,
 .Control a:visited		{ color:#000000; font-weight:normal; text-decoration:none; }
 .Control a:hover		{ color:#000000; font-weight:normal; text-decoration:none; }
-.Control li				{ display:inline; list-style:none; padding: 0 10px 0 4px; background: url(imagesAdmin/control_li_split.gif) right no-repeat; }
+.Control li				{ display:inline-block; list-style:none; padding: 0 10px 0 4px; background: url(imagesAdmin/control_li_split.gif) right no-repeat; }
 .Control .vadd			{ background: url(imagesAdmin/page_add.png) center left no-repeat; padding-left:20px; }
 .Control .mulDel        { background:transparent url(imagesAdmin/delete.png) center left no-repeat; cursor:pointer; padding-left:20px; }
 .Control .vrefresh	    { background: url(imagesAdmin/refresh.png) center left no-repeat; cursor:pointer; padding-left:20px;}
@@ -297,6 +297,7 @@ table.proImport input[type="text"]    { text-align:center}
 .boxTitle li                        { float:left;}
 .boxTitle li span                   { margin: 0px 10px 0 20px; line-height:30px}
 .boxTitle ul                        { margin:20px 10px 0}
+.boxTitle select                    { min-width:90px}
 .tbViewPro tr:first-child           { background: #2a65a3; color:#fff;}
 .tbViewPro tr th, .tbViewPro tr td  { text-align:center;}
 .tbViewPro tr .first                { text-align:center; width:40px;}

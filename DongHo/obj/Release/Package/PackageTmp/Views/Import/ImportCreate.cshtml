@@ -9,7 +9,13 @@
 <div class="ImportCreate">
     <div class="Control">
         <ul>
-            <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+            @if (Session["Username"]!=null)
+            {
+                <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+            }
+            else{
+                <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>   
+            }
             <li>@Html.ActionLink("Trở lại", "ImportIndex","", new { @class="uback"})</li>
         </ul>
     </div>
@@ -36,43 +42,7 @@
         </div>
         <div style="width:100%; border-bottom:1px dotted #747474; margin:10px 0 30px;">&nbsp;</div>
     </div>
-    @*<h2>Phiếu nhập</h2>
-    <p>@DateTime.Now.ToShortDateString()</p>
-    <table class="TableUpdate" border="1">
-        <tr>
-            <th>Kho hàng</th>
-            <td>@Html.DropDownList("WareHouse")</td>
-        </tr>
-        <tr>
-            <th colspan="2">Thông tin sản phẩm nhập</th>
-        </tr>
-        <tr>
-            <td colspan="2">
-                @Html.Raw(ViewBag.ProImport)
-            </td>
-        </tr>
-        <tr>
-            <th>Ghi chú</th>
-            <td>@Html.TextArea("Note")</td>
-        </tr>
-        <tr>
-            <th>Thứ tự</th>
-            <td>@Html.TextBox("Ord", "", new { @onkeypress="OnlyInputNumber(0)"})</td>
-        </tr>
-    </table>
-    <div class="Control">
-        <ul>
-            <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
-            <li>@Html.ActionLink("Trở lại", "ImportIndex","", new { @class="uback"})</li>
-        </ul>
-    </div>*@
 </div>
-   @* if(null != TempData["alertMessage"])
-   {
-      <script type="text/javascript">
-          alert("@TempData[alertMessage]");
-      </script>
-   }*@
 }
 <div class="boxImpExp">
     @using (Html.BeginForm("ImportSearchPro", "Import", FormMethod.Post))
@@ -115,40 +85,3 @@
         @Html.Raw(ViewBag.Pager)
     }
 </div>
-@*<script type="text/javascript">
-    var editor;
-    function createEditor(languageCode, id) {
-        var editor = CKEDITOR.replace(id, {
-            language: languageCode
-        });
-    }
-
-    $(function () {
-        createEditor('vi', 'Note');
-    });
-</script>*@
-<script type="text/javascript">
-    $('.quantity').change(function () {
-        debugger
-        var total = 0;
-        $('.quantity').each(function () {
-            debugger;
-            var price = $(this).parent().next().children(0);
-            var a = price.text();
-            var b = $(this).val();
-            var money = a * b;
-            var a = $(this).text();
-            var c = $(this).parent().next().next().children(0);
-            var d = $(this).parent().next().next().children(1);
-            $(c).text(money);
-            $(d).val(money);
-        });
-        $('.money').each(function () {
-            debugger;
-            var a = $(this).text();
-            total -= a;
-        });
-        $('#total').text(-total);
-        $('#hideTotal').val(-total);
-    });
-</script>
