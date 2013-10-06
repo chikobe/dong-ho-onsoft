@@ -15,46 +15,33 @@ namespace DongHo.Controllers
         #region[NewsIndex]
         public ActionResult NewsIndex()
         {
-            if (Session["Username"] != null)
+            string page = "1";//so phan trang hien tai
+            var pagesize = 25;//so ban ghi tren 1 trang
+            var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
+            int curpage = 0; // trang hien tai dung cho phan trang
+            if (Request["page"] != null)
             {
-                string page = "1";//so phan trang hien tai
-                var pagesize = "25";//so ban ghi tren 1 trang
-                var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
-                int curpage = 0; // trang hien tai dung cho phan trang
-                if (Request["page"] != null)
-                {
-                    page = Request["page"];
-                    curpage = Convert.ToInt32(page) - 1;
-                }
-                var all = data.News.ToList();
-                var pages = data.sp_News_Phantrang(page, pagesize, "", "").ToList();
-                var url = Request.Path;
-                numOfNews = all.Count;
-                ViewBag.Pager = DongHo.Models.Phantrang.PhanTrang(25, curpage, numOfNews, url);
-                return View(pages);
+                page = Request["page"];
+                curpage = Convert.ToInt32(page) - 1;
             }
-            else
-            {
-                return Redirect("/Admins/admins");
-            }
+            var all = data.News.ToList();
+            var pages = all.Skip(curpage * pagesize).Take(pagesize).ToList();
+            //var pages = data.sp_News_Phantrang(page, pagesize, "", "").ToList();
+            var url = Request.Path;
+            numOfNews = all.Count;
+            ViewBag.Pager = DongHo.Models.Phantrang.PhanTrang(25, curpage, numOfNews, url);
+            return View(pages);
         }
         #endregion
         #region[NewsCreate]
         public ActionResult  NewsCreate()
         {
-            if (Session["Username"] != null)
+            var list = (from cat in data.GroupNews where cat.Level.Length == 5 select cat).ToList();
+            for (int i = 0; i < list.Count; i++)
             {
-                var list = (from cat in data.GroupNews where cat.Level.Length == 5 select cat).ToList();
-                for (int i = 0; i < list.Count; i++)
-                {
-                    ViewBag.GroupNewsId = new SelectList(data.GroupNews, "Id", "Name");
-                }
-                return View();
+                ViewBag.GroupNewsId = new SelectList(data.GroupNews, "Id", "Name");
             }
-            else
-            {
-                return Redirect("/Admins/admins");
-            }
+            return View();
         }
         #endregion
         #region[NewsCreate]
@@ -102,20 +89,13 @@ namespace DongHo.Controllers
         #region[NewsEdit]
         public ActionResult NewsEdit(int id)
         {
-            if (Session["Username"] != null)
+            var list = (from cat in data.GroupNews where cat.Level.Length == 5 select cat).ToList();
+            var Edit = data.News.First(m => m.Id == id);
+            for (int i = 0; i < list.Count; i++)
             {
-                var list = (from cat in data.GroupNews where cat.Level.Length == 5 select cat).ToList();
-                var Edit = data.News.First(m => m.Id == id);
-                for (int i = 0; i < list.Count; i++)
-                {
-                    ViewBag.GroupNewsId = new SelectList(list, "Id", "Name", Edit.GroupNewsId);
-                }
-                return View(Edit);
+                ViewBag.GroupNewsId = new SelectList(list, "Id", "Name", Edit.GroupNewsId);
             }
-            else
-            {
-                return Redirect("/Admins/admins");
-            }
+            return View(Edit);
         }
         #endregion
         #region[NewsEdit]

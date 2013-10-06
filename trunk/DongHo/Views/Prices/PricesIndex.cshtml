@@ -10,7 +10,14 @@
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới","PricesCreate","", new {@class="vadd"})</li>
-            <li><input type="submit", value=" Xóa " class="mulDel" /></li>
+            @if (Session["Username"] != null)
+            {
+            <li><input type="submit" value=" Xóa " class="mulDel" /></li>
+            }
+            else
+            {
+                <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
+            }
             <li>@Html.ActionLink("Làm mới", "PricesIndex", "", new { @class = "vrefresh" })</li>
             <li> <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a></li>
         </ul>
@@ -33,7 +40,13 @@
                          <td class="Number">@Model[i].Ord</td>
                          <td class="Function">
                              @Html.ActionLink("Sửa", "PricesEdit", new { id = Model[i].Id }, new { @class = "vedit" }) 
+                             @if (Session["Username"]!=null)
+                             {
                              @Html.ActionLink("Xóa", "PricesDelete", new { id = Model[i].Id }, new { @onclick = " return DeleteConfirm()", @class = "vdelete" }) 
+                             }
+                             else{
+                                 <p class="vdelete" onclick="AlertErr()">Xóa</p>
+                             }
                            
                         </td>
 
@@ -47,7 +60,13 @@
                          <td class="Number">@Model[i].Ord</td>
                          <td class="Function">
                              @Html.ActionLink("Sửa", "PricesEdit", new { id = Model[i].Id }, new { @class = "vedit" }) 
+                             @if (Session["Username"]!=null)
+                             {
                              @Html.ActionLink("Xóa", "PricesDelete", new { id = Model[i].Id }, new { @onclick = " return DeleteConfirm()", @class = "vdelete" }) 
+                             }
+                             else{
+                                 <p class="vdelete" onclick="AlertErr()">Xóa</p>
+                             }
                            
                         </td>
                       </tr>
@@ -58,7 +77,14 @@
       <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới","PricesCreate","", new {@class="vadd"})</li>
-            <li><input type="submit", value=" Xóa " class="mulDel" /></li>
+            @if (Session["Username"] != null)
+            {
+            <li><input type="submit" value=" Xóa " class="mulDel" /></li>
+            }
+            else
+            {
+                <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
+            }
             <li>@Html.ActionLink("Làm mới", "PricesIndex", "", new { @class = "vrefresh" })</li>
             <li> <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a></li>
         </ul>

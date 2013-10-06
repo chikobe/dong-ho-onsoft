@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "PageCreate";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
 }
 
 <h2>@ViewBag.Title</h2>
@@ -12,14 +13,21 @@
         <tr>
             <td class="Control" colspan="2">
                 <ul>
-                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
-                    <li>@Html.ActionLink("Trở lại", "PageIndex","", new { @class="uback"})</li>
+                    @if (username == null || username == string.Empty)
+                    {
+                        <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>  
+                    }
+                    else
+                    {
+                        <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+                    }
+                    <li>@Html.ActionLink("Trở lại", "PageIndex", "", new { @class = "uback" })</li>
                 </ul>
             </td>
         </tr>
         <tr>
             <th>Tên trang</th>
-            <td>@Html.TextBox("Name","", new { @class="text"})@Html.ValidationMessageFor(p=>p.Name)</td>
+            <td>@Html.TextBox("Name", "", new { @class = "text" })@Html.ValidationMessageFor(p => p.Name)</td>
         </tr>
         <tr>
             <th>Kiểu trang</th>
@@ -29,7 +37,7 @@
             <th>Liên kết</th>
             <td>@Html.DropDownList("LinkDDL")<br />
                 @*@Html.DropDownList("LinkDDL", new SelectList(new List<Object> { new{value="0",text="Nhập liên kết"},new{value="1",text="Liên kết Module"}},"value","text",0))<br />*@
-                @Html.TextBox("Link","", new { @class="text"})@Html.ValidationMessageFor(p=>p.Link)
+                @Html.TextBox("Link", "", new { @class = "text" })@Html.ValidationMessageFor(p => p.Link)
                 @Html.DropDownList("LinkModule", " === Chọn liên kết === ")
             </td>
         </tr>
@@ -51,20 +59,20 @@
         </tr>
         <tr>
             <th>Title meta</th>
-            <td>@Html.TextBoxFor(p => p.Title, new { @class="text"})</td>
+            <td>@Html.TextBoxFor(p => p.Title, new { @class = "text" })</td>
         </tr>
         <tr>
             <th>Description meta</th>
-            <td>@Html.TextBox("Description", "",new { @class="text multiline"})</td>
+            <td>@Html.TextBox("Description", "", new { @class = "text multiline" })</td>
         </tr>
         <tr>
             <th>Keyword meta</th>
-            <td>@Html.TextBox("Keyword", "",new { @class="text multiline"})</td>
+            <td>@Html.TextBox("Keyword", "", new { @class = "text multiline" })</td>
         </tr>
         <tr>
             <th>Thứ tự</th>
             <td>
-                @Html.TextBox("Ord","", new { @onkeypress="OnlyInputNumber(0)", type="text",min="1",max="99999",number="Chỉ được nhập số"})@Html.ValidationMessageFor(p=>p.Ord)</td>
+                @Html.TextBox("Ord", "", new { @onkeypress = "OnlyInputNumber(0)", type = "text", min = "1", max = "99999", number = "Chỉ được nhập số" })@Html.ValidationMessageFor(p => p.Ord)</td>
         </tr>
         <tr>
             <th>Trang chủ</th>
@@ -77,8 +85,15 @@
         <tr>
             <td class="Control" colspan="2">
                 <ul>
-                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
-                    <li>@Html.ActionLink("Trở lại", "PageIndex","", new { @class="uback"})</li>
+                    @if (username == null || username == string.Empty)
+                    {
+                        <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>  
+                    }
+                    else
+                    {
+                        <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+                    }
+                    <li>@Html.ActionLink("Trở lại", "PageIndex", "", new { @class = "uback" })</li>
                 </ul>
             </td>
         </tr>

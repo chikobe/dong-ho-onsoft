@@ -1,11 +1,9 @@
 ﻿//banner 2 ben
 function FloatTopDiv() {
-    debugger;
     startLX = ((document.body.clientWidth - MainContentW) / 2) - LeftBannerW - LeftAdjust, startLY = TopAdjust + 80;
     startRX = ((document.body.clientWidth - MainContentW) / 2) + MainContentW + RightAdjust, startRY = TopAdjust + 80;
     var d = document;
     function ml(id) {
-        debugger;
         var el = d.getElementById ? d.getElementById(id) : d.all ? d.all[id] : d.layers[id];
         el.sP = function (x, y) {
             this.style.left = x + 'px';
@@ -16,7 +14,6 @@ function FloatTopDiv() {
         return el;
     }
     function m2(id) {
-        debugger;
         var e2 = d.getElementById ? d.getElementById(id) : d.all ? d.all[id] : d.layers[id];
         e2.sP = function (x, y) {
             this.style.left = x + 'px';
@@ -44,7 +41,6 @@ function FloatTopDiv() {
     stayTopLeft();
 }
 function ShowAdDiv() {
-    debugger;
     var objAdDivRight = document.getElementById("divAdRight");
     var objAdDivLeft = document.getElementById("divAdLeft");
     if (document.body.clientWidth < 1000) {

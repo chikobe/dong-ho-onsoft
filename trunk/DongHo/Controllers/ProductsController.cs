@@ -16,49 +16,50 @@ namespace DongHo.Controllers
         #region[ProductIndex]
         public ActionResult ProductIndex()
         {
-            if (Session["Username"] != null)
+            string CatS = "";
+            string BrandS = "";
+            string NameS = "";
+            string chuoi = "1=1";
+            string page = "1";//so phan trang hien tai
+            var pagesize = 25;//so ban ghi tren 1 trang
+            var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
+            int curpage = 0; // trang hien tai dung cho phan trang
+            if (Request["page"] != null)
             {
-                string CatS = "";
-                string BrandS = "";
-                string NameS = "";
-                string chuoi = "1=1";
-                string page = "1";//so phan trang hien tai
-                var pagesize = "25";//so ban ghi tren 1 trang
-                var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
-                int curpage = 0; // trang hien tai dung cho phan trang
-                if (Request["page"] != null)
-                {
-                    page = Request["page"];
-                    curpage = Convert.ToInt32(page) - 1;
-                }
-                if (Request["Cat"] != null) { CatS = Request["Cat"]; if (CatS != "") { chuoi += " and CatId = " + CatS + ""; ViewBag.CatS = CatS; } }
-                if (Request["Brand"] != null) { BrandS = Request["Brand"]; if (BrandS != "") { chuoi += " and BrandId = " + BrandS + ""; ViewBag.BrandS = BrandS; } }
-                if (Request["Name"] != null) { NameS = Request["Name"]; if (NameS != "") { chuoi += "and Name like N'%" + NameS + "%'"; } }
-                var all = data.sp_Product_GetByTop("", chuoi, "").ToList();
-                var adv = data.sp_Product_Phantrang(page, pagesize, chuoi, "Id desc").ToList();
-                numOfNews = all.Count;
-                string strUrl = Request.Url.PathAndQuery;
-                int u = strUrl.IndexOf("&page=");
-                if (u > 0)
-                {
-                    strUrl = strUrl.Substring(0, u);
-                }
+                page = Request["page"];
+                curpage = Convert.ToInt32(page) - 1;
+            }
+            if (Request["Cat"] != null) { CatS = Request["Cat"]; if (CatS != "") { chuoi += " and CatId = " + CatS + ""; ViewBag.CatS = CatS; } }
+            if (Request["Brand"] != null) { BrandS = Request["Brand"]; if (BrandS != "") { chuoi += " and BrandId = " + BrandS + ""; ViewBag.BrandS = BrandS; } }
+            if (Request["Name"] != null) { NameS = Request["Name"]; if (NameS != "") { chuoi += "and Name like N'%" + NameS + "%'"; } }
+            var all = data.sp_Product_GetByTop("", chuoi, "").OrderByDescending(m=>m.Id).ToList();
+            var pages = all.Skip(curpage * pagesize).Take(pagesize).ToList();
+            //var adv = data.sp_Product_Phantrang(page, pagesize, chuoi, "Id desc").ToList();
+            numOfNews = all.Count;
+            string strUrl = Request.Url.PathAndQuery;
+            int u = strUrl.IndexOf("&page=");
+            if (u > 0)
+            {
+                strUrl = strUrl.Substring(0, u);
+            }
+            if (numOfNews > 0)
+            {
                 if (chuoi == "1=1")
                 {
-                    ViewBag.Pager = DongHo.Models.Phantrang.PhanTrang(25, curpage, numOfNews, strUrl);
+                    ViewBag.Pager = DongHo.Models.Phantrang.PhanTrang(pagesize, curpage, numOfNews, strUrl);
                 }
                 else
                 {
-                    ViewBag.Pager = DongHo.Models.PhantrangQuery.PhanTrangQuery(25, curpage, numOfNews, strUrl);
+                    ViewBag.Pager = DongHo.Models.PhantrangQuery.PhanTrangQuery(pagesize, curpage, numOfNews, strUrl);
                 }
-                ViewBag.dropC = CatS;
-                ViewBag.dropB = BrandS;
-                return View(adv);
             }
             else
             {
-                return Redirect("/Admins/admins");
+                ViewBag.Pager = "";
             }
+            ViewBag.dropC = CatS;
+            ViewBag.dropB = BrandS;
+            return View(pages);
         }
         #endregion
         #region[Search]
@@ -124,57 +125,17 @@ namespace DongHo.Controllers
         #region[ProductCreate]
         public ActionResult ProductCreate()
         {
-            if (Session["Username"] != null)
+            var cat = data.Categories.Where(n => n.Active == 1 && n.Level.Length == 5).ToList();
+            for (int i = 0; i < cat.Count; i++)
             {
-                var cat = data.Categories.Where(n => n.Active == 1 && n.Level.Length == 5).ToList();
-                for (int i = 0; i < cat.Count; i++)
-                {
-                    ViewBag.Cat = new SelectList(cat, "Id", "Name");
-                }
-                var brand = data.Brands.ToList();
-                for (int i = 0; i < brand.Count; i++)
-                {
-                    ViewBag.Brand = new SelectList(brand, "Id", "Name");
-                }
-                
-                //string strColor = "";
-                //var color = data.Colors.ToList();
-                //strColor += "<div style=' border:1px solid #a0a0a0; padding:5px;'>";
-                //strColor += "<div class='showHideChkColor'>Hiển thị</div>";
-                //strColor += "<div id='divChkColor'>";
-                //for (int i = 0; i < color.Count; i++)
-                //{
-                //    strColor += "<p style='width:10%; float:left;'>";
-                //    strColor += "<input type='checkbox' value='" + color[i].Id + "' id='chk_" + i + "' name='chkColor'/>";
-                //    strColor += "<span style='margin-left:3px;'>" + color[i].Name + "</span>";
-                //    strColor += "</p>";
-                //}
-                //strColor += "<div class='clearfix'></div>";
-                //strColor += "</div>";
-                //strColor += "</div>";
-                //ViewBag.Color = strColor;
-                //string strSize = "";
-                //var size = data.Sizes.ToList();
-                //strSize += "<div style=' border:1px solid #a0a0a0; padding:5px;'>";
-                //strSize += "<div class='showHideChkSize'>Hiển thị</div>";
-                //strSize += "<div id='divChkSize'>";
-                //for (int i = 0; i < size.Count; i++)
-                //{
-                //    strSize += "<p style='width:10%; float:left;'>";
-                //    strSize += "<input type='checkbox' value='" + size[i].Id + "' id='chk_" + i + "' name='chkSize'/>";
-                //    strSize += "<span style='margin-left:3px;'>" + size[i].Name + "</span>";
-                //    strSize += "</p>";
-                //}
-                //strSize += "<div class='clearfix'></div>";
-                //strSize += "</div>";
-                //strSize += "</div>";
-                //ViewBag.Size = strSize;
-                return View();
+                ViewBag.Cat = new SelectList(cat, "Id", "Name");
             }
-            else
+            var brand = data.Brands.ToList();
+            for (int i = 0; i < brand.Count; i++)
             {
-                return Redirect("/Admins/admins");
+                ViewBag.Brand = new SelectList(brand, "Id", "Name");
             }
+            return View();
         }
         #endregion
         #region[ProductCreate]
@@ -276,88 +237,27 @@ namespace DongHo.Controllers
         #region[ProductEdit]
         public ActionResult ProductEdit(int id)
         {
-            if (Session["Username"] != null)
+            var Edit = data.Products.First(m => m.Id == id);
+            var cat = data.Categories.Where(n => n.Active == 1 && n.Level.Length == 5).ToList();
+            for (int i = 0; i < cat.Count; i++)
             {
-                var Edit = data.Products.First(m => m.Id == id);
-                var cat = data.Categories.Where(n => n.Active == 1 && n.Level.Length == 5).ToList();
-                for (int i = 0; i < cat.Count; i++)
-                {
-                    ViewBag.Cat = new SelectList(cat, "Id", "Name", Edit.CatId);
-                }
-                var catL1 = data.Categories.Where(m => m.Id == Edit.CatId).ToList();
-                var catL2 = data.Categories.Where(m => m.Level.Length == (catL1[0].Level.Length + 5) && m.Level.Substring(0, 5) == catL1[0].Level && m.Active == 1).ToList();
-                if (catL2.Count > 0)
-                {
-                    for (int j = 0; j < catL2.Count; j++)
-                    {
-                        ViewBag.CatL2 = new SelectList(catL2, "Id", "Name", Edit.CatL2);
-                    }
-                }
-                var brand = data.Brands.ToList();
-                for (int i = 0; i < brand.Count; i++)
-                {
-                    ViewBag.Brand = new SelectList(brand, "Id", "Name", Edit.BrandId);
-                }
-                //string strColor = "";
-                //var color = data.Colors.ToList();
-                //strColor += "<div style=' border:1px solid #a0a0a0; padding:5px;'>";
-                //strColor += "<div class='showHideChkColor'>Hiển thị</div>";
-                //strColor += "<div id='divChkColor'>";
-                //for (int i = 0; i < color.Count; i++)
-                //{
-                //    var proC = data.ProColors.Where(m => m.ProId == id && m.ColorId== color[i].Id).ToList();
-                //    if (proC.Count>0)
-                //    {
-                //        strColor += "<p style='width:10%; float:left;'>";
-                //        strColor += "<input type='checkbox' value='" + color[i].Id + "' id='chk_" + i + "' name='chkColor' checked='checked'/>";
-                //        strColor += "<span style='margin-left:3px;'>" + color[i].Name + "</span>";
-                //        strColor += "</p>";
-                //    }
-                //    else
-                //    {
-                //        strColor += "<p style='width:10%; float:left;'>";
-                //        strColor += "<input type='checkbox' value='" + color[i].Id + "' id='chk_" + i + "' name='chkColor'/>";
-                //        strColor += "<span style='margin-left:3px;'>" + color[i].Name + "</span>";
-                //        strColor += "</p>";
-                //    }
-                //}
-                //strColor += "<div class='clearfix'></div>";
-                //strColor += "</div>";
-                //strColor += "</div>";
-                //ViewBag.Color = strColor;
-                //string strSize = "";
-                //var size = data.Sizes.ToList();
-                //strSize += "<div style=' border:1px solid #a0a0a0; padding:5px;'>";
-                //strSize += "<div class='showHideChkSize'>Hiển thị</div>";
-                //strSize += "<div id='divChkSize'>";
-                //for (int i = 0; i < size.Count; i++)
-                //{
-                //    var proS = data.ProSizes.Where(m => m.ProId == id && m.SizeId==size[i].Id).ToList();
-                //    if (proS.Count > 0)
-                //    {
-                //        strSize += "<p style='width:10%; float:left;'>";
-                //        strSize += "<input type='checkbox' value='" + size[i].Id + "' id='chk_" + i + "' name='chkSize' checked='checked'/>";
-                //        strSize += "<span style='margin-left:3px;'>" + size[i].Name + "</span>";
-                //        strSize += "</p>";
-                //    }
-                //    else
-                //    {
-                //        strSize += "<p style='width:10%; float:left;'>";
-                //        strSize += "<input type='checkbox' value='" + size[i].Id + "' id='chk_" + i + "' name='chkSize'/>";
-                //        strSize += "<span style='margin-left:3px;'>" + size[i].Name + "</span>";
-                //        strSize += "</p>";
-                //    }
-                //}
-                //strSize += "<div class='clearfix'></div>";
-                //strSize += "</div>";
-                //strSize += "</div>";
-                //ViewBag.Size = strSize;
-                return View(Edit);
+                ViewBag.Cat = new SelectList(cat, "Id", "Name", Edit.CatId);
             }
-            else
+            var catL1 = data.Categories.Where(m => m.Id == Edit.CatId).ToList();
+            var catL2 = data.Categories.Where(m => m.Level.Length == (catL1[0].Level.Length + 5) && m.Level.Substring(0, 5) == catL1[0].Level && m.Active == 1).ToList();
+            if (catL2.Count > 0)
             {
-                return Redirect("/Admins/admins");
+                for (int j = 0; j < catL2.Count; j++)
+                {
+                    ViewBag.CatL2 = new SelectList(catL2, "Id", "Name", Edit.CatL2);
+                }
             }
+            var brand = data.Brands.ToList();
+            for (int i = 0; i < brand.Count; i++)
+            {
+                ViewBag.Brand = new SelectList(brand, "Id", "Name", Edit.BrandId);
+            }
+            return View(Edit);
         }
         #endregion
         #region[ProductEdit]
@@ -776,97 +676,99 @@ namespace DongHo.Controllers
         #region[ProductPriceView]
         public ActionResult ProductPriceView(int id)
         {
-            if (Session["Username"] != null)
+            var pro = data.Products.Where(m => m.Id == id).FirstOrDefault();
+            var proPrice = data.ProPrices.Where(m => m.ProId == id).OrderByDescending(m => m.DateBegin).ToList();
+            string chuoi = "";
+            chuoi += "<h2>Xem thông tin sản phẩm</h2>";
+            chuoi += "<div class=\"viewInfo\">";
+            chuoi += "<div>";
+            chuoi += "<p>Tên sản phẩm</p>";
+            chuoi += "<p>Giá bán lẻ hiện tại</p>";
+            chuoi += "<p>Giá bán sỉ hiện tại</p>";
+            chuoi += "<p>Giá nhập hàng mới nhất</p>";
+            chuoi += "<p>Giá khuyến mãi hiện tại</p>";
+            chuoi += "<p>Ngày bắt đầu áp dụng</p>";
+            chuoi += "<p>Ngày kết thúc áp dụng</p>";
+            chuoi += "</div>";
+            chuoi += "<div>";
+            chuoi += "<p>" + pro.Name + "</p>";
+            chuoi += "<p>" + Format_Price(proPrice[0].GiaBanLe) + " VNĐ</p>";
+            chuoi += "<p>" + Format_Price(proPrice[0].GiaBanSi) + " VNĐ</p>";
+            chuoi += "<p>" + Format_Price(proPrice[0].PriceImport) + " VNĐ</p>";
+            if (pro.PiceOld != null)
             {
-                var pro = data.Products.Where(m => m.Id == id).FirstOrDefault();
-                var proPrice = data.ProPrices.Where(m => m.ProId == id).OrderByDescending(m => m.DateBegin).ToList();
-                string chuoi = "";
-                chuoi += "<h2>Xem thông tin sản phẩm</h2>";
-                chuoi += "<div class=\"viewInfo\">";
-                chuoi += "<div>";
-                chuoi += "<p>Tên sản phẩm</p>";
-                chuoi += "<p>Giá bán lẻ hiện tại</p>";
-                chuoi += "<p>Giá bán sỉ hiện tại</p>";
-                chuoi += "<p>Giá nhập hàng mới nhất</p>";
-                chuoi += "<p>Giá khuyến mãi hiện tại</p>";
-                chuoi += "<p>Ngày bắt đầu áp dụng</p>";
-                chuoi += "<p>Ngày kết thúc áp dụng</p>";
-                chuoi += "</div>";
-                chuoi += "<div>";
-                chuoi += "<p>" + pro.Name + "</p>";
-                chuoi += "<p>" + Format_Price(proPrice[0].GiaBanLe) + " VNĐ</p>";
-                chuoi += "<p>" + Format_Price(proPrice[0].GiaBanSi) + " VNĐ</p>";
-                chuoi += "<p>" + Format_Price(proPrice[0].PriceImport) + " VNĐ</p>";
-                if (pro.PiceOld != null)
-                {
-                    chuoi += "<p>" + Format_Price(pro.PiceOld.ToString()) + " VNĐ</p>";
-                    chuoi += "<p>" + DateTimeClass.ConvertDateTimeddMMyyyy(pro.DateBegin.ToString()) + "</p>";
-                    chuoi += "<p>" + DateTimeClass.ConvertDateTimeddMMyyyy(pro.DateEnd.ToString()) + "</p>";
-                }
-                else
-                {
-                    chuoi += "<p>0 VNĐ</p>";
-                    chuoi += "<p>Không khuyến mãi</p>";
-                    chuoi += "<p>Không khuyến mãi</p>";
-                }
-                chuoi += "</div>";
-                chuoi += "<div>";
-                chuoi += "<img src=\"" + pro.Image + "\" style=\"width:100px; height:100px; margin-left: 50px;\" />";
-                chuoi += "</div>";
-                chuoi += "</div>";
-                chuoi += "<div class=\"clearfix\"></div>";
-                if (proPrice.Count > 0)
-                {
-                    chuoi += "<div class=\"divShowHideHistory\">";
-                    chuoi += "<div class=\"showHideHistory\">Hiển thị thông tin lịch sử giá</div>";
-                    chuoi += "<div id=\"divHistory\">";
-                    chuoi += "<table border=\"1\">";
-                    chuoi += "<tr>";
-                    chuoi += "<th>STT</th>";
-                    chuoi += "<th>Giá nhập</th>";
-                    chuoi += "<th>Giá bán bán sỉ</th>";
-                    chuoi += "<th>Giá bán lẻ</th>";
-                    chuoi += "<th>Giá khuyến mãi</th>";
-                    chuoi += "<th>Ngày bắt đầu</th>";
-                    chuoi += "<th>Ngày kết thúc</th>";
-                    chuoi += "<th>Ngày nhập</th>";
-                    chuoi += "<th>Chức năng</th>";
-                    chuoi += "</tr>";
-                    for (int i = 0; i < proPrice.Count; i++)
-                    {
-                        chuoi += "<tr>";
-                        chuoi += "<td>" + (i + 1) + "</td>";
-                        chuoi += "<td>" + Format_Price(proPrice[i].PriceImport) + " VNĐ</td>";
-                        chuoi += "<td>" + Format_Price(proPrice[i].GiaBanSi) + " VNĐ</td>";
-                        chuoi += "<td>" + Format_Price(proPrice[i].GiaBanLe) + " VNĐ</td>";
-                        if (proPrice[i].PricePromotion != null)
-                        {
-                            chuoi += "<td>" + proPrice[i].PricePromotion + "</td>";
-                            chuoi += "<td>" + DateTimeClass.ConvertDateTimeddMMyyyy(proPrice[i].DateBegin.ToString()) + "</td>";
-                            chuoi += "<td>" + DateTimeClass.ConvertDateTimeddMMyyyy(proPrice[i].DateEnd.ToString()) + "</td>";
-                        }
-                        else
-                        {
-                            chuoi += "<td>0 VNĐ</td>";
-                            chuoi += "<td>Không khuyến mãi</td>";
-                            chuoi += "<td>Không khuyến mãi</td>";
-                        }
-                        chuoi += "<td>" + DateTimeClass.ConvertDateTimeddMMyyyy(proPrice[i].Date.ToString()) + "</td>";
-                        chuoi += "<td><a href='/Products/ProductPriceEdit/" + proPrice[i].Id + "' title='Chỉnh sửa khung giá' class='edit'>Sửa</a><a href='/Products/ProductPriceDelete/" + proPrice[i].Id + "' title='Xóa' class='vdel'>Xóa</a></td>";
-                        chuoi += "</tr>";
-                    }
-                    chuoi += "</table>";
-                    chuoi += "</div>";
-                    chuoi += "</div>";
-                    chuoi += "<a href=\"/Products/ProductPriceCreate/" + pro.Id + "\">Thêm khung giá mới</a>";
-                }
-                ViewBag.View = chuoi;
-                return View();
+                chuoi += "<p>" + Format_Price(pro.PiceOld.ToString()) + " VNĐ</p>";
+                chuoi += "<p>" + DateTimeClass.ConvertDateTimeddMMyyyy(pro.DateBegin.ToString()) + "</p>";
+                chuoi += "<p>" + DateTimeClass.ConvertDateTimeddMMyyyy(pro.DateEnd.ToString()) + "</p>";
             }
             else
             {
-                return Redirect("/Admins/admins");
+                chuoi += "<p>0 VNĐ</p>";
+                chuoi += "<p>Không khuyến mãi</p>";
+                chuoi += "<p>Không khuyến mãi</p>";
             }
+            chuoi += "</div>";
+            chuoi += "<div>";
+            chuoi += "<img src=\"" + pro.Image + "\" style=\"width:100px; height:100px; margin-left: 50px;\" />";
+            chuoi += "</div>";
+            chuoi += "</div>";
+            chuoi += "<div class=\"clearfix\"></div>";
+            if (proPrice.Count > 0)
+            {
+                chuoi += "<div class=\"divShowHideHistory\">";
+                chuoi += "<div class=\"showHideHistory\">Hiển thị thông tin lịch sử giá</div>";
+                chuoi += "<div id=\"divHistory\">";
+                chuoi += "<table border=\"1\">";
+                chuoi += "<tr>";
+                chuoi += "<th>STT</th>";
+                chuoi += "<th>Giá nhập</th>";
+                chuoi += "<th>Giá bán bán sỉ</th>";
+                chuoi += "<th>Giá bán lẻ</th>";
+                chuoi += "<th>Giá khuyến mãi</th>";
+                chuoi += "<th>Ngày bắt đầu</th>";
+                chuoi += "<th>Ngày kết thúc</th>";
+                chuoi += "<th>Ngày nhập</th>";
+                chuoi += "<th>Chức năng</th>";
+                chuoi += "</tr>";
+                for (int i = 0; i < proPrice.Count; i++)
+                {
+                    chuoi += "<tr>";
+                    chuoi += "<td>" + (i + 1) + "</td>";
+                    chuoi += "<td>" + Format_Price(proPrice[i].PriceImport) + " VNĐ</td>";
+                    chuoi += "<td>" + Format_Price(proPrice[i].GiaBanSi) + " VNĐ</td>";
+                    chuoi += "<td>" + Format_Price(proPrice[i].GiaBanLe) + " VNĐ</td>";
+                    if (proPrice[i].PricePromotion != null)
+                    {
+                        chuoi += "<td>" + proPrice[i].PricePromotion + "</td>";
+                        chuoi += "<td>" + DateTimeClass.ConvertDateTimeddMMyyyy(proPrice[i].DateBegin.ToString()) + "</td>";
+                        chuoi += "<td>" + DateTimeClass.ConvertDateTimeddMMyyyy(proPrice[i].DateEnd.ToString()) + "</td>";
+                    }
+                    else
+                    {
+                        chuoi += "<td>0 VNĐ</td>";
+                        chuoi += "<td>Không khuyến mãi</td>";
+                        chuoi += "<td>Không khuyến mãi</td>";
+                    }
+                    chuoi += "<td>" + DateTimeClass.ConvertDateTimeddMMyyyy(proPrice[i].Date.ToString()) + "</td>";
+                    chuoi += "<td><a href='/Products/ProductPriceEdit/" + proPrice[i].Id + "' title='Chỉnh sửa khung giá' class='edit'>Sửa</a>";
+                    if (Session["Username"] != null)
+                    {
+                        chuoi += "<a href='/Products/ProductPriceDelete/" + proPrice[i].Id + "' title='Xóa' class='vdel'>Xóa</a>";
+                    }
+                    else
+                    {
+                        chuoi += "<p class='vdel' onclick='AlertErr()'>Xóa</p>";
+                    }
+                    chuoi += "</td>";
+                    chuoi += "</tr>";
+                }
+                chuoi += "</table>";
+                chuoi += "</div>";
+                chuoi += "</div>";
+                chuoi += "<a href=\"/Products/ProductPriceCreate/" + pro.Id + "\">Thêm khung giá mới</a>";
+            }
+            ViewBag.View = chuoi;
+            return View();
         }
         #endregion
         #region[ProductPriceCreate]
@@ -1016,27 +918,72 @@ namespace DongHo.Controllers
                 var d = list[i].Image.IndexOf("_small");
                 if (a > 0)
                 {
-                    chuoiA += "<div class=\"imgView\"><img src=\"" + list[i].Image + "\" /><div class=\"funcImg\"><a href=\"/Products/ProductEditImg/" + list[i].Id + "\">Sửa</a><a href=\"/Products/ProductDelImg/" + list[i].Id + "\">Xóa</a></div></div>";
+                    chuoiA += "<div class=\"imgView\"><img src=\"" + list[i].Image + "\" /><div class=\"funcImg\"><a href=\"/Products/ProductEditImg/" + list[i].Id + "\">Sửa</a>";
+                    if (Session["Username"] != null)
+                    {
+                        chuoiA += "<a href=\"/Products/ProductDelImg/" + list[i].Id + "\">Xóa</a>";
+                    }
+                    else
+                    {
+                        chuoiA += "<p onclick='AlertErr()'>Xóa</p>";
+                    }
+                    chuoiA += "</div></div>";
                     //chuoiA += "<a href='/Products/ProductEditImg/" + list[i].Id + "' class='editImg'><img src='" + list[i].Image + "' id='fileImg' name='fileImg'/></a>";
                 }
                 else if (b > 0)
                 {
-                    chuoiB += "<div class=\"imgView\"><img src=\"" + list[i].Image + "\" /><div class=\"funcImg\"><a href=\"/Products/ProductEditImg/" + list[i].Id + "\">Sửa</a><a href=\"/Products/ProductDelImg/" + list[i].Id + "\">Xóa</a></div></div>";
+                    chuoiB += "<div class=\"imgView\"><img src=\"" + list[i].Image + "\" /><div class=\"funcImg\"><a href=\"/Products/ProductEditImg/" + list[i].Id + "\">Sửa</a>";
+                    if (Session["Username"] != null)
+                    {
+                        chuoiB += "<a href=\"/Products/ProductDelImg/" + list[i].Id + "\">Xóa</a>";
+                    }
+                    else
+                    {
+                        chuoiB += "<p onclick='AlertErr()'>Xóa</p>";
+                    }
+                    chuoiB += "</div></div>";
                     //chuoiB += "<a href='/Products/ProductEditImg/" + list[i].Id + "' class='editImg'><img src='" + list[i].Image + "' id='fileImg' name='fileImg'/></a>";
                 }
                 else if (c > 0)
                 {
-                    chuoiC += "<div class=\"imgView\"><img src=\"" + list[i].Image + "\" /><div class=\"funcImg\"><a href=\"/Products/ProductEditImg/" + list[i].Id + "\">Sửa</a><a href=\"/Products/ProductDelImg/" + list[i].Id + "\">Xóa</a></div></div>";
+                    chuoiC += "<div class=\"imgView\"><img src=\"" + list[i].Image + "\" /><div class=\"funcImg\"><a href=\"/Products/ProductEditImg/" + list[i].Id + "\">Sửa</a>";
+                    if (Session["Username"] != null)
+                    {
+                        chuoiC += "<a href=\"/Products/ProductDelImg/" + list[i].Id + "\">Xóa</a>";
+                    }
+                    else
+                    {
+                        chuoiC += "<p onclick='AlertErr()'>Xóa</p>";
+                    }
+                    chuoiC += "</div></div>";
                     //chuoiC += "<a href='/Products/ProductEditImg/" + list[i].Id + "' class='editImg'><img src='" + list[i].Image + "' id='fileImg' name='fileImg'/></a>";
                 }
                 else if (d > 0)
                 {
-                    chuoiD += "<div class=\"imgView\"><img src=\"" + list[i].Image + "\" /><div class=\"funcImg\"><a href=\"/Products/ProductEditImg/" + list[i].Id + "\">Sửa</a><a href=\"/Products/ProductDelImg/" + list[i].Id + "\">Xóa</a></div></div>";
+                    chuoiD += "<div class=\"imgView\"><img src=\"" + list[i].Image + "\" /><div class=\"funcImg\"><a href=\"/Products/ProductEditImg/" + list[i].Id + "\">Sửa</a>";
+                    if (Session["Username"] != null)
+                    {
+                        chuoiD += "<a href=\"/Products/ProductDelImg/" + list[i].Id + "\">Xóa</a>";
+                    }
+                    else
+                    {
+                        chuoiD += "<p onclick='AlertErr()'>Xóa</p>";
+                    }
+                    chuoiD += "</div></div>";
                     //chuoiD += "<a href='/Products/ProductEditImg/" + list[i].Id + "' class='editImg'><img src='" + list[i].Image + "' id='fileImg' name='fileImg'/></a>";
                 }
                 else
                 {
-                    chuoiE += "<div class=\"imgView\"><img src=\"" + list[i].Image + "\" /><div class=\"funcImg\"><a href=\"/Products/ProductEditImg/" + list[i].Id + "\">Sửa</a><a href=\"/Products/ProductDelImg/" + list[i].Id + "\">Xóa</a></div></div>";
+                    chuoiE += "<div class=\"imgView\"><img src=\"" + list[i].Image + "\" /><div class=\"funcImg\"><a href=\"/Products/ProductEditImg/" + list[i].Id + "\">Sửa</a>";
+                    if (Session["Username"] != null)
+                    {
+                        chuoiE += "<a href=\"/Products/ProductDelImg/" + list[i].Id + "\">Xóa</a>";
+                    }
+                    else
+                    {
+                        chuoiE += "<p onclick='AlertErr()'>Xóa</p>";
+                    }
+                    chuoiE += "</div></div>";
                     //chuoiE += "<a href='/Products/ProductEditImg/" + list[i].Id + "' class='editImg'><img src='" + list[i].Image + "' id='fileImg' name='fileImg'/></a>";
                 }
             }
@@ -1087,7 +1034,7 @@ namespace DongHo.Controllers
                             break;
                         }
                     }
-                    var fileName = String.Format("{0}"+kco+".jpg", Guid.NewGuid().ToString());
+                    var fileName = String.Format("{0}" + kco + ".jpg", Guid.NewGuid().ToString());
                     var imagePath = Path.Combine(Server.MapPath(Url.Content("/Uploads")), fileName);
                     fileImg.SaveAs(imagePath);
                     var ProImg = data.ProImages.First(m => m.Id == id);

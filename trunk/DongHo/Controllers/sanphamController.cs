@@ -256,7 +256,7 @@ namespace DongHo.Controllers
                     }
                     chuoi += "<li class='proCart clearfix'>";
                     chuoi += "<img src='" + anh + "'/>";
-                    chuoi += "<a href='/sanpham/chitiet/" + list.Tag + "'>" + FormatContentNews(list.Name,50) + " <span>x " + tr[(i + 1)] + "</span></a>";
+                    chuoi += "<a href='/sanpham/chitiet/" + list.Tag + "'>" + FormatContentNews(list.Name,40) + " <span>x " + tr[(i + 1)] + "</span></a>";
                     chuoi += "</li>";
                     obj.Add(list);
                     count += Convert.ToInt32(tr[(i + 1)]);
@@ -350,7 +350,7 @@ namespace DongHo.Controllers
                     {
                         productId = obj.Id,
                         productImage = k,
-                        productName = FormatContentNews(obj.Name,50),
+                        productName = FormatContentNews(obj.Name,40),
                         productTag = obj.Tag,
                         price = obj.Price.ToString(),
                         count = soluong[i],

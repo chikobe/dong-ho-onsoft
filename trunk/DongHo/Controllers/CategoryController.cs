@@ -16,41 +16,35 @@ namespace DongHo.Controllers
         #region[CategoryIndex]
         public ActionResult CategoryIndex()
         {
-            if (Session["Username"] != null)
+            string page = "1";//so phan trang hien tai
+            var pagesize = 25;//so ban ghi tren 1 trang
+            var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
+            int curpage = 0; // trang hien tai dung cho phan trang
+            if (Request["page"] != null)
             {
-                string page = "1";//so phan trang hien tai
-                var productize = "25";//so ban ghi tren 1 trang
-                var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
-                int curpage = 0; // trang hien tai dung cho phan trang
-                if (Request["page"] != null)
-                {
-                    page = Request["page"];
-                    curpage = Convert.ToInt32(page) - 1;
-                }
-                var all = data.Categories.ToList();
-                var pages = data.sp_Category_Phantrang(page, productize, "", "[Level] asc").ToList();
-                var url = Request.Path;
-                numOfNews = all.Count;
-                ViewBag.Pager = DongHo.Models.Phantrang.PhanTrang(25, curpage, numOfNews, url);
-                return View(pages);
+                page = Request["page"];
+                curpage = Convert.ToInt32(page) - 1;
+            }
+            var all = data.Categories.ToList();
+            var pages = all.Skip(curpage * pagesize).Take(pagesize).ToList();
+            //var pages = data.sp_Category_Phantrang(page, productize, "", "[Level] asc").ToList();
+            var url = Request.Path;
+            numOfNews = all.Count;
+            if (numOfNews > 0)
+            {
+                ViewBag.Pager = DongHo.Models.Phantrang.PhanTrang(pagesize, curpage, numOfNews, url);
             }
             else
             {
-                return Redirect("/Admins/admins");
+                ViewBag.Pager = "";
             }
+            return View(pages);
         }
         #endregion
         #region[CategoryCreate]
         public ActionResult CategoryCreate()
         {
-            if (Session["Username"] != null)
-            {
-                return View();
-            }
-            else
-            {
-                return Redirect("/Admins/admins");
-            }
+            return View();
         }
         #endregion
         #region[CategoryCreate]
@@ -90,15 +84,8 @@ namespace DongHo.Controllers
         #region[CategoriesEdit]
         public ActionResult CategoriesEdit(int id)
         {
-            if (Session["Username"] != null)
-            {
-                var Edit = data.Categories.First(m => m.Id == id);
-                return View(Edit);
-            }
-            else
-            {
-                return Redirect("/Admins/admins");
-            }
+            var Edit = data.Categories.First(m => m.Id == id);
+            return View(Edit);
         }
         #endregion
         #region[CategoriesEdit]
@@ -138,14 +125,7 @@ namespace DongHo.Controllers
         #region[CategoryAddSub]
         public ActionResult CategoryAddSub()
         {
-            if (Session["Username"] != null)
-            {
-                return View();
-            }
-            else
-            {
-                return Redirect("/Admins/admins");
-            }
+            return View();
         }
         #endregion
         #region[CategoryAddSub]

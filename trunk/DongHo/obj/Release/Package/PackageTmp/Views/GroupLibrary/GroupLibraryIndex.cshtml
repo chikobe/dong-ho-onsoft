@@ -1,4 +1,4 @@
-﻿@model IList<DongHo.Models.sp_GroupLibrary_PagingResult>
+﻿@model IList<DongHo.Models.GroupLibrary>
 @{
     ViewBag.Title = "Quản lý nhóm thư viện";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -10,7 +10,14 @@
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới", "GroupLibraryCreate", "", new { @class = "vadd" })</li>
-            <li><input type="submit" value="Xóa" class="mulDel" /></li>
+            @if (Session["Username"]!=null)
+            {
+                <li><input type="submit" value=" Xóa " class="mulDel" /></li>
+            }
+            else
+            {
+                <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
+            }
             <li>@Html.ActionLink("Làm mới", "GroupLibraryIndex", "", new { @class = "vrefresh" })</li>
             <li> <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a></li>
         </ul>
@@ -34,7 +41,14 @@
                     <td class="Number">@{@DongHo.Models.StringClass.ShowNameLevel(Model[i].Ord.ToString(), Model[i].Level);}</td>
                     <td class="Function">
                         @Html.ActionLink("AddSub", "GroupLibraryAddSub", new { level = Model[i].Level }, new { @class = "addsub" })
-                        @Html.ActionLink("Sửa", "GroupLibraryEdit", new { id = Model[i].Id }, new { @class = "vedit" }) @Html.ActionLink("Xóa", "GroupLibraryDelete", new { id = Model[i].Id }, new { @onclick = "return DeleteConfirm()", @class = "vdelete" })
+                        @Html.ActionLink("Sửa", "GroupLibraryEdit", new { id = Model[i].Id }, new { @class = "vedit" }) 
+                        @if (Session["Username"]!=null)
+                        {
+                            @Html.ActionLink("Xóa", "GroupLibraryDelete", new { id = Model[i].Id }, new { @onclick = "return DeleteConfirm()", @class = "vdelete" })
+                        }
+                        else{
+                            <p class="vdelete" onclick="AlertErr()">Xóa</p>
+                        }
                         @if (Model[i].Active == 1)
                         {@Html.ActionLink("Active", "GroupLibraryActive", new { id = Model[i].Id }, new { @class = "vactive" })}
                         else
@@ -51,7 +65,14 @@
                     <td class="Number">@{@DongHo.Models.StringClass.ShowNameLevel(Model[i].Ord.ToString(), Model[i].Level);}</td>
                     <td class="Function">
                         @Html.ActionLink("AddSub", "GroupLibraryAddSub", new { level = Model[i].Level }, new { @class = "addsub" })
-                        @Html.ActionLink("Sửa", "GroupLibraryEdit", new { id = Model[i].Id }, new { @class = "vedit" }) @Html.ActionLink("Xóa", "GroupLibraryDelete", new { id = Model[i].Id }, new { @onclick = "return DeleteConfirm()", @class = "vdelete" })
+                        @Html.ActionLink("Sửa", "GroupLibraryEdit", new { id = Model[i].Id }, new { @class = "vedit" }) 
+                        @if (Session["Username"]!=null)
+                        {
+                            @Html.ActionLink("Xóa", "GroupLibraryDelete", new { id = Model[i].Id }, new { @onclick = "return DeleteConfirm()", @class = "vdelete" })
+                        }
+                        else{
+                            <p class="vdelete" onclick="AlertErr()">Xóa</p>
+                        }
                         @if (Model[i].Active == 1)
                         {@Html.ActionLink("Active", "GroupLibraryActive", new { id = Model[i].Id }, new { @class = "vactive" })}
                         else
@@ -65,7 +86,14 @@
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới", "GroupLibraryCreate", "", new { @class = "vadd" })</li>
-            <li><input type="submit" value="Xóa" class="mulDel" /></li>
+            @if (Session["Username"]!=null)
+            {
+                <li><input type="submit" value=" Xóa " class="mulDel" /></li>
+            }
+            else
+            {
+                <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
+            }
             <li>@Html.ActionLink("Làm mới", "GroupLibraryIndex", "", new { @class = "vrefresh" })</li>
             <li> 
                 <a class="vback" href="javascript:void(0);" onclick="window.history.go(-1);">Trở lại</a> 

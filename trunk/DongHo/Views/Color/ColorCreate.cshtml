@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "ColorCreate";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
 }
 
 <h2>Thêm mới màu sắc</h2>
@@ -12,7 +13,15 @@
         <tr>
             <td class="Control" colspan="2">
                 <ul>
-                    <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+                    @if (username == null || username == string.Empty)
+                    {
+                        <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>  
+                    }
+                    else
+                    {
+                        <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+                      
+                    }
                     <li>@Html.ActionLink("Trở về", "ColorIndex","", new {@class="uback" })</li>
                 </ul>
             </td>
@@ -32,7 +41,14 @@
          <tr>
             <td class="Control" colspan="2">
                 <ul>
-                    <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+                    @if (username == null || username == string.Empty)
+                    {
+                        <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>  
+                    }
+                    else
+                    {
+                        <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+                    }
                     <li>@Html.ActionLink("Trở về", "ColorIndex","", new {@class="uback" })</li>
                 </ul>
             </td>

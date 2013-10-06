@@ -15,41 +15,28 @@ namespace DongHo.Controllers
         #region[GroupLibraryIndex]
         public ActionResult GroupLibraryIndex()
         {
-            if (Session["Username"] != null)
+            string page = "1";//so phan trang hien tai
+            var pagesize = 25;//so ban ghi tren 1 trang
+            var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
+            int curpage = 0; // trang hien tai dung cho phan trang
+            if (Request["page"] != null)
             {
-                string page = "1";//so phan trang hien tai
-                var pagesize = "25";//so ban ghi tren 1 trang
-                var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
-                int curpage = 0; // trang hien tai dung cho phan trang
-                if (Request["page"] != null)
-                {
-                    page = Request["page"];
-                    curpage = Convert.ToInt32(page) - 1;
-                }
-                var all = data.GroupLibraries.ToList();
-                var pages = data.sp_GroupLibrary_Phantrang(page, pagesize, "", "[Level] asc").ToList();
-                var url = Request.Path;
-                numOfNews = all.Count;
-                ViewBag.Pager = DongHo.Models.Phantrang.PhanTrang(25, curpage, numOfNews, url);
-                return View(pages);
+                page = Request["page"];
+                curpage = Convert.ToInt32(page) - 1;
             }
-            else
-            {
-                return Redirect("/Admins/admins");
-            }
+            var all = data.GroupLibraries.ToList();
+            var pages = all.Skip(curpage * pagesize).Take(pagesize).ToList();
+            //var pages = data.sp_GroupLibrary_Phantrang(page, pagesize, "", "[Level] asc").ToList();
+            var url = Request.Path;
+            numOfNews = all.Count;
+            ViewBag.Pager = DongHo.Models.Phantrang.PhanTrang(25, curpage, numOfNews, url);
+            return View(pages);
         }
         #endregion
         #region[GroupLibraryCreate]
         public ActionResult GroupLibraryCreate()
         {
-            if (Session["Username"] != null)
-            {
-                return View();
-            }
-            else
-            {
-                return Redirect("/Admins/admins");
-            }
+            return View();
         }
         #endregion
         #region[GroupLibraryCreate]
@@ -78,15 +65,8 @@ namespace DongHo.Controllers
         #region[GroupLibraryEdit]
         public ActionResult GroupLibraryEdit(int id)
         {
-            if (Session["Username"] != null)
-            {
-                var Edit = data.GroupLibraries.First(m => m.Id == id);
-                return View(Edit);
-            }
-            else
-            {
-                return Redirect("/Admins/admins");
-            }
+            var Edit = data.GroupLibraries.First(m => m.Id == id);
+            return View(Edit);
         }
         #endregion
         #region[GroupLibraryEdit]
@@ -114,14 +94,7 @@ namespace DongHo.Controllers
         #region[GroupLibraryAddSub]
         public ActionResult GroupLibraryAddSub()
         {
-            if (Session["Username"] != null)
-            {
-                return View();
-            }
-            else
-            {
-                return Redirect("/Admins/admins");
-            }
+            return View();
         }
         #endregion
         #region[GroupLibraryAddSub]

@@ -119,7 +119,7 @@ button.datepick-cmd {
 }
 .datepick-month {
 	float: left;
-	width: 15em;
+	width: 16em;
 	border: 1px solid #444;
 	text-align: center;
 }
@@ -139,7 +139,7 @@ button.datepick-cmd {
 	display: none;
 }
 .datepick-month table {
-	width: 100%;
+	width: 100.5%;
 	border-collapse: collapse;
 }
 .datepick-month thead {

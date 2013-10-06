@@ -12,14 +12,20 @@
         <tr>
             <td class="Control" colspan="2">
                 <ul>
-                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    @if (Session["Username"]!=null)
+                    {
+                        <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+                    }
+                    else{
+                     <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>   
+                    }
                     <li>@Html.ActionLink("Trở lại", "PageIndex","", new { @class="uback"})</li>
                 </ul>
             </td>
         </tr>
         <tr>
             <th>Tên trang</th>
-            <td>@Html.TextBox("Name")@Html.ValidationMessageFor(p=>p.Name)</td>
+            <td>@Html.TextBox("Name", "", new { @class="text"})@Html.ValidationMessageFor(p=>p.Name)</td>
         </tr>
         <tr>
             <th>Kiểu trang</th>
@@ -29,7 +35,7 @@
             <th>Liên kết</th>
             <td>
                 @Html.DropDownList("LinkDDL")<br />
-                @Html.TextBox("Link")
+                @Html.TextBox("Link", "", new { @class="text"})
                 @Html.DropDownList("LinkModule", " === Chọn liên kết === ")
             </td>
         </tr>
@@ -51,7 +57,7 @@
         </tr>
         <tr>
             <th>Title meta</th>
-            <td>@Html.TextBoxFor(p=>p.Title)</td>
+            <td>@Html.TextBoxFor(p=>p.Title, new { @class="text multiline"})</td>
         </tr>
         <tr>
             <th>Description meta</th>
@@ -76,7 +82,13 @@
         <tr>
             <td class="Control" colspan="2">
                 <ul>
-                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    @if (Session["Username"]!=null)
+                    {
+                        <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+                    }
+                    else{
+                     <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>   
+                    }
                     <li>@Html.ActionLink("Trở lại", "PageIndex","", new { @class="uback"})</li>
                 </ul>
             </td>

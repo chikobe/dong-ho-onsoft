@@ -271,5 +271,11 @@ namespace DongHo.Controllers
             return PartialView();
         }
         #endregion
+        #region[CheckLoginContent]
+        public ActionResult _CheckLoginContent()
+        {
+            return PartialView();
+        }
+        #endregion
     }
 }

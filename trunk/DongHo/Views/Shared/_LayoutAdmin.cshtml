@@ -37,6 +37,9 @@
             }
             event.returnValue = false;
         }
+        function AlertErr() {
+            alert("Bạn không có quyền thực hiện chức năng này!");
+        }
     </script>
     <script type="text/javascript">
         function DeleteConfirm() {
@@ -64,21 +67,10 @@
                 $("#txtSize").val(value);
                 var str = $("#txtSize").val();
             });
-        });
-    </script>
-    <script type="text/javascript">
-        $(function () {
-            //$('#DateBegin').datepick({ minDate: 0 });
-            
-
-            $('#DateBegin').datepick({ minDate: 0 });
-            $('#DateEnd').datepick({ minDate: 0});
-        });
-    </script>
-    <script type="text/javascript">
-        $(function () {
             $('#dateBegin').datepick();
             $('#dateEnd').datepick();
+            $('#DateBegin').datepick({ minDate: 0 });
+            $('#DateEnd').datepick({ minDate: 0 });
         });
     </script>
 </head>
@@ -99,5 +91,40 @@
     <script type="text/javascript">
         function Get(idname) { if (document.getElementById) { return document.getElementById(idname); } else if (document.all) { return document.all[idname]; } else if (document.layers) { return document.layers[idname]; } else { return null; } } function toggleXPMenu(block) { var CloseImage = "/Images/closed.gif"; var OpenImage = "/Images/open.gif"; var divid = block; var img = "img" + block; if (Get(divid).style.display == "") { Get(divid).style.display = "none"; Get(img).src = OpenImage; return false; } else { Get(divid).style.display = ""; Get(img).src = CloseImage; return false; } }
     </script>
+    <script>
+        $('.quantity').change(function () {
+            debugger
+            var total = 0;
+            $('.quantity').each(function () {
+                debugger;
+                var price = $(this).parent().next().children(0);
+                var a = price.text();
+                var b = parseInt($(this).val());
+                var money = a * b;
+                $(this).val(b);
+                var c = $(this).parent().next().next().children(0);
+                var d = $(this).parent().next().next().children(1);
+                $(c).text(money);
+                $(d).val(money);
+            });
+            $('.money').each(function () {
+                debugger;
+                var a = $(this).text();
+                total -= a;
+            });
+            $('#total').text(-total);
+            $('#hideTotal').val(-total);
+        });
+        $('.quantity').keyup(function () {
+            debugger;
+            var spton = parseInt($(this).attr('data-id'));
+            var soluong = parseInt($(this).val());
+            var str = new String(soluong);
+            if (str == "NaN" || soluong == 0) $(this).val('1');
+            if (soluong > spton) {
+                $(this).val(spton);
+            }
+        });
+</script>
 </body>
 </html>

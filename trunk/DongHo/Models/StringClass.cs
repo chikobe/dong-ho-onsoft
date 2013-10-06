@@ -128,6 +128,24 @@ namespace DongHo.Models
             return strString;
         }
         #endregion
+        #region[Xem hinh thuc thanh toan]
+        public static string ShowTypePay(string type)
+        {
+            string strString = "";
+            string[] myArr = new string[] { "1,Thanh toán tại nhà", "2,Thanh toán tại cửa hàng" };
+            char[] splitter = { ',', ';' };
+            for (int i = 0; i < myArr.Length; i++)
+            {
+                string[] arr = myArr[i].Split(splitter);
+                if (arr[0].Equals(type))
+                {
+                    strString = arr[1];
+                    break;
+                }
+            }
+            return strString;
+        }
+        #endregion
         #region[Xem kieu tinh trang don hang]
         public static string ShowStateBill(string state)
         {

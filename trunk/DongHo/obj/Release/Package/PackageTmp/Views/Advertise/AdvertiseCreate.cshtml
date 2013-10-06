@@ -12,7 +12,13 @@
         <tr>
             <td class="Control" colspan="2">
                 <ul>
-                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    @if (Session["Username"]!=null)
+                    {
+                        <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+                    }
+                    else{
+                     <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>   
+                    }
                     <li>@Html.ActionLink("Trở về", "AdvertiseIndex","", new { @class="uback"})</li>
                 </ul>
             </td>
@@ -47,7 +53,7 @@
         </tr>
         <tr>
             <th>Số lượt click</th>
-            <td>@Model.Click</td>
+            <td>0</td>
         </tr>
         <tr>
             <th>Vị trí</th>
@@ -65,7 +71,13 @@
         <tr>
             <td class="Control" colspan="2">
                 <ul>
-                    <li><input type="submit" value="Ghi lại" class="uupdate" /></li>
+                    @if (Session["Username"]!=null)
+                    {
+                        <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
+                    }
+                    else{
+                     <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>   
+                    }
                     <li>@Html.ActionLink("Trở về", "AdvertiseIndex","", new { @class="uback"})</li>
                 </ul>
             </td>
