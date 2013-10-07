@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "Quản lý nhóm thư viện";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
 }
 
 <h2>@ViewBag.Title</h2>
@@ -11,7 +10,7 @@
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới", "GroupLibraryCreate", "", new { @class = "vadd" })</li>
-            @if (username == null || username == string.Empty)
+            @if (Request.Cookies["Username"] == null)
             {
                 <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
             }
@@ -43,7 +42,7 @@
                     <td class="Function">
                         @Html.ActionLink("AddSub", "GroupLibraryAddSub", new { level = Model[i].Level }, new { @class = "addsub" })
                         @Html.ActionLink("Sửa", "GroupLibraryEdit", new { id = Model[i].Id }, new { @class = "vedit" }) 
-                        @if (username == null || username == string.Empty)
+                        @if (Request.Cookies["Username"] == null)
                         {
                             <p class="vdelete" onclick="AlertErr()">Xóa</p>
                         }
@@ -68,7 +67,7 @@
                     <td class="Function">
                         @Html.ActionLink("AddSub", "GroupLibraryAddSub", new { level = Model[i].Level }, new { @class = "addsub" })
                         @Html.ActionLink("Sửa", "GroupLibraryEdit", new { id = Model[i].Id }, new { @class = "vedit" }) 
-                        @if (username == null || username == string.Empty)
+                        @if (Request.Cookies["Username"] == null)
                         {
                             <p class="vdelete" onclick="AlertErr()">Xóa</p>
                         }
@@ -89,7 +88,7 @@
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới", "GroupLibraryCreate", "", new { @class = "vadd" })</li>
-            @if (username == null || username == string.Empty)
+            @if (Request.Cookies["Username"] == null)
             {
                 <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
             }

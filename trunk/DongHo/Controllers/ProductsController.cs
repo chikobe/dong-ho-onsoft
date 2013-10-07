@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using DongHo.Models;
 using System.IO;
+using DongHo.ViewModels;
 
 namespace DongHo.Controllers
 {
@@ -24,11 +25,7 @@ namespace DongHo.Controllers
             var pagesize = 25;//so ban ghi tren 1 trang
             var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
             int curpage = 0; // trang hien tai dung cho phan trang
-            if (Request["page"] != null)
-            {
-                page = Request["page"];
-                curpage = Convert.ToInt32(page) - 1;
-            }
+            if (Request["page"] != null){ page = Request["page"]; curpage = Convert.ToInt32(page) - 1;}
             if (Request["Cat"] != null) { CatS = Request["Cat"]; if (CatS != "") { chuoi += " and CatId = " + CatS + ""; ViewBag.CatS = CatS; } }
             if (Request["Brand"] != null) { BrandS = Request["Brand"]; if (BrandS != "") { chuoi += " and BrandId = " + BrandS + ""; ViewBag.BrandS = BrandS; } }
             if (Request["Name"] != null) { NameS = Request["Name"]; if (NameS != "") { chuoi += "and Name like N'%" + NameS + "%'"; } }
@@ -38,10 +35,7 @@ namespace DongHo.Controllers
             numOfNews = all.Count;
             string strUrl = Request.Url.PathAndQuery;
             int u = strUrl.IndexOf("&page=");
-            if (u > 0)
-            {
-                strUrl = strUrl.Substring(0, u);
-            }
+            if (u > 0){ strUrl = strUrl.Substring(0, u);}
             if (numOfNews > 0)
             {
                 if (chuoi == "1=1")
@@ -53,9 +47,12 @@ namespace DongHo.Controllers
                     ViewBag.Pager = DongHo.Models.PhantrangQuery.PhanTrangQuery(pagesize, curpage, numOfNews, strUrl);
                 }
             }
-            else
+            else{ ViewBag.Pager = "";}
+            if (Session["DeletePro"] != null)
             {
-                ViewBag.Pager = "";
+                var a = Session["DeletePro"].ToString();
+                ViewBag.DelErr = "<p class='require'>" + a + "</p>";
+                Session["DeletePro"] = null;
             }
             ViewBag.dropC = CatS;
             ViewBag.dropB = BrandS;
@@ -143,7 +140,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult ProductCreate(FormCollection collection, Product pro)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 pro.Name = collection["Name"];
                 pro.Tag = DongHo.Models.StringClass.NameToTag(collection["Name"]);
@@ -265,7 +262,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult ProductEdit(int id, FormCollection collection)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var pro = data.Products.First(m => m.Id == id);
                 pro.Name = collection["Name"];
@@ -474,7 +471,7 @@ namespace DongHo.Controllers
         #region[ProductActive]
         public ActionResult ProductActive(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var list = data.Products.First(m => m.Id == id);
                 var pro = data.Products.First(m => m.Id == id);
@@ -498,11 +495,18 @@ namespace DongHo.Controllers
         #region[ProductDelete]
         public ActionResult ProductDelete(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var del = data.Products.First(m => m.Id == id);
-                data.Products.DeleteOnSubmit(del);
-                data.SubmitChanges();
+                if (del.SpTon == 0)
+                {
+                    data.Products.DeleteOnSubmit(del);
+                    data.SubmitChanges();
+                }
+                else
+                {
+                    Session["DeletePro"] = "Sản phẩm " + del.Name + "  vẫn còn trong kho! Không được xóa!";
+                }
                 return RedirectToAction("ProductIndex");
             }
             else
@@ -514,7 +518,7 @@ namespace DongHo.Controllers
         #region[MultiCommand]
         public ActionResult MultiCommand(string command, FormCollection collect)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 List<Product> list;
                 if (command == "MultiDelete")
@@ -530,9 +534,16 @@ namespace DongHo.Controllers
                             {
                                 Int32 id = Convert.ToInt32(key.Remove(0, 3));
                                 var Del = (from del in data.Products where del.Id == id select del).SingleOrDefault();
-                                data.Products.DeleteOnSubmit(Del);
-                                str += id.ToString() + ",";
-                                data.SubmitChanges();
+                                if (Del.SpTon == 0)
+                                {
+                                    data.Products.DeleteOnSubmit(Del);
+                                    data.SubmitChanges();
+                                }
+                                else
+                                {
+                                    str += Del.Name + ",";
+                                    Session["DeletePro"] = "Sản phẩm " + str + "  vẫn còn trong kho! Không được xóa!";
+                                }
                             }
                         }
                     }
@@ -692,12 +703,12 @@ namespace DongHo.Controllers
             chuoi += "</div>";
             chuoi += "<div>";
             chuoi += "<p>" + pro.Name + "</p>";
-            chuoi += "<p>" + Format_Price(proPrice[0].GiaBanLe) + " VNĐ</p>";
-            chuoi += "<p>" + Format_Price(proPrice[0].GiaBanSi) + " VNĐ</p>";
-            chuoi += "<p>" + Format_Price(proPrice[0].PriceImport) + " VNĐ</p>";
+            chuoi += "<p>" + StringClass.Format_Price(proPrice[0].GiaBanLe) + " VNĐ</p>";
+            chuoi += "<p>" + StringClass.Format_Price(proPrice[0].GiaBanSi) + " VNĐ</p>";
+            chuoi += "<p>" + StringClass.Format_Price(proPrice[0].PriceImport) + " VNĐ</p>";
             if (pro.PiceOld != null)
             {
-                chuoi += "<p>" + Format_Price(pro.PiceOld.ToString()) + " VNĐ</p>";
+                chuoi += "<p>" + StringClass.Format_Price(pro.PiceOld.ToString()) + " VNĐ</p>";
                 chuoi += "<p>" + DateTimeClass.ConvertDateTimeddMMyyyy(pro.DateBegin.ToString()) + "</p>";
                 chuoi += "<p>" + DateTimeClass.ConvertDateTimeddMMyyyy(pro.DateEnd.ToString()) + "</p>";
             }
@@ -734,9 +745,9 @@ namespace DongHo.Controllers
                 {
                     chuoi += "<tr>";
                     chuoi += "<td>" + (i + 1) + "</td>";
-                    chuoi += "<td>" + Format_Price(proPrice[i].PriceImport) + " VNĐ</td>";
-                    chuoi += "<td>" + Format_Price(proPrice[i].GiaBanSi) + " VNĐ</td>";
-                    chuoi += "<td>" + Format_Price(proPrice[i].GiaBanLe) + " VNĐ</td>";
+                    chuoi += "<td>" + StringClass.Format_Price(proPrice[i].PriceImport) + " VNĐ</td>";
+                    chuoi += "<td>" + StringClass.Format_Price(proPrice[i].GiaBanSi) + " VNĐ</td>";
+                    chuoi += "<td>" + StringClass.Format_Price(proPrice[i].GiaBanLe) + " VNĐ</td>";
                     if (proPrice[i].PricePromotion != null)
                     {
                         chuoi += "<td>" + proPrice[i].PricePromotion + "</td>";
@@ -751,7 +762,7 @@ namespace DongHo.Controllers
                     }
                     chuoi += "<td>" + DateTimeClass.ConvertDateTimeddMMyyyy(proPrice[i].Date.ToString()) + "</td>";
                     chuoi += "<td><a href='/Products/ProductPriceEdit/" + proPrice[i].Id + "' title='Chỉnh sửa khung giá' class='edit'>Sửa</a>";
-                    if (Session["Username"] != null)
+                    if (Request.Cookies["Username"] != null)
                     {
                         chuoi += "<a href='/Products/ProductPriceDelete/" + proPrice[i].Id + "' title='Xóa' class='vdel'>Xóa</a>";
                     }
@@ -786,27 +797,34 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult ProductPriceCreate(FormCollection collect, ProPrice pp,int id)
         {
-            pp.ProId = id;
-            pp.GiaBanLe = collect["GiaBanLe"];
-            pp.GiaBanSi = collect["GiaBanSi"];
-            pp.PriceImport = collect["PriceImport"];
-            pp.PricePromotion = collect["PricePromotion"];
-            var datebegin = collect["DateBegin"];
-            var dateend = collect["DateEnd"];
-            string dateInputBegin = "";
-            string dateInputEnd = "";
-            DateTime myDateBegin;
-            DateTime myDateEnd;
-            string[] dateArrBegin = datebegin.Split('/');
-            string[] dateArrEnd = dateend.Split('/');
-            if (dateArrBegin.Length == 3) dateInputBegin = dateArrBegin[2] + "-" + dateArrBegin[1] + "-" + dateArrBegin[0];
-            if (dateArrEnd.Length == 3) dateInputEnd = dateArrEnd[2] + "-" + dateArrEnd[1] + "-" + dateArrEnd[0];
-            if (DateTime.TryParse(dateInputBegin, out myDateBegin)) pp.DateBegin = myDateBegin;
-            if (DateTime.TryParse(dateInputEnd, out myDateEnd)) pp.DateEnd = myDateEnd;
-            pp.Date = DateTime.Now;
-            data.ProPrices.InsertOnSubmit(pp);
-            data.SubmitChanges();
-            return RedirectToAction("ProductIndex");
+            if (Request.Cookies["Username"] != null)
+            {
+                pp.ProId = id;
+                pp.GiaBanLe = collect["GiaBanLe"];
+                pp.GiaBanSi = collect["GiaBanSi"];
+                pp.PriceImport = collect["PriceImport"];
+                pp.PricePromotion = collect["PricePromotion"];
+                var datebegin = collect["DateBegin"];
+                var dateend = collect["DateEnd"];
+                string dateInputBegin = "";
+                string dateInputEnd = "";
+                DateTime myDateBegin;
+                DateTime myDateEnd;
+                string[] dateArrBegin = datebegin.Split('/');
+                string[] dateArrEnd = dateend.Split('/');
+                if (dateArrBegin.Length == 3) dateInputBegin = dateArrBegin[2] + "-" + dateArrBegin[1] + "-" + dateArrBegin[0];
+                if (dateArrEnd.Length == 3) dateInputEnd = dateArrEnd[2] + "-" + dateArrEnd[1] + "-" + dateArrEnd[0];
+                if (DateTime.TryParse(dateInputBegin, out myDateBegin)) pp.DateBegin = myDateBegin;
+                if (DateTime.TryParse(dateInputEnd, out myDateEnd)) pp.DateEnd = myDateEnd;
+                pp.Date = DateTime.Now;
+                data.ProPrices.InsertOnSubmit(pp);
+                data.SubmitChanges();
+                return RedirectToAction("ProductIndex");
+            }
+            else
+            {
+                return Redirect("/admins/admins");
+            }
         }
         #endregion
         #region[ProductPriceEdit]
@@ -820,56 +838,49 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult ProductPriceEdit(int id, FormCollection collect)
         {
-            var edit = data.ProPrices.Where(m => m.Id == id).FirstOrDefault();
-            edit.GiaBanLe = collect["GiaBanLe"];
-            edit.GiaBanSi = collect["GiaBanSi"];
-            edit.PriceImport = collect["PriceImport"];
-            edit.PricePromotion = collect["PricePromotion"];
-            edit.Ord = int.Parse(collect["PricePromotion"]);
-            edit.Date = DateTime.Now;
-            var datebegin = collect["DateBegin"];
-            var dateend = collect["DateEnd"];
-            string dateInputBegin = "";
-            string dateInputEnd = "";
-            DateTime myDateBegin;
-            DateTime myDateEnd;
-            string[] dateArrBegin = datebegin.Split('/');
-            string[] dateArrEnd = dateend.Split('/');
-            if (dateArrBegin.Length == 3) dateInputBegin = dateArrBegin[2] + "-" + dateArrBegin[1] + "-" + dateArrBegin[0];
-            if (dateArrEnd.Length == 3) dateInputEnd = dateArrEnd[2] + "-" + dateArrEnd[1] + "-" + dateArrEnd[0];
-            if (DateTime.TryParse(dateInputBegin, out myDateBegin)) edit.DateBegin = myDateBegin;
-            if (DateTime.TryParse(dateInputEnd, out myDateEnd)) edit.DateEnd = myDateEnd;
-            data.SubmitChanges();
-            return RedirectToAction("ProductIndex");
+            if (Request.Cookies["Username"] != null)
+            {
+                var edit = data.ProPrices.Where(m => m.Id == id).FirstOrDefault();
+                edit.GiaBanLe = collect["GiaBanLe"];
+                edit.GiaBanSi = collect["GiaBanSi"];
+                edit.PriceImport = collect["PriceImport"];
+                edit.PricePromotion = collect["PricePromotion"];
+                edit.Ord = int.Parse(collect["PricePromotion"]);
+                edit.Date = DateTime.Now;
+                var datebegin = collect["DateBegin"];
+                var dateend = collect["DateEnd"];
+                string dateInputBegin = "";
+                string dateInputEnd = "";
+                DateTime myDateBegin;
+                DateTime myDateEnd;
+                string[] dateArrBegin = datebegin.Split('/');
+                string[] dateArrEnd = dateend.Split('/');
+                if (dateArrBegin.Length == 3) dateInputBegin = dateArrBegin[2] + "-" + dateArrBegin[1] + "-" + dateArrBegin[0];
+                if (dateArrEnd.Length == 3) dateInputEnd = dateArrEnd[2] + "-" + dateArrEnd[1] + "-" + dateArrEnd[0];
+                if (DateTime.TryParse(dateInputBegin, out myDateBegin)) edit.DateBegin = myDateBegin;
+                if (DateTime.TryParse(dateInputEnd, out myDateEnd)) edit.DateEnd = myDateEnd;
+                data.SubmitChanges();
+                return RedirectToAction("ProductIndex");
+            }
+            else
+            {
+                return Redirect("/admins/admins");
+            }
         }
         #endregion
         #region[ProductPriceDelete]
         public ActionResult ProductPriceDelete(int id)
         {
-            var del = data.ProPrices.Where(m => m.Id == id).FirstOrDefault();
-            data.ProPrices.DeleteOnSubmit(del);
-            return RedirectToAction("ProductIndex");
-        }
-        #endregion
-        #region [Format_Price]
-        protected string Format_Price(string Price)
-        {
-            Price = Price.Replace(".", "");
-            Price = Price.Replace(",", "");
-            string tmp = "";
-            while (Price.Length > 3)
+            if (Request.Cookies["Username"] != null)
             {
-                tmp = "." + Price.Substring(Price.Length - 3) + tmp;
-                Price = Price.Substring(0, Price.Length - 3);
+                var del = data.ProPrices.Where(m => m.Id == id).FirstOrDefault();
+                data.ProPrices.DeleteOnSubmit(del);
+                return RedirectToAction("ProductIndex");
             }
-            tmp = Price + tmp;
-            return tmp;
-        }
-        #endregion
-        #region [NumberStr]
-        protected string NumberStr(string str)
-        {
-            return str.Replace(".", "");
+            else
+            {
+                return Redirect("/admins/admins");
+            }
         }
         #endregion
         #region[CascadingDropDown - Lay CatL2]
@@ -877,23 +888,16 @@ namespace DongHo.Controllers
         {
             var cat = data.Categories.Where(m => m.Id == id).ToList();
             var catL2 = data.Categories.Where(m => m.Level.Length == (cat[0].Level.Length + 5) && m.Level.Substring(0, 5) == cat[0].Level && m.Active == 1).ToList();
-            List<ddl> list = new List<ddl>();
+            List<DropDownList> list = new List<DropDownList>();
             for (int i = 0; i < catL2.Count; i++)
             {
-                list.Add(new ddl { value = catL2[i].Id.ToString(), text = catL2[i].Name });
+                list.Add(new DropDownList { value = catL2[i].Id.ToString(), text = catL2[i].Name });
             }
             if (list.Count > 0)
             {
                 ViewBag.CatL2 = new SelectList(list, "value", "text");
             }
             return PartialView();
-        }
-        #endregion
-        #region[ddl - get - set]
-        public class ddl
-        {
-            public string value { get; set; }
-            public string text { get; set; }
         }
         #endregion
         #region[Xem anh]
@@ -916,76 +920,86 @@ namespace DongHo.Controllers
                 var b = list[i].Image.IndexOf("_big");
                 var c = list[i].Image.IndexOf("_noz");
                 var d = list[i].Image.IndexOf("_small");
+                #region[View anh _huge]
                 if (a > 0)
                 {
                     chuoiA += "<div class=\"imgView\"><img src=\"" + list[i].Image + "\" /><div class=\"funcImg\"><a href=\"/Products/ProductEditImg/" + list[i].Id + "\">Sửa</a>";
-                    if (Session["Username"] != null)
+                    if (Request.Cookies["Username"] != null)
                     {
                         chuoiA += "<a href=\"/Products/ProductDelImg/" + list[i].Id + "\">Xóa</a>";
                     }
                     else
                     {
-                        chuoiA += "<p onclick='AlertErr()'>Xóa</p>";
+                        chuoiA += "<span onclick='AlertErr()'>Xóa</span>";
                     }
                     chuoiA += "</div></div>";
                     //chuoiA += "<a href='/Products/ProductEditImg/" + list[i].Id + "' class='editImg'><img src='" + list[i].Image + "' id='fileImg' name='fileImg'/></a>";
                 }
+                #endregion
+                #region[View anh _big]
                 else if (b > 0)
                 {
                     chuoiB += "<div class=\"imgView\"><img src=\"" + list[i].Image + "\" /><div class=\"funcImg\"><a href=\"/Products/ProductEditImg/" + list[i].Id + "\">Sửa</a>";
-                    if (Session["Username"] != null)
+                    if (Request.Cookies["Username"] != null)
                     {
                         chuoiB += "<a href=\"/Products/ProductDelImg/" + list[i].Id + "\">Xóa</a>";
                     }
                     else
                     {
-                        chuoiB += "<p onclick='AlertErr()'>Xóa</p>";
+                        chuoiB += "<span onclick='AlertErr()'>Xóa</span>";
                     }
                     chuoiB += "</div></div>";
                     //chuoiB += "<a href='/Products/ProductEditImg/" + list[i].Id + "' class='editImg'><img src='" + list[i].Image + "' id='fileImg' name='fileImg'/></a>";
                 }
+                #endregion
+                #region[View anh _noz]
                 else if (c > 0)
                 {
                     chuoiC += "<div class=\"imgView\"><img src=\"" + list[i].Image + "\" /><div class=\"funcImg\"><a href=\"/Products/ProductEditImg/" + list[i].Id + "\">Sửa</a>";
-                    if (Session["Username"] != null)
+                    if (Request.Cookies["Username"] != null)
                     {
                         chuoiC += "<a href=\"/Products/ProductDelImg/" + list[i].Id + "\">Xóa</a>";
                     }
                     else
                     {
-                        chuoiC += "<p onclick='AlertErr()'>Xóa</p>";
+                        chuoiC += "<span onclick='AlertErr()'>Xóa</span>";
                     }
                     chuoiC += "</div></div>";
                     //chuoiC += "<a href='/Products/ProductEditImg/" + list[i].Id + "' class='editImg'><img src='" + list[i].Image + "' id='fileImg' name='fileImg'/></a>";
                 }
+                #endregion
+                #region[View anh _small]
                 else if (d > 0)
                 {
                     chuoiD += "<div class=\"imgView\"><img src=\"" + list[i].Image + "\" /><div class=\"funcImg\"><a href=\"/Products/ProductEditImg/" + list[i].Id + "\">Sửa</a>";
-                    if (Session["Username"] != null)
+                    if (Request.Cookies["Username"] != null)
                     {
                         chuoiD += "<a href=\"/Products/ProductDelImg/" + list[i].Id + "\">Xóa</a>";
                     }
                     else
                     {
-                        chuoiD += "<p onclick='AlertErr()'>Xóa</p>";
+                        chuoiD += "<span onclick='AlertErr()'>Xóa</span>";
                     }
                     chuoiD += "</div></div>";
                     //chuoiD += "<a href='/Products/ProductEditImg/" + list[i].Id + "' class='editImg'><img src='" + list[i].Image + "' id='fileImg' name='fileImg'/></a>";
                 }
+                #endregion
+                #region[View anh other - anh ten k co duoi nhu tren]
                 else
                 {
                     chuoiE += "<div class=\"imgView\"><img src=\"" + list[i].Image + "\" /><div class=\"funcImg\"><a href=\"/Products/ProductEditImg/" + list[i].Id + "\">Sửa</a>";
-                    if (Session["Username"] != null)
+                    if (Request.Cookies["Username"] != null)
                     {
                         chuoiE += "<a href=\"/Products/ProductDelImg/" + list[i].Id + "\">Xóa</a>";
                     }
                     else
                     {
-                        chuoiE += "<p onclick='AlertErr()'>Xóa</p>";
+                        chuoiE += "<span onclick='AlertErr()'>Xóa</span>";
                     }
                     chuoiE += "</div></div>";
                     //chuoiE += "<a href='/Products/ProductEditImg/" + list[i].Id + "' class='editImg'><img src='" + list[i].Image + "' id='fileImg' name='fileImg'/></a>";
                 }
+                #endregion
             }
             chuoiE += "<div class='clearfix'></div><a href='/Products/ProductAddImg/" + id + "' class='addImg'>Thêm ảnh mới</a>";
             ViewBag.ViewA = chuoiA;
@@ -1007,50 +1021,57 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult ProductEditImg(int id, HttpPostedFileBase fileImg)
         {
-            if (fileImg.ContentLength > 0)
+            if (Request.Cookies["Username"] != null)
             {
-                String FileExtn = System.IO.Path.GetExtension(fileImg.FileName).ToLower();
-                if (!(FileExtn == ".jpg" || FileExtn == ".png" || FileExtn == ".gif"))
+                if (fileImg.ContentLength > 0)
                 {
-                    ViewBag.error = "Only jpg, gif and png files are allowed!";
-                }
-                else
-                {
-                    var u = fileImg.FileName;
-                    List<string> sizeImg = new List<string>();
-                    sizeImg.Add("_huge");
-                    sizeImg.Add("_big");
-                    sizeImg.Add("_noz");
-                    sizeImg.Add("_small");
-                    string co = "";
-                    string kco = "";
-                    for (int i = 0; i < sizeImg.Count; i++)
+                    String FileExtn = System.IO.Path.GetExtension(fileImg.FileName).ToLower();
+                    if (!(FileExtn == ".jpg" || FileExtn == ".png" || FileExtn == ".gif"))
                     {
-                        var a = u.LastIndexOf(sizeImg[i]);
-                        if (a > 0)
+                        ViewBag.error = "Only jpg, gif and png files are allowed!";
+                    }
+                    else
+                    {
+                        var u = fileImg.FileName;
+                        List<string> sizeImg = new List<string>();
+                        sizeImg.Add("_huge");
+                        sizeImg.Add("_big");
+                        sizeImg.Add("_noz");
+                        sizeImg.Add("_small");
+                        string co = "";
+                        string kco = "";
+                        for (int i = 0; i < sizeImg.Count; i++)
                         {
-                            co = u.Substring(0, a);
-                            kco = sizeImg[i];
-                            break;
+                            var a = u.LastIndexOf(sizeImg[i]);
+                            if (a > 0)
+                            {
+                                co = u.Substring(0, a);
+                                kco = sizeImg[i];
+                                break;
+                            }
                         }
+                        var fileName = String.Format("{0}" + kco + ".jpg", Guid.NewGuid().ToString());
+                        var imagePath = Path.Combine(Server.MapPath(Url.Content("/Uploads")), fileName);
+                        fileImg.SaveAs(imagePath);
+                        var ProImg = data.ProImages.First(m => m.Id == id);
+                        var im = ProImg.Image.IndexOf("/Uploads/");
+                        if (im > -1)
+                        {
+                            var anh = ProImg.Image.Substring(im);
+                            var d = Request.PhysicalApplicationPath + anh;
+                            System.IO.File.Delete(d);
+                        }
+                        ProImg.Image = "/Uploads/" + fileName;
+                        ProImg.Date = DateTime.Now;
+                        data.SubmitChanges();
                     }
-                    var fileName = String.Format("{0}" + kco + ".jpg", Guid.NewGuid().ToString());
-                    var imagePath = Path.Combine(Server.MapPath(Url.Content("/Uploads")), fileName);
-                    fileImg.SaveAs(imagePath);
-                    var ProImg = data.ProImages.First(m => m.Id == id);
-                    var im = ProImg.Image.IndexOf("/Uploads/");
-                    if (im > -1)
-                    {
-                        var anh = ProImg.Image.Substring(im);
-                        var d = Request.PhysicalApplicationPath + anh;
-                        System.IO.File.Delete(d);
-                    }
-                    ProImg.Image = "/Uploads/" + fileName;
-                    ProImg.Date = DateTime.Now;
-                    data.SubmitChanges();
                 }
+                return RedirectToAction("ProductIndex");
             }
-            return RedirectToAction("ProductIndex");
+            else
+            {
+                return Redirect("/admins/admins");
+            }
         }
         #endregion
         #region[Them anh]
@@ -1063,64 +1084,76 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult ProductAddImg( IEnumerable<HttpPostedFileBase> fileImg, int id)
         {
-            foreach (var file in fileImg)
+            if (Request.Cookies["Username"] != null)
             {
-                if (file.ContentLength > 0)
+                foreach (var file in fileImg)
                 {
-                    var b = (from k in data.ProImages select k.Id).Max();
-                    var ab = Request.Files["fileImg"];
-                    String FileExtn = System.IO.Path.GetExtension(file.FileName).ToLower();
-                    if (!(FileExtn == ".jpg" || FileExtn == ".png" || FileExtn == ".gif"))
+                    if (file.ContentLength > 0)
                     {
-                        ViewBag.error = "Only jpg, gif and png files are allowed!";
-                    }
-                    else
-                    {
-                        ProImage img = new ProImage();
-                        var Filename = Path.GetFileName(file.FileName);
-                        List<string> sizeImg = new List<string>();
-                        sizeImg.Add("_huge");
-                        sizeImg.Add("_big");
-                        sizeImg.Add("_noz");
-                        sizeImg.Add("_small");
-                        string co = "";
-                        string kco = "";
-                        for (int i = 0; i < sizeImg.Count; i++)
+                        var b = (from k in data.ProImages select k.Id).Max();
+                        var ab = Request.Files["fileImg"];
+                        String FileExtn = System.IO.Path.GetExtension(file.FileName).ToLower();
+                        if (!(FileExtn == ".jpg" || FileExtn == ".png" || FileExtn == ".gif"))
                         {
-                            var a = Filename.LastIndexOf(sizeImg[i]);
-                            if (a > 0)
-                            {
-                                co = Filename.Substring(0, a);
-                                kco = sizeImg[i];
-                                break;
-                            }
+                            ViewBag.error = "Only jpg, gif and png files are allowed!";
                         }
-                        var fileName = String.Format("{0}" + kco + ".jpg", Guid.NewGuid().ToString());
-                        //String imgPath = String.Format("Uploads/{0}{1}", file.FileName, FileExtn);
-                        //file.Save(String.Format("{0}{1}", Server.MapPath("~"), imgPath), Img.RawFormat);
-                        var path = Path.Combine(Server.MapPath(Url.Content("/Uploads")), fileName);
-                        file.SaveAs(path);
-                        img.ProId = id;
-                        img.Image = "/Uploads/" + fileName;
-                        img.Date = DateTime.Now;
-                        data.ProImages.InsertOnSubmit(img);
-                        data.SubmitChanges();
+                        else
+                        {
+                            ProImage img = new ProImage();
+                            var Filename = Path.GetFileName(file.FileName);
+                            List<string> sizeImg = new List<string>();
+                            sizeImg.Add("_huge");
+                            sizeImg.Add("_big");
+                            sizeImg.Add("_noz");
+                            sizeImg.Add("_small");
+                            string co = "";
+                            string kco = "";
+                            for (int i = 0; i < sizeImg.Count; i++)
+                            {
+                                var a = Filename.LastIndexOf(sizeImg[i]);
+                                if (a > 0)
+                                {
+                                    co = Filename.Substring(0, a);
+                                    kco = sizeImg[i];
+                                    break;
+                                }
+                            }
+                            var fileName = String.Format("{0}" + kco + ".jpg", Guid.NewGuid().ToString());
+                            //String imgPath = String.Format("Uploads/{0}{1}", file.FileName, FileExtn);
+                            //file.Save(String.Format("{0}{1}", Server.MapPath("~"), imgPath), Img.RawFormat);
+                            var path = Path.Combine(Server.MapPath(Url.Content("/Uploads")), fileName);
+                            file.SaveAs(path);
+                            img.ProId = id;
+                            img.Image = "/Uploads/" + fileName;
+                            img.Date = DateTime.Now;
+                            data.ProImages.InsertOnSubmit(img);
+                            data.SubmitChanges();
+                        }
                     }
+                    var fd = file;
                 }
-                var fd = file;
+                return RedirectToAction("ProductIndex");
             }
-            return RedirectToAction("ProductIndex");
+            else
+            { return Redirect("/admins/admins"); }
         }
         #endregion
         #region [Xoa anh]
         public ActionResult ProductDelImg(int id)
         {
-            var pro = data.ProImages.Where(m => m.Id == id).FirstOrDefault();
-            var a = Request.PhysicalApplicationPath + pro.Image;
-            System.IO.File.Delete(a);
-            data.ProImages.DeleteOnSubmit(pro);
-            data.SubmitChanges();
-            return RedirectToAction("ProductIndex");
+            if (Request.Cookies["Username"] != null)
+            {
+                var pro = data.ProImages.Where(m => m.Id == id).FirstOrDefault();
+                var a = Request.PhysicalApplicationPath + pro.Image;
+                System.IO.File.Delete(a);
+                data.ProImages.DeleteOnSubmit(pro);
+                data.SubmitChanges();
+                return RedirectToAction("ProductIndex");
+            }
+            else
+            {
+                return Redirect("/admins/admins");
+            }
         }
         #endregion
     }

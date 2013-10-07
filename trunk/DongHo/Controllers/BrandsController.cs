@@ -53,7 +53,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult BrandsCreate(FormCollection collection, Brand brand)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var Name = collection["Name"];
                 var Ord = collection["Ord"];
@@ -86,7 +86,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult BrandsEdit(int id, FormCollection collection)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var brand = data.Brands.First(model => model.Id == id);
                 var Name = collection["Name"];
@@ -108,7 +108,7 @@ namespace DongHo.Controllers
         #region[BrandsDelete]
         public ActionResult BrandsDelete(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var del = (from brand in data.Brands where brand.Id == id select brand).Single();
                 data.Brands.DeleteOnSubmit(del);
@@ -124,7 +124,7 @@ namespace DongHo.Controllers
         #region[MultiDelete]
         public ActionResult MultiDelete()
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 foreach (string key in Request.Form)
                 {

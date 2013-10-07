@@ -10,7 +10,7 @@
         <tr>
             <td class="Control" colspan="2">
                 <ul>
-                    @if (Session["Username"]!=null)
+                    @if (Request.Cookies["Username"] != null)
                     {
                     <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
                     }
@@ -52,7 +52,7 @@
         <tr>
             <td class="Control" colspan="2">
                 <ul>
-                    @if (Session["Username"]!=null)
+                    @if (Request.Cookies["Username"] != null)
                     {
                     <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
                     }

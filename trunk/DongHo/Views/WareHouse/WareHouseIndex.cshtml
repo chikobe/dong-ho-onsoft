@@ -10,7 +10,7 @@
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới", "WareHouseCreate", "", new { @class = "vadd" })</li>
-            @if (Session["Username"] != null)
+            @if (Request.Cookies["Username"] != null)
             {
             <li><input type="submit" value=" Xóa " class="mulDel" /></li>
             }
@@ -70,7 +70,7 @@
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới", "WareHouseCreate", "", new { @class = "vadd" })</li>
-            @if (Session["Username"] != null)
+            @if (Request.Cookies["Username"] != null)
             {
             <li><input type="submit" value=" Xóa " class="mulDel" /></li>
             }

@@ -10,7 +10,7 @@
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới", "ShopCreate", "", new { @class = "vadd" })</li>
-            @if (Session["Username"] != null)
+            @if (Request.Cookies["Username"] != null)
             {
             <li><input type="submit" value=" Xóa " class="mulDel" /></li>
             }
@@ -43,7 +43,7 @@
                     <td class="Number">@Model[i].PhoneNumber</td>
                     <td class="Function">
                          @Html.ActionLink("Sửa", "ShopEdit", new { id = Model[i].id }, new { @class = "vedit" }) 
-                        @if (Session["Username"]!=null)
+                        @if (Request.Cookies["Username"] != null)
                         {
                         @Html.ActionLink("Xóa", "ShopDelete", new { id = Model[i].id }, new { @onclick = "DeleteConfirm()", @class = "vdelete" })
                         }
@@ -63,7 +63,7 @@
                     <td class="Number">@Model[i].PhoneNumber</td>
                     <td class="Function">
                          @Html.ActionLink("Sửa", "ShopEdit", new { id = Model[i].id }, new { @class = "vedit" }) 
-                        @if (Session["Username"] != null)
+                        @if (Request.Cookies["Username"] != null)
                         {
                         @Html.ActionLink("Xóa", "ShopDelete", new { id = Model[i].id }, new { @onclick = "DeleteConfirm()", @class = "vdelete" })
                         }
@@ -83,7 +83,7 @@
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới", "ShopCreate", "", new { @class = "vadd" })</li>
-            @if (Session["Username"] != null)
+            @if (Request.Cookies["Username"] != null)
             {
             <li><input type="submit" value=" Xóa " class="mulDel" /></li>
             }

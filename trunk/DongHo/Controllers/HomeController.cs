@@ -10,36 +10,36 @@ namespace DongHo.Controllers
     public class HomeController : Controller
     {
         DataDataContext data = new DataDataContext();
-        public ActionResult Index(string req="")
+        #region[Trang chu]
+        public ActionResult Index(string req = "Hot nhất")
         {
+            #region[Lay du lieu tu db theo dieu kien truyen vao]
             string chuoi = "";
             List<Product> list = new List<Product>();
-            if (req == "" || req == "Hot nhất")
+            if (req == "Hot nhất")
             {
                 list = data.Products.Where(m => m.Index == 1 && m.Active == 1).ToList();
-                Session["Type"] = "1";
             }
             else if (req == "Sản phẩm mới nhất")
             {
                 list = data.Products.Where(m => m.Active == 1).OrderByDescending(m => m.Date).ToList();
-                Session["Type"] = "2";
             }
             else if (req == "Xem nhiều")
             {
                 list = data.Products.Where(m => m.Active == 1).OrderByDescending(m => m.View).ToList();
-                Session["Type"] = "3";
             }
             else if (req == "Mua nhiều")
             {
                 list = data.Products.Where(m => m.Active == 1).OrderByDescending(m => m.Count).ToList();
-                Session["Type"] = "4";
                 //list = (from n in data.Products where (from m in data.tbBilldetails select m.proid).Contains(n.Id) select n).ToList();
             }
             else if (req == "Giảm giá nhiều")
             {
                 list = data.Products.Where(m => m.Active == 1).OrderByDescending(m => m.Codepro).ToList();
-                Session["Type"] = "5";
             }
+            Session["Type"] = req;
+            #endregion
+            #region[Hien thi san pham]
             for (int i = 0; i < list.Count; i++)
             {
                 string anh = "";
@@ -69,6 +69,8 @@ namespace DongHo.Controllers
                 chuoi += "</div>";
             }
             ViewBag.View = chuoi;
+            #endregion
+            #region[Ho tro truc tuyen - hien thi o trang chu]
             string support = "";
             var supp = data.Supports.Where(m => m.Active == 1).OrderBy(m => m.Type).ToList();
             if (supp.Count > 0)
@@ -92,8 +94,11 @@ namespace DongHo.Controllers
                 }
             }
             ViewBag.Support = support;
+            #endregion
             return View();
         }
+        #endregion
+        #region[Xem gio hang - nam o tren header]
         public ActionResult showCartTop()
         {
             string chuoi = "";
@@ -103,6 +108,7 @@ namespace DongHo.Controllers
             chuoi += "</div>";
             return PartialView();
         }
+        #endregion
         #region[Cat chuoi text de hien thi]
         protected string FormatContentNews(string value, int count)
         {

@@ -52,7 +52,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult CategoryCreate(FormCollection collection, Category catego)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var Name = collection["Name"];
                 var Image = collection["Image"];
@@ -93,7 +93,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult CategoriesEdit(int id, FormCollection collection)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var catego = data.Categories.First(model => model.Id == id);
                 var Name = collection["Name"];
@@ -133,7 +133,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult CategoryAddSub(FormCollection collection, Category catego, string level)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var Name = collection["Name"];
                 var Image = collection["Image"];
@@ -166,7 +166,7 @@ namespace DongHo.Controllers
         #region[CategoryDelete]
         public ActionResult CategoryDelete(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var del = (from categaa in data.Categories where categaa.Id == id select categaa).Single();
                 data.Categories.DeleteOnSubmit(del);
@@ -182,7 +182,7 @@ namespace DongHo.Controllers
         #region[CategoryActive]
         public ActionResult CategoryActive(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var act = (from catego in data.Categories where catego.Id == id select catego).Single();
                 if (act.Active == 1)
@@ -202,7 +202,7 @@ namespace DongHo.Controllers
         #region[MultiDelete]
         public ActionResult MultiDelete()
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 foreach (string key in Request.Form)
                 {

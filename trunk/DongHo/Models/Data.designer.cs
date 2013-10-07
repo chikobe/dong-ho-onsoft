@@ -30,12 +30,12 @@ namespace DongHo.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertAdvertise(Advertise instance);
-    partial void UpdateAdvertise(Advertise instance);
-    partial void DeleteAdvertise(Advertise instance);
     partial void InsertWareHouse(WareHouse instance);
     partial void UpdateWareHouse(WareHouse instance);
     partial void DeleteWareHouse(WareHouse instance);
+    partial void InsertAdvertise(Advertise instance);
+    partial void UpdateAdvertise(Advertise instance);
+    partial void DeleteAdvertise(Advertise instance);
     partial void InsertBrand(Brand instance);
     partial void UpdateBrand(Brand instance);
     partial void DeleteBrand(Brand instance);
@@ -191,19 +191,19 @@ namespace DongHo.Models
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Advertise> Advertises
-		{
-			get
-			{
-				return this.GetTable<Advertise>();
-			}
-		}
-		
 		public System.Data.Linq.Table<WareHouse> WareHouses
 		{
 			get
 			{
 				return this.GetTable<WareHouse>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Advertise> Advertises
+		{
+			get
+			{
+				return this.GetTable<Advertise>();
 			}
 		}
 		
@@ -543,10 +543,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Advertise_Phantrang")]
-        public ISingleResult<sp_Advertise_PagingResult> sp_Advertise_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_Advertise_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_Advertise_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Page_Paging")]
@@ -557,10 +557,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Page_Phantrang")]
-        public ISingleResult<sp_Page_PagingResult> sp_Page_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_Page_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_Page_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Brands_Paging")]
@@ -571,10 +571,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Brands_Phantrang")]
-        public ISingleResult<sp_Brands_PagingResult> sp_Brands_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_Brands_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_Brands_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Category_Paging")]
@@ -585,10 +585,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Category_Phantrang")]
-        public ISingleResult<sp_Category_PagingResult> sp_Category_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_Category_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_Category_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Colors_Paging")]
@@ -599,10 +599,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Colors_Phantrang")]
-        public ISingleResult<sp_Colors_PagingResult> sp_Colors_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_Colors_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_Colors_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_CommentProduc_Paging")]
@@ -613,10 +613,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_CommentProduc_Phantrang")]
-        public ISingleResult<sp_CommentProduc_PagingResult> sp_CommentProduc_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_CommentProduc_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_CommentProduc_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Company_Paging")]
@@ -627,10 +627,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Company_Phantrang")]
-        public ISingleResult<sp_Company_PagingResult> sp_Company_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_Company_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_Company_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Contact_Paging")]
@@ -641,10 +641,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Contact_Phantrang")]
-        public ISingleResult<sp_Contact_PagingResult> sp_Contact_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_Contact_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_Contact_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_GroupLibrary_Paging")]
@@ -655,10 +655,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_GroupLibrary_Phantrang")]
-        public ISingleResult<sp_GroupLibrary_PagingResult> sp_GroupLibrary_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_GroupLibrary_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_GroupLibrary_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_GroupNews_Paging")]
@@ -669,10 +669,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_GroupNews_Phantrang")]
-        public ISingleResult<sp_GroupNews_PagingResult> sp_GroupNews_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_GroupNews_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_GroupNews_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_GroupSupport_Paging")]
@@ -683,10 +683,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_GroupSupport_Phantrang")]
-        public ISingleResult<sp_GroupSupport_PagingResult> sp_GroupSupport_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_GroupSupport_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_GroupSupport_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Library_Paging")]
@@ -697,10 +697,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Library_Phantrang")]
-        public ISingleResult<sp_Library_PagingResult> sp_Library_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_Library_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_Library_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ProColor_Paging")]
@@ -711,10 +711,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ProColor_Phantrang")]
-        public ISingleResult<sp_ProColor_PagingResult> sp_ProColor_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_ProColor_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_ProColor_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ProSize_Paging")]
@@ -725,10 +725,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ProSize_Phantrang")]
-        public ISingleResult<sp_ProSize_PagingResult> sp_ProSize_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_ProSize_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_ProSize_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Province_Paging")]
@@ -739,10 +739,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Province_Phantrang")]
-        public ISingleResult<sp_Province_PagingResult> sp_Province_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_Province_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_Province_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Shop_Paging")]
@@ -753,10 +753,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Shop_Phantrang")]
-        public ISingleResult<sp_Shop_PagingResult> sp_Shop_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_Shop_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_Shop_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Sizes_Paging")]
@@ -767,10 +767,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Sizes_Phantrang")]
-        public ISingleResult<sp_Sizes_PagingResult> sp_Sizes_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_Sizes_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_Sizes_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Support_Paging")]
@@ -781,10 +781,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Support_Phantrang")]
-        public ISingleResult<sp_Support_PagingResult> sp_Support_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_Support_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_Support_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_User_Paging")]
@@ -795,10 +795,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_User_Phantrang")]
-        public ISingleResult<sp_User_PagingResult> sp_User_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_User_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_User_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_News_Paging")]
@@ -809,10 +809,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_News_Phantrang")]
-        public ISingleResult<sp_News_PagingResult> sp_News_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_News_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_News_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_tbCUSTOMERS_Paging")]
@@ -823,10 +823,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_tbCUSTOMERS_Phantrang")]
-        public ISingleResult<sp_tbCUSTOMERS_PagingResult> sp_tbCUSTOMERS_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_tbCUSTOMERS_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_tbCUSTOMERS_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_tbRecipient_Paging")]
@@ -837,10 +837,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_tbRecipient_Phantrang")]
-        public ISingleResult<sp_tbRecipient_PagingResult> sp_tbRecipient_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_tbRecipient_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_tbRecipient_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_tbBilldetail_Paging")]
@@ -851,10 +851,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_tbBilldetail_Phantrang")]
-        public ISingleResult<sp_tbBilldetail_PagingResult> sp_tbBilldetail_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_tbBilldetail_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_tbBilldetail_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_tbBill_customers_Paging")]
@@ -865,10 +865,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_tbBill_customers_Phantrang")]
-        public ISingleResult<sp_tbBill_customers_PagingResult> sp_tbBill_customers_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_tbBill_customers_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_tbBill_customers_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_WareHouse_Paging")]
@@ -879,10 +879,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_WareHouse_Phantrang")]
-        public ISingleResult<sp_WareHouse_PagingResult> sp_WareHouse_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_WareHouse_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_WareHouse_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Supplier_Paging")]
@@ -893,10 +893,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Supplier_Phantrang")]
-        public ISingleResult<sp_Supplier_PagingResult> sp_Supplier_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_Supplier_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_Supplier_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_GroupMember_Paging")]
@@ -907,10 +907,10 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_GroupMember_Phantrang")]
-        public ISingleResult<sp_GroupMember_PagingResult> sp_GroupMember_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_GroupMember_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_GroupMember_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Member_Paging")]
@@ -921,24 +921,24 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Member_Phantrang")]
-        public ISingleResult<sp_Member_PagingResult> sp_Member_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_Member_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_Member_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Product_GetByTop")]
-        public ISingleResult<sp_Product_PagingResult> sp_Product_GetByTop([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Top", DbType = "NVarChar(10)")] string top, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(200)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(200)")] string order)
+        public ISingleResult<Product> sp_Product_GetByTop([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Top", DbType = "NVarChar(10)")] string top, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(200)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(200)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), top, where, order);
-            return ((ISingleResult<sp_Product_PagingResult>)(result.ReturnValue));
+            return ((ISingleResult<Product>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Product_Phantrang")]
-        public ISingleResult<sp_Product_PagingResult> sp_Product_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_Product_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_Product_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Product_Paging")]
@@ -949,24 +949,24 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Product_SearchByCat")]
-        public ISingleResult<sp_Product_PagingResult> sp_Product_SearchByCat([global::System.Data.Linq.Mapping.ParameterAttribute(DbType = "NVarChar(MAX)")] string where)
+		public int sp_Product_SearchByCat([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] string where)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), where);
-            return ((ISingleResult<sp_Product_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Product_Search")]
-        public ISingleResult<sp_Product_PagingResult> sp_Product_Search([global::System.Data.Linq.Mapping.ParameterAttribute(DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType = "NVarChar(200)")] string ord)
+		public ISingleResult<Product> sp_Product_Search([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(200)")] string ord)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), where, ord);
-            return ((ISingleResult<sp_Product_PagingResult>)(result.ReturnValue));
+            return ((ISingleResult<Product>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Import_GetByTop")]
-        public ISingleResult<sp_Import_PagingResult> sp_Import_GetByTop([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Top", DbType = "NVarChar(10)")] string top, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(200)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(200)")] string order)
+        public ISingleResult<Import> sp_Import_GetByTop([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Top", DbType = "NVarChar(10)")] string top, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(200)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(200)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), top, where, order);
-            return ((ISingleResult<sp_Import_PagingResult>)(result.ReturnValue));
+            return ((ISingleResult<Import>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Import_Paging")]
@@ -977,17 +977,17 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Import_Phantrang")]
-        public ISingleResult<sp_Import_PagingResult> sp_Import_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_Import_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_Import_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Export_GetByTop")]
-        public ISingleResult<sp_Export_PagingResult> sp_Export_GetByTop([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Top", DbType = "NVarChar(10)")] string top, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(200)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(200)")] string order)
+        public ISingleResult<Export> sp_Export_GetByTop([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Top", DbType = "NVarChar(10)")] string top, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(200)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(200)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), top, where, order);
-            return ((ISingleResult<sp_Export_PagingResult>)(result.ReturnValue));
+            return ((ISingleResult<Export>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Export_Paging")]
@@ -998,10 +998,192 @@ namespace DongHo.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_Export_Phantrang")]
-        public ISingleResult<sp_Export_PagingResult> sp_Export_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "CurentPage", DbType = "NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "PageSize", DbType = "NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Where", DbType = "NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name = "Order", DbType = "NVarChar(256)")] string order)
+		public int sp_Export_Phantrang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurentPage", DbType="NVarChar(20)")] string curentPage, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PageSize", DbType="NVarChar(20)")] string pageSize, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Where", DbType="NVarChar(MAX)")] string where, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Order", DbType="NVarChar(256)")] string order)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), curentPage, pageSize, where, order);
-            return ((ISingleResult<sp_Export_PagingResult>)(result.ReturnValue));
+			return ((int)(result.ReturnValue));
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.WareHouse")]
+	public partial class WareHouse : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Name;
+		
+		private string _Address;
+		
+		private string _Phone;
+		
+		private System.Nullable<int> _Ord;
+		
+		private string _Note;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnAddressChanging(string value);
+    partial void OnAddressChanged();
+    partial void OnPhoneChanging(string value);
+    partial void OnPhoneChanged();
+    partial void OnOrdChanging(System.Nullable<int> value);
+    partial void OnOrdChanged();
+    partial void OnNoteChanging(string value);
+    partial void OnNoteChanged();
+    #endregion
+		
+		public WareHouse()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(100)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="NVarChar(100)")]
+		public string Address
+		{
+			get
+			{
+				return this._Address;
+			}
+			set
+			{
+				if ((this._Address != value))
+				{
+					this.OnAddressChanging(value);
+					this.SendPropertyChanging();
+					this._Address = value;
+					this.SendPropertyChanged("Address");
+					this.OnAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="VarChar(50)")]
+		public string Phone
+		{
+			get
+			{
+				return this._Phone;
+			}
+			set
+			{
+				if ((this._Phone != value))
+				{
+					this.OnPhoneChanging(value);
+					this.SendPropertyChanging();
+					this._Phone = value;
+					this.SendPropertyChanged("Phone");
+					this.OnPhoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ord", DbType="Int")]
+		public System.Nullable<int> Ord
+		{
+			get
+			{
+				return this._Ord;
+			}
+			set
+			{
+				if ((this._Ord != value))
+				{
+					this.OnOrdChanging(value);
+					this.SendPropertyChanging();
+					this._Ord = value;
+					this.SendPropertyChanged("Ord");
+					this.OnOrdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Note", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+		public string Note
+		{
+			get
+			{
+				return this._Note;
+			}
+			set
+			{
+				if ((this._Note != value))
+				{
+					this.OnNoteChanging(value);
+					this.SendPropertyChanging();
+					this._Note = value;
+					this.SendPropertyChanged("Note");
+					this.OnNoteChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 	
@@ -1395,188 +1577,6 @@ namespace DongHo.Models
 						this._PageId = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Page");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.WareHouse")]
-	public partial class WareHouse : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Name;
-		
-		private string _Address;
-		
-		private string _Phone;
-		
-		private System.Nullable<int> _Ord;
-		
-		private string _Note;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnAddressChanging(string value);
-    partial void OnAddressChanged();
-    partial void OnPhoneChanging(string value);
-    partial void OnPhoneChanged();
-    partial void OnOrdChanging(System.Nullable<int> value);
-    partial void OnOrdChanged();
-    partial void OnNoteChanging(string value);
-    partial void OnNoteChanged();
-    #endregion
-		
-		public WareHouse()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(100)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="NVarChar(100)")]
-		public string Address
-		{
-			get
-			{
-				return this._Address;
-			}
-			set
-			{
-				if ((this._Address != value))
-				{
-					this.OnAddressChanging(value);
-					this.SendPropertyChanging();
-					this._Address = value;
-					this.SendPropertyChanged("Address");
-					this.OnAddressChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="VarChar(50)")]
-		public string Phone
-		{
-			get
-			{
-				return this._Phone;
-			}
-			set
-			{
-				if ((this._Phone != value))
-				{
-					this.OnPhoneChanging(value);
-					this.SendPropertyChanging();
-					this._Phone = value;
-					this.SendPropertyChanged("Phone");
-					this.OnPhoneChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ord", DbType="Int")]
-		public System.Nullable<int> Ord
-		{
-			get
-			{
-				return this._Ord;
-			}
-			set
-			{
-				if ((this._Ord != value))
-				{
-					this.OnOrdChanging(value);
-					this.SendPropertyChanging();
-					this._Ord = value;
-					this.SendPropertyChanged("Ord");
-					this.OnOrdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Note", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-		public string Note
-		{
-			get
-			{
-				return this._Note;
-			}
-			set
-			{
-				if ((this._Note != value))
-				{
-					this.OnNoteChanging(value);
-					this.SendPropertyChanging();
-					this._Note = value;
-					this.SendPropertyChanged("Note");
-					this.OnNoteChanged();
 				}
 			}
 		}
@@ -7093,6 +7093,12 @@ namespace DongHo.Models
 		
 		private System.Nullable<int> _Active;
 		
+		private System.Nullable<int> _Role;
+		
+		private System.Nullable<System.DateTime> _DateCreated;
+		
+		private System.Nullable<System.DateTime> _DateModified;
+		
 		private EntitySet<Document> _Documents;
 		
 		private EntitySet<Library> _Libraries;
@@ -7117,6 +7123,12 @@ namespace DongHo.Models
     partial void OnGroupMemberIdChanged();
     partial void OnActiveChanging(System.Nullable<int> value);
     partial void OnActiveChanged();
+    partial void OnRoleChanging(System.Nullable<int> value);
+    partial void OnRoleChanged();
+    partial void OnDateCreatedChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateCreatedChanged();
+    partial void OnDateModifiedChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateModifiedChanged();
     #endregion
 		
 		public Member()
@@ -7267,6 +7279,66 @@ namespace DongHo.Models
 					this._Active = value;
 					this.SendPropertyChanged("Active");
 					this.OnActiveChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Role", DbType="Int")]
+		public System.Nullable<int> Role
+		{
+			get
+			{
+				return this._Role;
+			}
+			set
+			{
+				if ((this._Role != value))
+				{
+					this.OnRoleChanging(value);
+					this.SendPropertyChanging();
+					this._Role = value;
+					this.SendPropertyChanged("Role");
+					this.OnRoleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreated", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateCreated
+		{
+			get
+			{
+				return this._DateCreated;
+			}
+			set
+			{
+				if ((this._DateCreated != value))
+				{
+					this.OnDateCreatedChanging(value);
+					this.SendPropertyChanging();
+					this._DateCreated = value;
+					this.SendPropertyChanged("DateCreated");
+					this.OnDateCreatedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateModified", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateModified
+		{
+			get
+			{
+				return this._DateModified;
+			}
+			set
+			{
+				if ((this._DateModified != value))
+				{
+					this.OnDateModifiedChanging(value);
+					this.SendPropertyChanging();
+					this._DateModified = value;
+					this.SendPropertyChanged("DateModified");
+					this.OnDateModifiedChanged();
 				}
 			}
 		}

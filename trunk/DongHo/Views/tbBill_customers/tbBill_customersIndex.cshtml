@@ -9,7 +9,7 @@
 {
     <div class="Control">
         <ul>
-            @if (Session["Username"] != null)
+            @if (Request.Cookies["Username"] != null)
             {
             <li><input type="submit" value=" Xóa " class="mulDel" /></li>
             }
@@ -38,7 +38,7 @@
     @Html.Raw(ViewBag.Pager)
     <div class="Control">
         <ul>
-            @if (Session["Username"] != null)
+            @if (Request.Cookies["Username"] != null)
             {
             <li><input type="submit" value=" Xóa " class="mulDel" /></li>
             }

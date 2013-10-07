@@ -179,6 +179,12 @@ namespace DongHo.Models
             return tmp;
         }
         #endregion
+        #region [NumberStr]
+        public static string NumberStr(string str)
+        {
+            return str.Replace(".", "");
+        }
+        #endregion
         public static List<DropDownList> DDLTypeAdvertise()
         {
             List<DropDownList> list = new List<DropDownList>();

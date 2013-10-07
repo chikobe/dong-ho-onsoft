@@ -45,7 +45,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult SizeCreate(FormCollection collection, Size sizes)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var Name = collection["Name"];
                 var Des = collection["Des"];
@@ -74,7 +74,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult SizeEdit(int id, FormCollection collection)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var sizes = data.Sizes.First(model => model.Id == id);
                 var Name = collection["Name"];
@@ -94,7 +94,7 @@ namespace DongHo.Controllers
         #region[SizeDelete]
         public ActionResult SizeDelete(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 if (ModelState.IsValid)
                 {
@@ -114,7 +114,7 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult MultiDelete()
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 foreach (string key in Request.Form)
                 {
@@ -139,7 +139,5 @@ namespace DongHo.Controllers
             }
         }
         #endregion
-    }
-
-   
+    }  
 }

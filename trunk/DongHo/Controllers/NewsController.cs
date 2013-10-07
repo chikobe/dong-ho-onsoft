@@ -49,7 +49,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult NewsCreate(FormCollection collection, New news)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var Name = collection["Name"];
                 var Image = collection["Image"];
@@ -103,7 +103,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult NewsEdit(int id,FormCollection collection)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var news = data.News.First(model => model.Id == id);
                 var Name = collection["Name"];
@@ -142,7 +142,7 @@ namespace DongHo.Controllers
         #region[NewsDelete]
         public ActionResult NewsDelete(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var del = (from news in data.News where news.Id == id select news).Single();
                 data.News.DeleteOnSubmit(del);
@@ -158,7 +158,7 @@ namespace DongHo.Controllers
         #region[NewsActive]
         public ActionResult NewsActive(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var act = (from news in data.News where news.Id == id select news).Single();
                 if (act.Active == 1)
@@ -179,7 +179,7 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult MultiDelete()
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 foreach (string key in Request.Form)
                 {

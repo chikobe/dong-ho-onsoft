@@ -51,7 +51,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult ColorCreate(FormCollection collection, Color color)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var Name = collection["Name"];
                 var Img = collection["Img"];
@@ -80,7 +80,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult ColorEdit(int id, FormCollection collection)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var color = data.Colors.First(model => model.Id == id);
                 var Name = collection["Name"];
@@ -100,7 +100,7 @@ namespace DongHo.Controllers
         #region[ColorDelete]
         public ActionResult ColorDelete(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var del = (from color in data.Colors where color.Id == id select color).Single();
                 data.Colors.DeleteOnSubmit(del);
@@ -117,7 +117,7 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult MultiDelete()
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 foreach (string key in Request.Form)
                 {

@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "Chỉnh sửa thư viện";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
 }
 
 <h2>@ViewBag.Title</h2>
@@ -12,7 +11,7 @@
         <tr>
             <td class="Control" colspan="2">
                 <ul>
-                    @if (username == null || username == string.Empty)
+                    @if (Request.Cookies["Username"] == null)
                     {
                         <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>  
                     }
@@ -56,7 +55,7 @@
         <tr>
             <td class="Control" colspan="2">
                 <ul>
-                    @if (username == null || username == string.Empty)
+                    @if (Request.Cookies["Username"] == null)
                     {
                         <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>  
                     }
