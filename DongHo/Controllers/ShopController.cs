@@ -43,7 +43,7 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult ShopCreate(FormCollection collec, Shop shop)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 shop.Name = collec["Name"];
                 shop.Address = collec["Address"];
@@ -70,7 +70,7 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult ShopEdit(FormCollection collec, int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var shop = data.Shops.First(m => m.id == id);
                 shop.Name = collec["Name"];
@@ -88,7 +88,7 @@ namespace DongHo.Controllers
         #region[ShopDelete]
         public ActionResult ShopDelete(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var del = data.Shops.First(m => m.id == id);
                 data.Shops.DeleteOnSubmit(del);
@@ -104,7 +104,7 @@ namespace DongHo.Controllers
         #region[MultiDelete]
         public ActionResult MultiDelete()
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 string str = "";
                 foreach (string key in Request.Form)

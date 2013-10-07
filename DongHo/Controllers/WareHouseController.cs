@@ -56,7 +56,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult WareHouseCreate(FormCollection collec, WareHouse wh)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 wh.Name = collec["Name"];
                 wh.Address = collec["Address"];
@@ -99,7 +99,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult WareHouseEdit(FormCollection collec, int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var wh = data.WareHouses.First(m => m.Id == id);
                 wh.Name = collec["Name"];
@@ -132,7 +132,7 @@ namespace DongHo.Controllers
         #region[WareHouseDelete]
         public ActionResult WareHouseDelete(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 if (ModelState.IsValid)
                 {
@@ -151,24 +151,31 @@ namespace DongHo.Controllers
         #region[MultiDelete]
         public ActionResult MultiDelete()
         {
-            string str = "";
-            foreach (string key in Request.Form)
+            if (Request.Cookies["Username"] != null)
             {
-                var checkbox = "";
-                if (key.StartsWith("chk"))
+                string str = "";
+                foreach (string key in Request.Form)
                 {
-                    checkbox = Request.Form["" + key];
-                    if (checkbox != "false")
+                    var checkbox = "";
+                    if (key.StartsWith("chk"))
                     {
-                        Int32 id = Convert.ToInt32(key.Remove(0, 3));
-                        var Del = (from emp in data.WareHouses where emp.Id == id select emp).SingleOrDefault();
-                        data.WareHouses.DeleteOnSubmit(Del);
-                        str += id.ToString() + ",";
-                        data.SubmitChanges();
+                        checkbox = Request.Form["" + key];
+                        if (checkbox != "false")
+                        {
+                            Int32 id = Convert.ToInt32(key.Remove(0, 3));
+                            var Del = (from emp in data.WareHouses where emp.Id == id select emp).SingleOrDefault();
+                            data.WareHouses.DeleteOnSubmit(Del);
+                            str += id.ToString() + ",";
+                            data.SubmitChanges();
+                        }
                     }
                 }
+                return RedirectToAction("WareHouseIndex");
             }
-            return RedirectToAction("WareHouseIndex");
+            else
+            {
+                return Redirect("/Admins/admins");
+            }
         }
         #endregion
         #region[HangTon]

@@ -1,4 +1,4 @@
-﻿@model IList<DongHo.Models.sp_Product_PagingResult>
+﻿@model IList<DongHo.Models.Product>
 @{
     ViewBag.Title = "Quản lí sản phẩm";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -12,7 +12,7 @@
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới", "ProductCreate", "", new { @class = "vadd" })</li>
-            @if (Session["Username"]!=null)
+            @if (Request.Cookies["Username"] != null)
             {
             <li><button id="MultiDelete" type="submit" name="command" value="MultiDelete" class="mulDel">Xóa</button></li>
             }
@@ -30,6 +30,7 @@
             </li>
         </ul>
     </div>
+    @Html.Raw(ViewBag.DelErr)
     <table class="TableView" border="1" id="myTable">
         <tr class="trHeader">
             <th class="CheckBoxsmall"><input type="checkbox" onclick="Javascript: chkSelectAll_OnClick1(this)" id="chkSelectAll" /></th>
@@ -124,7 +125,7 @@
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới", "ProductCreate", "", new { @class = "vadd" })</li>
-             @if (Session["Username"]!=null)
+             @if (Request.Cookies["Username"] != null)
             {
             <li><button id="MultiDelete" type="submit" name="command" value="MultiDelete" class="mulDel">Xóa</button></li>
             }

@@ -44,7 +44,7 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult tbCUSTOMERSEdit(FormCollection collection, int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var cus = data.tbCUSTOMERs.First(m => m.iusid == id);
                 cus.vcusname = collection["vcusname"];
@@ -67,7 +67,7 @@ namespace DongHo.Controllers
         #region[tbCUSTOMERSDelete]
         public ActionResult tbCUSTOMERSDelete(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 if (ModelState.IsValid)
                 {
@@ -86,7 +86,7 @@ namespace DongHo.Controllers
         #region[MultiDelete]
         public ActionResult MultiDelete()
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 string str = "";
                 foreach (string key in Request.Form)

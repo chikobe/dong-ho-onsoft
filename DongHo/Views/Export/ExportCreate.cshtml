@@ -9,7 +9,7 @@
     <div class="ImportCreate">
     <div class="Control">
         <ul>
-            @if (username == null || username == string.Empty)
+            @if (Request.Cookies["Username"] == null)
             {
                 <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>  
             }

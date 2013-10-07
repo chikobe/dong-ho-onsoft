@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "ExportEdit";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
 }
 
 @using(Html.BeginForm())
@@ -11,7 +10,7 @@
 <div class="ImportCreate">
     <div class="Control">
         <ul>
-            @if (username == null || username == string.Empty)
+            @if (Request.Cookies["Username"] == null)
             {
                 <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>  
             }

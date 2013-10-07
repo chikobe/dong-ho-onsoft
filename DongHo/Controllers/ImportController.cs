@@ -63,7 +63,7 @@ namespace DongHo.Controllers
                         chuoi += "<td class='Function'>";
                         chuoi += "<a href='/Import/ImportViewDetail/" + pages[i].Id + "' class='views' title='Xem'>Xem</a>";
                         chuoi += "<a href='/Import/ImportEdit/" + pages[i].Id + "' class='vedit' title='Sửa'>Sửa</a>";
-                        if (Session["Username"] != null)
+                        if (Request.Cookies["Username"] != null)
                         {
                             chuoi += "<a href='/Import/ImportDelete/" + pages[i].Id + "' class='vdelete' title='Xóa'>Xóa</a>";
                         }
@@ -86,7 +86,7 @@ namespace DongHo.Controllers
                         chuoi += "<td class='Function'>";
                         chuoi += "<a href='/Import/ImportViewDetail/" + pages[i].Id + "' class='views' title='Xem'>Xem</a>";
                         chuoi += "<a href='/Import/ImportEdit/" + pages[i].Id + "' class='vedit' title='Sửa'>Sửa</a>";
-                        if (Session["Username"] != null)
+                        if (Request.Cookies["Username"] != null)
                         {
                             chuoi += "<a href='/Import/ImportDelete/" + pages[i].Id + "' class='vdelete' title='Xóa'>Xóa</a>";
                         }
@@ -188,7 +188,7 @@ namespace DongHo.Controllers
             #region[View DDL Ten nhan vien]
             var grmem = data.GroupMembers.ToList();
             chuoiEmp += "<select id='NameEmp' name='NameEmp'>";
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 chuoiEmp += "<option value>==== Chọn tên nhân viên ====</option>";
                 for (int i = 0; i < grmem.Count; i++)
@@ -269,7 +269,7 @@ namespace DongHo.Controllers
             ViewBag.tbImport = chuoipro;
             #endregion
             string page = "1";//so phan trang hien tai
-            var pagesize = "10";//so ban ghi tren 1 trang
+            var pagesize = 10;//so ban ghi tren 1 trang
             var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
             int curpage = 0; // trang hien tai dung cho phan trang
             var cats = "";
@@ -305,8 +305,9 @@ namespace DongHo.Controllers
             }
             #endregion
             if (Request["page"] != null) { page = Request["page"]; curpage = Convert.ToInt32(page) - 1; }
-            var all = data.sp_Product_GetByTop("", str, "").ToList();
-            var pages = data.sp_Product_Phantrang(page, pagesize, str, "SpTon desc").ToList();
+            var all = data.sp_Product_GetByTop("", str, "SpTon desc").ToList();
+            var pages = all.Skip(pagesize * curpage).Take(pagesize).ToList();
+            //var pages = data.sp_Product_Phantrang(page, pagesize, str, "SpTon desc").ToList();
             numOfNews = all.Count;
             if (pages.Count > 0)
             {
@@ -335,8 +336,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult ImportCreate(FormCollection collect)
         {
-            var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
-            if (username != null || username != "")
+            if (Request.Cookies["Username"] != null)
             {
                 Import imp = new Import();
                 imp.WareHouseId = Convert.ToInt32(collect["WareHouse"]);
@@ -423,8 +423,7 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult ImportEdit(int id, FormCollection collect)
         {
-            var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
-            if (username != null || username != "")
+            if (Request.Cookies["Username"] != null)
             {
                 var imp = data.Imports.First(m => m.Id == id);
                 imp.WareHouseId = int.Parse(collect["WareHouse"]);
@@ -454,8 +453,7 @@ namespace DongHo.Controllers
         #region[ImportDelete]
         public ActionResult ImportDelete(int id)
         {
-            var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
-            if (username != null || username != "")
+            if (Request.Cookies["Username"] != null)
             {
                 var del = data.ImportDetails.Where(m => m.ImportId == id).ToList();
                 for (int i = 0; i < del.Count; i++)
@@ -477,8 +475,7 @@ namespace DongHo.Controllers
         #region[MultiDelete]
         public ActionResult MultiDelete()
         {
-            var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
-            if (username != null || username != "")
+            if (Request.Cookies["Username"] != null)
             {
                 string str = "";
                 foreach (string key in Request.Form)

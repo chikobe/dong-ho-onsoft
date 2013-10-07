@@ -36,8 +36,8 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult ConfigEdit(FormCollection collection)
         {
-            var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
-            if (username != null || username != "")
+            
+            if (Request.Cookies["Username"] != null)
             {
                 var config = data.Configs.Single();
                 var Mail_Smtp = collection["Mail_Smtp"];
@@ -119,8 +119,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult PageCreate(FormCollection collection, Page page)
         {
-            var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
-            if (username != null || username != string.Empty)
+            if (Request.Cookies["Username"] != null)
             {
                 page.Name = collection["Name"];
                 page.Type = Convert.ToInt32(collection["Type"]);
@@ -178,8 +177,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult PageAddSub(FormCollection collection, Page page,string Level)
         {
-            var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
-            if (username != null || username != "")
+            if (Request.Cookies["Username"] != null)
             {
                 page.Name = collection["Name"];
                 page.Type = Convert.ToInt32(collection["Type"]);
@@ -234,8 +232,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult PageEdit(int id, FormCollection collection)
         {
-            var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
-            if (username != null || username != "")
+            if (Request.Cookies["Username"] != null)
             {
                 var page = data.Pages.First(m => m.Id == id);
                 page.Name = collection["Name"];
@@ -275,8 +272,7 @@ namespace DongHo.Controllers
         #region[PageAcitve]
         public ActionResult PageActive(int id)
         {
-            var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
-            if (username != null || username != "")
+            if (Request.Cookies["Username"] != null)
             {
                 var act = data.Pages.First(m => m.Id == id);
                 if (act.Active == 1)
@@ -299,8 +295,7 @@ namespace DongHo.Controllers
         #region[PageDelete]
         public ActionResult PageDelete(int id)
         {
-            var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
-            if (username != null || username != "")
+            if (Request.Cookies["Username"] != null)
             {
                 var del = data.Pages.First(m => m.Id == id);
                 data.Pages.DeleteOnSubmit(del);
@@ -316,8 +311,7 @@ namespace DongHo.Controllers
         #region[MultiDelete]
         public ActionResult MultiDelete()
         {
-            var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
-            if (username != null || username != "")
+            if (Request.Cookies["Username"] != null)
             {
                 string str = "";
                 foreach (string key in Request.Form)
@@ -425,10 +419,13 @@ namespace DongHo.Controllers
         #region[Logon]
         public ActionResult admins()
         {
-            Session["Fullname"] = null;
-            Session["Username"] = null;
-            Session.Abandon();
-            FormsAuthentication.SetAuthCookie(string.Empty, false);
+            var cookie = new HttpCookie("Username");
+            cookie.Expires = DateTime.Now.AddDays(-1d);
+            Response.Cookies.Add(cookie);
+            //Session["Fullname"] = null;
+            //Session["Username"] = null;
+            //Session.Abandon();
+            //FormsAuthentication.SetAuthCookie(string.Empty, false);
             return View();
         }
         #endregion
@@ -438,20 +435,37 @@ namespace DongHo.Controllers
         {
             var user = collect["Username"];
             var pass = collect["Pass"];
-            var list = data.Members.Where(u => u.Username == user && u.Password == DongHo.Models.StringClass.Encrypt(pass)).ToList();
+            var list = data.Members.Where(u => u.Username == user && u.Password == DongHo.Models.StringClass.Encrypt(pass) && u.Active ==1).ToList();
             if (list.Count > 0)
             {
-                FormsAuthentication.SetAuthCookie(user, false);
-                Session["Fullname"] = list[0].Name.Trim();
-                Session["Username"] = list[0].Username.Trim();
+                if (Request.Cookies["Username"] == null)
+                {
+                    var cookie = new HttpCookie("Username");
+                    cookie.Values["User"] = user;
+                    cookie.Values["Role"] = list[0].Role.ToString();
+                    cookie.Values["Fullname"] = Server.UrlEncode(list[0].Name);
+                    cookie.Expires = DateTime.Now.AddHours(2);
+                    Response.Cookies.Add(cookie);
+                }
+                //FormsAuthentication.SetAuthCookie(user, false);
+                //Session["Fullname"] = list[0].Name.Trim();
+                //Session["Username"] = list[0].Username.Trim();
                 return RedirectToAction("Default", "Admins");
             }
             else if (user.ToLower() == "chink" && pass.ToLower() == "chink")
             {
-                FormsAuthentication.SetAuthCookie(pass, false);
-                
-                Session["Fullname"] = "Admin";
-                Session["Username"] = "chink";
+                //FormsAuthentication.SetAuthCookie(pass, false);
+                if (Request.Cookies["Username"] == null)
+                {
+                    var cookie = new HttpCookie("Username");
+                    cookie.Values["User"] = user;
+                    cookie.Values["Fullname"] = "Admin";
+                    cookie.Values["Role"] = "1";
+                    cookie.Expires = DateTime.Now.AddHours(2);
+                    Response.Cookies.Add(cookie);
+                }
+                //Session["Fullname"] = "Admin";
+                //Session["Username"] = "chink";
                 return RedirectToAction("Default", "Admins");
             }
             else

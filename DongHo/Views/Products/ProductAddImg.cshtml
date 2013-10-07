@@ -10,7 +10,7 @@
         <tr>
             <td class="Control">
                 <ul>
-                    @if (Session["Username"]!=null)
+                    @if (Request.Cookies["Username"] != null)
                     {
                         <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
                     }
@@ -30,7 +30,7 @@
         <tr>
             <td class="Control">
                 <ul>
-                    @if (Session["Username"]!=null)
+                    @if (Request.Cookies["Username"] != null)
                     {
                         <li><input type="submit" value="Ghi lại "class="uupdate" /></li>
                     }
@@ -54,16 +54,14 @@
 </script>
 <script type="text/javascript">
     window.onload = function () {
-
         //Check File API support
         if (window.File && window.FileList && window.FileReader) {
             var filesInput = document.getElementById("fileImg");
 
             filesInput.addEventListener("change", function (event) {
-
                 var files = event.target.files; //FileList object
                 var output = document.getElementById("result");
-
+                var dem = 0;
                 for (var i = 0; i < files.length; i++) {
                     var file = files[i];
 
@@ -72,22 +70,17 @@
                         continue;
 
                     var picReader = new FileReader();
-
+                    //Read the image
+                    picReader.readAsDataURL(file);
                     picReader.addEventListener("load", function (event) {
-
                         var picFile = event.target;
-
                         var div = document.createElement("div");
 
                         div.innerHTML = "<img class='thumbnail' src='" + picFile.result + "'" +
-								"title='" + picFile.name + "'/><span>" + file.name + "</span>";
-
+								"title='" + files[dem].name + "'/><span>" + files[dem].name + "</span>";
+                        dem++;
                         output.insertBefore(div, null);
-
                     });
-
-                    //Read the image
-                    picReader.readAsDataURL(file);
                 }
 
             });

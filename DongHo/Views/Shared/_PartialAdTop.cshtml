@@ -3,8 +3,16 @@
     <td colspan="3" class="logo">ADMIN PAGE MANAGER</td>
 </tr>
 <tr>
-    <td class="left">Wellcome: <strong>@Session["FullName"]</strong></td>
-    <td class="right">[ <a href="/Admins/Default" target="_blank">Trang quản trị </a> ] &nbsp; [ <a href="/Home/Index" target="_blank">Trang chủ</a> ] &nbsp; [<a href="/Admins/admins"> Đăng xuất</a> ]</td>
+    @if (Request.Cookies["Username"] != null)
+    {
+        <td class="left">Wellcome: <strong>@Server.UrlDecode(Request.Cookies["Username"].Values["Fullname"])</strong></td>
+        <td class="right">[ <a href="/Admins/Default" target="_blank">Trang quản trị </a> ] &nbsp; [ <a href="/Home/Index" target="_blank">Trang chủ</a> ] &nbsp; [<a href="/Admins/admins"> Đăng xuất</a> ]</td>
+    }
+    else
+    {
+        <td class="left">Wellcome: <strong>Khách</strong></td>
+        <td class="right">[ <a href="/Admins/Default" target="_blank">Trang quản trị </a> ] &nbsp; [ <a href="/Home/Index" target="_blank">Trang chủ</a> ]</td>
+    }
 </tr>
 </table>
 </div>

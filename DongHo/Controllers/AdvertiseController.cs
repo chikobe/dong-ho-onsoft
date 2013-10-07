@@ -54,7 +54,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult AdvertiseCreate(FormCollection collection, Advertise adv)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
             var Name = collection["Name"];
             var Image = collection["Image"];
@@ -100,7 +100,7 @@ namespace DongHo.Controllers
         [ValidateInput(true)]
         public ActionResult AdvertiseEdit(int id, FormCollection collection)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var adv = data.Advertises.First(a => a.Id == id);
                 var Name = collection["Name"];
@@ -136,7 +136,7 @@ namespace DongHo.Controllers
         #region[AdvertiseDelete]
         public ActionResult AdvertiseDelete(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var del = (from adv in data.Advertises where adv.Id == id select adv).Single();
                 data.Advertises.DeleteOnSubmit(del);
@@ -152,7 +152,7 @@ namespace DongHo.Controllers
         #region[AdvertiseActive]
         public ActionResult AdvertiseActive(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var act = (from a in data.Advertises where a.Id == id select a).Single();
                 var obj = data.Advertises.First(b => b.Id == id);
@@ -177,7 +177,7 @@ namespace DongHo.Controllers
         #region[MultiDelete]
         public ActionResult MultiDelete()
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 string str = "";
                 foreach (string key in Request.Form)

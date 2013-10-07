@@ -1,10 +1,27 @@
 ﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+    List<string> list = new List<string>();
+    list.Add("Hot nhất");
+    list.Add("Sản phẩm mới nhất");
+    list.Add("Xem nhiều");
+    list.Add("Mua nhiều");
+    list.Add("Giảm giá nhiều");
 }
 <div class="content1" id="viewHome">
 <div class="viewType">
-    @if (Session["Type"]=="1")
+    @for (int i = 0; i < list.Count;i++ )
+    {
+        if (Session["Type"].ToString() == list[i])
+        {
+            <p class="activeViewType">@list[i]</p>
+        }
+        else
+        {
+            <p class="btnViewType">@list[i]</p>
+        }
+    }
+    @*@if (Session["Type"] == "1")
     {
         <p class="activeViewType">Hot nhất</p>
         <p class="btnViewType">Sản phẩm mới nhất</p>
@@ -12,7 +29,7 @@
         <p class="btnViewType">Mua nhiều</p>
         <p class="btnViewType">Giảm giá nhiều</p>
     }
-    else if (Session["Type"]=="2")
+    else if (Session["Type"] == "2")
     {
         <p class="btnViewType">Hot nhất</p>
         <p class="activeViewType">Sản phẩm mới nhất</p>
@@ -20,7 +37,7 @@
         <p class="btnViewType">Mua nhiều</p>
         <p class="btnViewType">Giảm giá nhiều</p>
     }
-    else if (Session["Type"]=="3")
+    else if (Session["Type"] == "3")
     {
         <p class="btnViewType">Hot nhất</p>
         <p class="btnViewType">Sản phẩm mới nhất</p>
@@ -28,7 +45,7 @@
         <p class="btnViewType">Mua nhiều</p>
         <p class="btnViewType">Giảm giá nhiều</p>
     }
-    else if (Session["Type"]=="4")
+    else if (Session["Type"] == "4")
     {
         <p class="btnViewType">Hot nhất</p>
         <p class="btnViewType">Sản phẩm mới nhất</p>
@@ -36,14 +53,14 @@
         <p class="activeViewType">Mua nhiều</p>
         <p class="btnViewType">Giảm giá nhiều</p>
     }
-    else if (Session["Type"]=="5")
+    else if (Session["Type"] == "5")
     {
         <p class="btnViewType">Hot nhất</p>
         <p class="btnViewType">Sản phẩm mới nhất</p>
         <p class="btnViewType">Xem nhiều</p>
         <p class="btnViewType">Mua nhiều</p>
         <p class="activeViewType">Giảm giá nhiều</p>
-    }
+    }*@
     <div class="support1">
         @Html.Raw(ViewBag.Support)
         @*<p><a href="ymsgr:sendIM?0123456789"><img src="http://opi.yahoo.com/online?u=0987654321&amp;m=g&amp;t=1 border=0" /></a><a href="ymsgr:sendIM?0123456789"><img src="http://opi.yahoo.com/online?u=0987654321&amp;m=g&amp;t=1 border=0" /></a><a href="skype:tuanvdos?chat"><img src="HTTP://MYSTATUS.SKYPE.COM/smallclassic/tuanvdos" /></a><a href="skype:tuanvdos?chat"><img src="HTTP://MYSTATUS.SKYPE.COM/smallclassic/tuanvdos" /></a></p>

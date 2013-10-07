@@ -24,11 +24,12 @@ input[type="submit"],
 input[type="reset"], 
 input[type="file"], 
 button 					{ padding: 1px 6px; border:none;}
-.clearfix   { display:block;}
-.clearfix:after { clear:both; display:block; content:"."; height:0; visibility:hidden; overflow:hidden;}
+.clearfix               { display:block;}
+.clearfix:after         { clear:both; display:block; content:"."; height:0; visibility:hidden; overflow:hidden;}
 .left 					{ float: left; }
 .right 					{ float: right; }
 .pointer 				{ cursor: pointer; }
+.require                { color:red;}
 .main                   { width: 100%;}
 #header					{ background:url(imagesAdmin/top_bg_c.jpg) repeat-x bottom; }
 #header .div			{ background:url(imagesAdmin/top_bg_l.jpg) no-repeat left bottom; }

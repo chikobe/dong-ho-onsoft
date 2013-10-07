@@ -43,7 +43,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult GroupSupportCreate(FormCollection collection, GroupSupport groupsp)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var Name = collection["Name"];
                 var Ord = collection["Ord"];
@@ -73,7 +73,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult GroupSupportEdit(int id, FormCollection collection)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var groupSP = data.GroupSupports.First(model => model.Id == id);
                 var Name = collection["Name"];
@@ -94,7 +94,7 @@ namespace DongHo.Controllers
         #region[GroupSupportDelete]
         public ActionResult GroupSupportDelete(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var del = (from news in data.GroupSupports where news.Id == id select news).Single();
                 data.GroupSupports.DeleteOnSubmit(del);
@@ -110,7 +110,7 @@ namespace DongHo.Controllers
         #region[GroupSupportActive]
         public ActionResult GroupSupportActive(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var act = (from news in data.GroupSupports where news.Id == id select news).Single();
                 if (act.Active == 1)
@@ -131,7 +131,7 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult MultiDelete()
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 foreach (string key in Request.Form)
                 {

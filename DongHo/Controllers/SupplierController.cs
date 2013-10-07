@@ -46,7 +46,7 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult SupplierCreate(FormCollection collect, Supplier sup)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 sup.Name = collect["Name"];
                 sup.Phone = collect["Phone"];
@@ -77,7 +77,7 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult SupplierEdit(FormCollection collect, int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var sup = data.Suppliers.First(m => m.Id == id);
                 sup.Name = collect["Name"];
@@ -100,7 +100,7 @@ namespace DongHo.Controllers
         #region[SupplierDelete]
         public ActionResult SupplierDelete(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var del = data.Suppliers.First(m => m.Id == id);
                 data.Suppliers.DeleteOnSubmit(del);
@@ -116,7 +116,7 @@ namespace DongHo.Controllers
         #region[MultiDelete]
         public ActionResult MultiDelete()
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 foreach (string key in Request.Form)
                 {

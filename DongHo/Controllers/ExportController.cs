@@ -64,7 +64,11 @@ namespace DongHo.Controllers
                         chuoi += "<td class='Function'>";
                         chuoi += "<a href='/Export/ExportViewDetail/" + pages[i].Id + "' class='views' title='Xem'>Xem</a>";
                         chuoi += "<a href='/Export/ExportEdit/" + pages[i].Id + "' class='vedit' title='Sửa'>Sửa</a>";
-                        chuoi += "<a href='/Export/ExportDelete/" + pages[i].Id + "' class='vdelete' onclick='return DeleteConfirm()' title='Xóa'>Xóa</a>";
+                        if (Request.Cookies["Username"] != null)
+                        {
+                            chuoi += "<a href='/Export/ExportDelete/" + pages[i].Id + "' class='vdelete' onclick='return DeleteConfirm()' title='Xóa'>Xóa</a>";
+                        }
+                        else { chuoi += "<p class=\"vdelete\" onclick=\"AlertErr()\">Xóa</p>"; }
                         chuoi += "</td>";
                         chuoi += "</tr>";
                     }
@@ -80,7 +84,11 @@ namespace DongHo.Controllers
                         chuoi += "<td class='Function'>";
                         chuoi += "<a href='/Export/ExportViewDetail/" + pages[i].Id + "' class='views' title='Xem'>Xem</a>";
                         chuoi += "<a href='/Export/ExportEdit/" + pages[i].Id + "' class='vedit' title='Sửa'>Sửa</a>";
-                        chuoi += "<a href='/Export/ExportDelete/" + pages[i].Id + "' class='vdelete' onclick='return DeleteConfirm()' title='Xóa'>Xóa</a>";
+                        if (Request.Cookies["Username"] != null)
+                        {
+                            chuoi += "<a href='/Export/ExportDelete/" + pages[i].Id + "' class='vdelete' onclick='return DeleteConfirm()' title='Xóa'>Xóa</a>";
+                        }
+                        else { chuoi += "<p class=\"vdelete\" onclick=\"AlertErr()\">Xóa</p>"; }
                         chuoi += "</td>";
                         chuoi += "</tr>";
                     }
@@ -101,7 +109,7 @@ namespace DongHo.Controllers
         #region[ExportViewDetail]
         public ActionResult ExportViewDetail(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 string chuoi = "";
                 var view = data.Exports.First(m => m.Id == id);
@@ -193,7 +201,7 @@ namespace DongHo.Controllers
             #region[View DDL Ten nhan vien]
             var grmem = data.GroupMembers.ToList();
             chuoiEmp += "<select id='NameEmp' name='NameEmp'>";
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 chuoiEmp += "<option value>==== Chọn tên nhân viên ====</option>";
                 for (int i = 0; i < grmem.Count; i++)
@@ -274,7 +282,7 @@ namespace DongHo.Controllers
             ViewBag.tbExport = chuoipro;
             #endregion
             string page = "1";//so phan trang hien tai
-            var pagesize = "10";//so ban ghi tren 1 trang
+            var pagesize = 10;//so ban ghi tren 1 trang
             var numOfNews = 0;//tong so ban ghi co duoc truoc khi phan trang
             int curpage = 0; // trang hien tai dung cho phan trang
             var cats = "";
@@ -311,7 +319,8 @@ namespace DongHo.Controllers
             #endregion
             if (Request["page"] != null) { page = Request["page"]; curpage = Convert.ToInt32(page) - 1; }
             var all = data.sp_Product_GetByTop("", str, "").ToList();
-            var pages = data.sp_Product_Phantrang(page, pagesize, str, "SpTon desc").ToList();
+            var pages = all.Skip(pagesize * curpage).Take(pagesize).ToList();
+            //var pages = data.sp_Product_Phantrang(page, pagesize, str, "SpTon desc").ToList();
             numOfNews = all.Count;
             if (pages.Count > 0)
             {
@@ -340,7 +349,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult ExportCreate(FormCollection collect)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 Export exp = new Export();
                 exp.WareHouseId = Convert.ToInt32(collect["WareHouse"]);
@@ -427,7 +436,7 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult ExportEdit(int id, FormCollection collect)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var imp = data.Exports.First(m => m.Id == id);
                 imp.WareHouseId = int.Parse(collect["WareHouse"]);
@@ -454,7 +463,7 @@ namespace DongHo.Controllers
         #region[ExportDelete]
         public ActionResult ExportDelete(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var del = data.ExportDetails.Where(m => m.ExportId == id).ToList();
                 for (int i = 0; i < del.Count; i++)
@@ -476,7 +485,7 @@ namespace DongHo.Controllers
         #region[MultiDelete]
         public ActionResult MultiDelete()
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 foreach (string key in Request.Form)
                 {

@@ -44,7 +44,7 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult LibraryCreate(FormCollection collec, Library lib)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 lib.Name = collec["Name"];
                 lib.Tag = StringClass.NameToTag(collec["Name"]);
@@ -77,7 +77,7 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult LibraryEdit(FormCollection collec, int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var lib = data.Libraries.First(m => m.Id == id);
                 lib.Name = collec["Name"];
@@ -100,7 +100,7 @@ namespace DongHo.Controllers
         #region[LibraryActive]
         public ActionResult LibraryActive(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var act = data.Libraries.First(m => m.Id == id);
                 if (act.Active == 1)
@@ -123,7 +123,7 @@ namespace DongHo.Controllers
         #region[LibraryDelete]
         public ActionResult LibraryDelete(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var del = data.Libraries.First(m => m.Id == id);
                 data.Libraries.DeleteOnSubmit(del);
@@ -139,7 +139,7 @@ namespace DongHo.Controllers
         #region[MultiDelete]
         public ActionResult MultiDelete()
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 string str = "";
                 foreach (string key in Request.Form)

@@ -29,7 +29,7 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult PricesCreate(FormCollection collect, Price price)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 price.Name = collect["Name"];
                 price.PriceFrom = int.Parse(collect["PriceFrom"]);
@@ -56,7 +56,7 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult PricesEdit(FormCollection collect, int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var price = data.Prices.First(m => m.Id == id);
                 price.Name = collect["Name"];
@@ -75,7 +75,7 @@ namespace DongHo.Controllers
         #region[PricesDelete]
         public ActionResult PricesDelete(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var del = data.Prices.First(m => m.Id == id);
                 data.Prices.DeleteOnSubmit(del);
@@ -91,7 +91,7 @@ namespace DongHo.Controllers
         #region[MultiDelete]
         public ActionResult MultiDelete()
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 foreach (string key in Request.Form)
                 {

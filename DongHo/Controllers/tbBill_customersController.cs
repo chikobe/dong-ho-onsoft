@@ -45,7 +45,7 @@ namespace DongHo.Controllers
                     chuoi += "<td class='TextSmall'>" + StringClass.ShowStateBill(pages[i].state.ToString()) + "</td>";
                     chuoi += "<td class='Function'>";
                     chuoi += "<a href='/tbBill_customers/tbBill_customersEdit/" + pages[i].billid + "' class='vedit'>Sửa</a>";
-                    if (Session["Username"] != null)
+                    if (Request.Cookies["Username"] != null)
                     {
                         chuoi += "<a href='/tbBill_customers/tbBill_customersDelete/" + pages[i].billid + "' class='vdelete'>Xóa</a>";
                     }
@@ -67,7 +67,7 @@ namespace DongHo.Controllers
                     chuoi += "<td class='TextSmall'>" + StringClass.ShowStateBill(pages[i].state.ToString()) + "</td>";
                     chuoi += "<td class='Function'>";
                     chuoi += "<a href='/tbBill_customers/tbBill_customersEdit/" + pages[i].billid + "' class='vedit'>Sửa</a>";
-                    if (Session["Username"] != null)
+                    if (Request.Cookies["Username"] != null)
                     {
                         chuoi += "<a href='/tbBill_customers/tbBill_customersDelete/" + pages[i].billid + "' class='vdelete'>Xóa</a>";
                     }
@@ -95,7 +95,7 @@ namespace DongHo.Controllers
             var rec = data.tbRecipients.Where(m => m.iusid == Edit.userid).ToList();
             var bill = data.tbBilldetails.Where(m => m.bilid == Edit.billid).ToList();
             chuoi += "<ul>";
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 chuoi += "<li><a href='/tbBill_customers/tbBill_customersUpdateState/" + Edit.billid + "' class='uupdate'>Đã giao hàng</a></li>";
                 chuoi += "<li><a href='/tbBill_customers/tbBill_customersUpdateState/" + Edit.billid + "?del=2' class='uupdate'>Hủy đơn hàng</a></li>";
@@ -198,7 +198,7 @@ namespace DongHo.Controllers
         #region[Cap nhat trang thai don hang]
         public ActionResult tbBill_customersUpdateState(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var up = data.tbBill_customers.First(m => m.billid == id);
                 if (up.state == 0)
@@ -251,7 +251,7 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult MultiDelete()
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 foreach (string key in Request.Form)
                 {

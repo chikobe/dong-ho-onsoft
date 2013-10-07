@@ -43,7 +43,7 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult GroupLibraryCreate(FormCollection collection, GroupLibrary gr)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 gr.Name = collection["Name"];
                 gr.Tag = StringClass.NameToTag(collection["Name"]);
@@ -73,7 +73,7 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult GroupLibraryEdit(int id,FormCollection collection)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var gr = data.GroupLibraries.First(m => m.Id == id);
                 gr.Name = collection["Name"];
@@ -101,7 +101,7 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult GroupLibraryAddSub(string Level, FormCollection collection, GroupLibrary gr)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 gr.Name = collection["Name"];
                 gr.Tag = StringClass.NameToTag(collection["Name"]);
@@ -124,7 +124,7 @@ namespace DongHo.Controllers
         #region[GroupLibraryActive]
         public ActionResult GroupLibraryActive(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var act = data.GroupLibraries.First(m => m.Id == id);
                 if (act.Active == 1)
@@ -147,7 +147,7 @@ namespace DongHo.Controllers
         #region[GroupLibraryDelete]
         public ActionResult GroupLibraryDelete(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var del = data.GroupLibraries.First(m => m.Id == id);
                 data.GroupLibraries.DeleteOnSubmit(del);
@@ -163,7 +163,7 @@ namespace DongHo.Controllers
         #region[MultiDelete]
         public ActionResult MultiDelete()
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 string str = "";
                 foreach (string key in Request.Form)

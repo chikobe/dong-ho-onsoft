@@ -12,7 +12,7 @@
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới", "CategoryCreate", "", new {@class="vadd" })</li>
-            @if (username == null || username == string.Empty)
+            @if (Request.Cookies["Username"] == null)
             {
                 <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
             }
@@ -44,7 +44,7 @@
                         <td class="Function">
                             @Html.ActionLink("AddSub", "CategoryAddSub", new { level = Model[i].Level }, new { @class = "addsub" })
                             @Html.ActionLink("Sửa", "CategoriesEdit", new { id = Model[i].Id }, new { @class = "vedit" }) 
-                            @if (username == null || username == string.Empty)
+                            @if (Request.Cookies["Username"] == null)
                             {
                                 <p class="vdelete" onclick="AlertErr()">Xóa</p>
                             }
@@ -69,7 +69,7 @@
                         <td class="Function">
                             @Html.ActionLink("AddSub", "CategoryAddSub", new { level = Model[i].Level }, new { @class = "addsub" })
                             @Html.ActionLink("Sửa", "CategoriesEdit", new { id = Model[i].Id }, new { @class = "vedit" }) 
-                            @if (username == null || username == string.Empty)
+                            @if (Request.Cookies["Username"] == null)
                             {
                                 <p class="vdelete" onclick="AlertErr()">Xóa</p>
                             }
@@ -92,7 +92,7 @@
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới", "CategoryCreate", "", new { @class = "vadd" })</li>
-            @if (username == null || username == string.Empty)
+            @if (Request.Cookies["Username"] == null)
             {
                 <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
             }

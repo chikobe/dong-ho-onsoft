@@ -45,7 +45,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult GroupNewCreate(FormCollection collection, GroupNew group)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var Name = collection["Name"];
                 var Title = collection["Title"];
@@ -87,7 +87,7 @@ namespace DongHo.Controllers
         [ValidateInput(false)]
         public ActionResult GroupNewEdit(int id, FormCollection collection)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var group = data.GroupNews.First(model => model.Id == id);
                 var Name = collection["Name"];
@@ -118,7 +118,7 @@ namespace DongHo.Controllers
         #region[GroupNewDelete]
         public ActionResult GroupNewDelete(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var del = (from groupN in data.GroupNews where groupN.Id == id select groupN).Single();
                 data.GroupNews.DeleteOnSubmit(del);
@@ -134,7 +134,7 @@ namespace DongHo.Controllers
         #region[GroupNewActive]
         public ActionResult GroupNewActive(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var act = (from groupN in data.GroupNews where groupN.Id == id select groupN).Single();
                 if (act.Active == 1)
@@ -154,7 +154,7 @@ namespace DongHo.Controllers
         #region[MultiDelete]
         public ActionResult MultiDelete()
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 foreach (string key in Request.Form)
                 {

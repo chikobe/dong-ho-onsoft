@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "AdvertiseIndex";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
 }
 
 <h2>Quản lý quảng cáo</h2>
@@ -15,7 +14,7 @@
 <div class="Control">
     <ul>
         <li>@Html.ActionLink("Thêm mới", "AdvertiseCreate", "", new { @class = "vadd" })</li>
-        @if (username == null || username == string.Empty)
+        @if (Request.Cookies["Username"] == null)
         {
             <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
         }
@@ -52,7 +51,7 @@
                 <td class="Number">@Html.DisplayFor(modelItem => Model[i].Link)</td>
                 <td class="Number">@Html.DisplayFor(modelItem => Model[i].Ord)</td>
                 <td class="Function">@Html.ActionLink("Sửa", "AdvertiseEdit", new { id = Model[i].Id }, new { @class = "vedit" }) 
-                    @if (username == null || username == string.Empty)
+                    @if (Request.Cookies["Username"] == null)
                     {
                         <p class="vdelete" onclick="AlertErr()">Xóa</p>
                     }
@@ -78,7 +77,7 @@
                 <td class="Number">@Html.DisplayFor(modelItem => Model[i].Link)</td>
                 <td class="Number">@Html.DisplayFor(modelItem => Model[i].Ord)</td>
                 <td class="Function">@Html.ActionLink("Sửa", "AdvertiseEdit", new { id = Model[i].Id }, new { @class = "vedit" }) 
-                    @if (username == null || username == string.Empty)
+                    @if (Request.Cookies["Username"] == null)
                     {
                         <p class="vdelete" onclick="AlertErr()">Xóa</p>
                     }
@@ -99,7 +98,7 @@
 <div class="Control">
     <ul>
         <li>@Html.ActionLink("Thêm mới", "AdvertiseCreate", "", new { @class = "vadd" })</li>
-        @if (username == null || username == string.Empty)
+        @if (Request.Cookies["Username"] == null)
         {
             <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
         }

@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "MemberEdit";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
 }
 
 <h2>Chỉnh sửa thông tin tài khoản nhân viên</h2>
@@ -12,7 +11,7 @@
         <tr>
             <td class="Control" colspan="2">
                 <ul>
-                    @if (username == null || username == string.Empty)
+                    @if (Request.Cookies["Username"] == null || Request.Cookies["Username"]["Role"] == "0")
                     {
                         <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>  
                     }
@@ -45,13 +44,25 @@
             <td>@Html.TextBoxFor(m=>m.Password, "", new { type="password"})</td>
         </tr>
         <tr>
+            <th>Admin?</th>
+            <td>@Html.CheckBox("Roles",(Model.Role==1)?true:false)</td>
+        </tr>
+        <tr>
             <th>Kích hoạt</th>
             <td>@Html.CheckBox("Actives",(Model.Active==1)?true:false)</td>
+        </tr>
+        <tr style="display:none">
+            <th>Ngày tạo</th>
+            <td>@Model.DateCreated</td>
+        </tr>
+        <tr style="display:none">
+            <th>Ngày chỉnh sửa gần nhất</th>
+            <td>@Model.DateModified</td>
         </tr>
         <tr>
             <td class="Control" colspan="2">
                 <ul>
-                    @if (username == null || username == string.Empty)
+                    @if (Request.Cookies["Username"] == null || Request.Cookies["Username"]["Role"] == "0")
                     {
                         <li><p class="uupdate" onclick="AlertErr()">Ghi lại</p></li>  
                     }

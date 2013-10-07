@@ -43,7 +43,7 @@ namespace DongHo.Models
         [HttpPost]
         public ActionResult GroupMemberCreate(FormCollection collect, GroupMember grMem)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 grMem.Name = collect["Name"];
                 var Active = (collect["Actives"] == "false") ? 0 : 1;
@@ -69,7 +69,7 @@ namespace DongHo.Models
         [HttpPost]
         public ActionResult GroupMemberEdit(int id, FormCollection collect)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var grMem = data.GroupMembers.First(m => m.Id == id);
                 grMem.Name = collect["Name"];
@@ -87,7 +87,7 @@ namespace DongHo.Models
         #region[GroupMemberActive]
         public ActionResult GroupMemberActive(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var act = data.GroupMembers.First(m => m.Id == id);
                 act.Active = (act.Active == 1) ? 0 : 1;
@@ -103,7 +103,7 @@ namespace DongHo.Models
         #region[GroupMemberDelete]
         public ActionResult GroupMemberDelete(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 var del = data.GroupMembers.First(m => m.Id == id);
                 data.GroupMembers.DeleteOnSubmit(del);
@@ -119,7 +119,7 @@ namespace DongHo.Models
         #region[MultiDelete]
         public ActionResult MultiDelete()
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 foreach (string key in Request.Form)
                 {

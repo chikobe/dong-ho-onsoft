@@ -1,7 +1,6 @@
 ﻿@{
     ViewBag.Title = "Quản lý phiếu nhập";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    var username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
 }
 
 <h2>@ViewBag.Title</h2>
@@ -11,7 +10,7 @@
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới", "ImportCreate", "", new { @class = "vadd" })</li>
-            @if (username == null || username == string.Empty)
+            @if (Request.Cookies["Username"] == null)
             {
                 <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
             }
@@ -38,7 +37,7 @@
     <div class="Control">
         <ul>
             <li>@Html.ActionLink("Thêm mới", "ImportCreate", "", new { @class = "vadd" })</li>
-            @if (username == null || username == string.Empty)
+            @if (Request.Cookies["Username"] == null)
             {
                 <li><p class="mulDel" onclick="AlertErr()">Xóa</p></li>
             }

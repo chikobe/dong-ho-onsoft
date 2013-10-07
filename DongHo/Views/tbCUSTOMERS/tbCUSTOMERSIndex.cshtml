@@ -9,7 +9,7 @@
 {
     <div class="Control">
         <ul>
-            @if (Session["Username"]!=null)
+            @if (Request.Cookies["Username"] != null)
             {
                 <li><input type="submit" value=" Xóa " class="mulDel" /></li>
             }
@@ -48,7 +48,7 @@
                     <td class="Text">@Model[i].vemail</td>
                     <td class="Function">
                         @Html.ActionLink("Sửa", "tbCUSTOMERSEdit", new { id = Model[i].iusid }, new { @class = "vedit" }) 
-                        @if (Session["Username"]!=null){
+                        @if (Request.Cookies["Username"] != null){
                             @Html.ActionLink("Xóa", "tbCUSTOMERSDelete", new { id = Model[i].iusid }, new { @onclick = "DeleteConfirm()", @class = "vdelete" })
                         }else{
                             <p class="vdelete" onclick="AlertErr()">Xóa</p>
@@ -68,7 +68,7 @@
                     <td class="Text">@Model[i].vemail</td>
                     <td class="Function">
                         @Html.ActionLink("Sửa", "tbCUSTOMERSEdit", new { id = Model[i].iusid }, new { @class = "vedit" }) 
-                        @if (Session["Username"] != null)
+                        @if (Request.Cookies["Username"] != null)
                         {
                             @Html.ActionLink("Xóa", "tbCUSTOMERSDelete", new { id = Model[i].iusid }, new { @onclick = "DeleteConfirm()", @class = "vdelete" })
                         }
@@ -84,7 +84,7 @@
     @Html.Raw(ViewBag.Pager)
     <div class="Control">
         <ul>
-            @if (Session["Username"] != null)
+            @if (Request.Cookies["Username"] != null)
             {
                 <li><input type="submit" value=" Xóa " class="mulDel" /></li>
             }

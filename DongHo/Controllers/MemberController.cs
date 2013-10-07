@@ -44,16 +44,22 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult MemberCreate(FormCollection collect, Member mem)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
-                mem.Name = collect["Name"];
-                mem.Email = collect["Email"];
-                mem.Username = collect["Username"];
-                mem.GroupMemberId = Convert.ToInt32(collect["GrMember"]);
-                mem.Password = StringClass.Encrypt(collect["Password"]);
-                var Active = (collect["Actives"] == "false") ? 0 : 1;
-                data.Members.InsertOnSubmit(mem);
-                data.SubmitChanges();
+                if (Request.Cookies["Username"]["Role"] == "1")
+                {
+                    mem.Name = collect["Name"];
+                    mem.Email = collect["Email"];
+                    mem.Username = collect["Username"];
+                    mem.GroupMemberId = Convert.ToInt32(collect["GrMember"]);
+                    mem.Password = StringClass.Encrypt(collect["Password"]);
+                    var Active = (collect["Actives"] == "false") ? 0 : 1;
+                    mem.Role = 0;
+                    mem.Active = Active;
+                    mem.DateCreated = DateTime.Now;
+                    data.Members.InsertOnSubmit(mem);
+                    data.SubmitChanges();
+                }
                 return RedirectToAction("MemberIndex");
             }
             else
@@ -74,16 +80,23 @@ namespace DongHo.Controllers
         [HttpPost]
         public ActionResult MemberEdit(FormCollection collect, int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
-                var mem = data.Members.First(m => m.Id == id);
-                mem.Name = collect["Name"];
-                mem.Email = collect["Email"];
-                mem.Username = collect["Username"];
-                mem.GroupMemberId = Convert.ToInt32(collect["GrMember"]);
-                mem.Password = StringClass.Encrypt(collect["Password"]);
-                var Active = (collect["Actives"] == "false") ? 0 : 1;
-                data.SubmitChanges();
+                if (Request.Cookies["Username"]["Role"] == "1")
+                {
+                    var mem = data.Members.First(m => m.Id == id);
+                    mem.Name = collect["Name"];
+                    mem.Email = collect["Email"];
+                    mem.Username = collect["Username"];
+                    mem.GroupMemberId = Convert.ToInt32(collect["GrMember"]);
+                    mem.Password = StringClass.Encrypt(collect["Password"]);
+                    mem.DateModified = DateTime.Now;
+                    var role = (collect["Roles"] == "false") ? 0 : 1;
+                    var Active = (collect["Actives"] == "false") ? 0 : 1;
+                    mem.Active = Active;
+                    mem.Role = role;
+                    data.SubmitChanges();
+                }
                 return RedirectToAction("MemberIndex");
             }
             else
@@ -95,7 +108,7 @@ namespace DongHo.Controllers
         #region[MemberActive]
         public ActionResult MemberActive(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null && Request.Cookies["Username"]["Role"] == "1")
             {
                 var act = data.Members.First(m => m.Id == id);
                 act.Active = (act.Active == 1) ? 0 : 1;
@@ -111,7 +124,7 @@ namespace DongHo.Controllers
         #region[MemberDelete]
         public ActionResult MemberDelete(int id)
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null && Request.Cookies["Username"]["Role"] == "1")
             {
                 var del = data.Members.First(m => m.Id == id);
                 data.Members.DeleteOnSubmit(del);
@@ -127,7 +140,7 @@ namespace DongHo.Controllers
         #region[MultiDelete]
         public ActionResult MultiDelete()
         {
-            if (Session["Username"] != null)
+            if (Request.Cookies["Username"] != null)
             {
                 foreach (string key in Request.Form)
                 {
